@@ -15,10 +15,10 @@
 | Server state & polling | **TanStack Query** | Cache, retry, refetch saat aplikasi kembali aktif, dan polling antrean Pesanan saat layar terbuka. Menggantikan kebutuhan state manager global. |
 | State lokal | `useState`/`useReducer` + React Context seperlunya | Tidak perlu Redux/Zustand. Tambah library hanya kalau kebutuhan nyata muncul (catat di sini). |
 | Validasi | **Zod** | Sama dengan repo web. Dipakai untuk form dan **memvalidasi respons API** di batas sistem. |
-| HTTP | `fetch` bawaan dibungkus satu klien (`src/api/client.ts`) | Tanpa axios. Klien mengurus base URL, header token, refresh otomatis, timeout, dan pemetaan error. |
+| HTTP | `fetch` bawaan dibungkus satu klien (`src/api/client.ts`) | Tanpa axios. Klien mengurus base URL, header token, timeout, dan pemetaan error (format di [API-MOBILE §3](../../My-Gerai/docs/API-MOBILE.md#3-format-respons)). |
 | Penyimpanan token | **expo-secure-store** | Disimpan di Android Keystore. Wajib untuk token ([RULES §7.2](RULES.md#7-keamanan)). |
 | Preferensi non-rahasia | AsyncStorage (`@react-native-async-storage/async-storage`) | Contoh: printer terakhir dipakai. Tidak untuk token atau data sensitif. |
-| Push notification | **expo-notifications** + **Firebase Cloud Messaging (FCM) v1** | Notifikasi Pesanan lunas tetap masuk saat aplikasi tertutup atau HP terkunci. Kredensial FCM v1 diunggah ke EAS. Server (repo web) mengirim push lewat FCM/Expo Push. Detail pengiriman ditetapkan di Fase 12a. |
+| Push notification | **expo-notifications** + **Firebase Cloud Messaging (FCM) v1** | Notifikasi Pesanan lunas tetap masuk saat aplikasi tertutup atau HP terkunci. Kredensial FCM v1 diunggah ke EAS. Server (repo web) mengirim lewat **Expo Push Service** ke token Expo yang didaftarkan aplikasi (`PUT /devices`). Format push: [API-MOBILE §5](../../My-Gerai/docs/API-MOBILE.md#5-push-notification). |
 | Printer thermal | **react-native-ble-plx** v3 + config plugin `@config-plugins/react-native-ble-plx` + **encoder ESC/POS buatan sendiri** | ble-plx v3 mendukung New Architecture dan menjadi klien BLE standar React Native. Config plugin menambah izin `BLUETOOTH_SCAN`/`BLUETOOTH_CONNECT` (Android 12+). Encoder di-port dari `src/lib/utils/receipt.ts` repo web supaya isi struk identik. Batasan sama dengan web: printer **wajib BLE**. |
 | Foto Item | **expo-image-picker** + **expo-image-manipulator** | Ambil dari kamera/galeri, kompres dan perkecil di HP sebelum upload (hemat kuota). |
 | Tampilan gambar | **expo-image** | Cache disk, placeholder, performa lebih baik daripada `Image` bawaan. |
@@ -54,7 +54,7 @@
 | Google Play Console | US$25 sekali bayar | Akun atas nama User. Akun pribadi baru wajib uji tertutup (closed testing) dengan sejumlah penguji selama periode tertentu sebelum boleh rilis produksi. Cek syarat terbaru saat Tahap 5. |
 | EAS Build/Submit | Free tier (kuota build bulanan terbatas) | Kalau antrean build lambat atau kuota habis, opsi build lokal (`eas build --local`) atau naik paket dibahas dengan User. |
 | Firebase (FCM) | Gratis | Hanya dipakai untuk push. |
-| Expo Push Service | Gratis | Kalau server memilih kirim lewat Expo Push (ditetapkan Fase 12a). |
+| Expo Push Service | Gratis | Dipakai server untuk mengirim push (keputusan Fase 12a). |
 
 ## Sumber (dicek 2026-10-07)
 

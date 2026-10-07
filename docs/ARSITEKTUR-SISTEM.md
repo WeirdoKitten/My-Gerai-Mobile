@@ -38,21 +38,22 @@ Prinsip: **aplikasi adalah klien tipis.** Semua aturan bisnis, perhitungan uang,
 
 ### 1. Auth (token)
 
-1. Login: aplikasi kirim No. HP + password → server membalas **access token** (umur pendek) + **refresh token** (umur panjang).
-2. Kedua token disimpan di `expo-secure-store`. Access token juga disimpan di memori selama aplikasi hidup.
-3. Setiap request membawa `Authorization: Bearer <access token>`.
-4. Respons `401` → klien API memanggil endpoint refresh **satu kali** (request lain menunggu hasil yang sama), lalu mengulang request. Refresh gagal → hapus token, bersihkan cache TanStack Query, arahkan ke layar login.
-5. Logout: panggil endpoint logout (server mencabut refresh token + menghapus token perangkat push), lalu hapus token lokal dan cache.
-6. Pedagang yang di-suspend Admin otomatis ditolak server (sama seperti sesi web) → aplikasi kembali ke login dengan pesan jelas.
+1. Login: aplikasi kirim No. HP + password ke `POST /auth/login` → server membalas satu **token** (tanpa refresh token). Lapak yang belum disetujui/ditolak/nonaktif mendapat `status` + `message` tanpa token.
+2. Token disimpan di `expo-secure-store` dan di memori selama aplikasi hidup.
+3. Setiap request membawa `Authorization: Bearer <token>`.
+4. Token berumur **90 hari dan bergeser**: server memperpanjangnya sendiri selama aplikasi dipakai. Aplikasi tidak perlu logika refresh.
+5. Respons `401` di request mana pun → hapus token, `queryClient.clear()`, arahkan ke layar login dengan pesan "Sesi berakhir, silakan login kembali."
+6. Logout: panggil `POST /auth/logout` (server mencabut token dan token push perangkat), lalu hapus token lokal dan cache.
+7. Pedagang yang di-suspend Admin otomatis mendapat `401` (sama seperti sesi web).
 
-Bentuk pasti token, umur, dan endpoint ditetapkan di **Fase 12a** (repo web). Bagian ini diperbarui setelahnya.
+Detail lengkap: [API-MOBILE §2](../../My-Gerai/docs/API-MOBILE.md#2-autentikasi).
 
 ### 2. Push notification Pesanan lunas
 
-1. Setelah login dan izin notifikasi diberikan (Android 13+ wajib minta izin), aplikasi mengambil token push dan mendaftarkannya ke server.
+1. Setelah login dan izin notifikasi diberikan (Android 13+ wajib minta izin), aplikasi mengambil **token Expo Push** (`ExponentPushToken[...]`) dan mendaftarkannya lewat `PUT /devices`.
 2. Pesanan berubah ke `dibayar` (webhook Midtrans, atau Pedagang menandai lunas di mode QRIS Pribadi) → server mengirim push ke semua perangkat Pedagang itu.
-3. Isi push: judul + ringkasan singkat + ID Pesanan. **Tanpa** data sensitif ([RULES §7.6](RULES.md#7-keamanan)).
-4. Notifikasi memakai **channel Android khusus Pesanan** dengan prioritas tinggi dan bunyi sendiri, supaya terdengar di lapak yang ramai.
+3. Server mengirim lewat Expo Push Service. Isi push: judul + kode Pesanan + total + `data.orderId` (format: [API-MOBILE §5](../../My-Gerai/docs/API-MOBILE.md#5-push-notification)). **Tanpa** data sensitif ([RULES §7.6](RULES.md#7-keamanan)).
+4. Notifikasi memakai **channel Android khusus Pesanan** (id wajib `pesanan`) dengan prioritas tinggi dan bunyi sendiri, supaya terdengar di lapak yang ramai.
 5. Ketuk notifikasi → aplikasi membuka detail Pesanan dan mengambil data terbaru dari API.
 6. Saat aplikasi terbuka, antrean Pesanan juga di-poll (TanStack Query `refetchInterval`) sebagai cadangan kalau push telat.
 
@@ -90,6 +91,7 @@ URL API dipilih lewat variabel lingkungan publik Expo (`EXPO_PUBLIC_API_URL`) pe
 | 2026-10-07 | Aplikasi Android Pedagang native dengan **React Native + Expo**, repo terpisah, backend lewat REST API `/api/mobile/v1/*` + auth token + push FCM. Ground truth domain tetap di repo web. | Keputusan User. Rincian dan alternatif yang ditolak: ADR web 2026-10-07 dan [TEKNOLOGI.md](TEKNOLOGI.md#kenapa-bukan-alternatif-lain). |
 | 2026-10-07 | **Dokumen domain tidak disalin** ke repo ini; dirujuk lewat path relatif ke `../My-Gerai/docs/`, dua repo di-clone bersebelahan. | Keputusan User: satu sumber kebenaran, tidak ada dua salinan yang lama-lama berbeda. |
 | 2026-10-07 | **Styling StyleSheet + `src/theme.ts`**, tanpa NativeWind. | Keputusan User: paling sederhana dan stabil terhadap upgrade Expo. |
+| 2026-10-07 | **Auth token tunggal 90 hari bergeser** (tanpa refresh token) dan **push lewat Expo Push Service**, menggantikan rencana awal access + refresh token di dokumen ini. | Keputusan User di Plan mode Fase 12a (repo web): server sudah mengecek sesi di DB setiap request, jadi refresh token tidak menambah keamanan, hanya kerumitan. Lihat ADR web 2026-10-07. |
 | 2026-10-07 | **Tanpa antrean aksi offline.** Aksi tulis selalu butuh server. | Aksi Pedagang menyangkut status Pesanan dan uang; konflik sinkronisasi lebih berbahaya daripada meminta Pedagang menunggu sinyal. |
 
 > Tambahkan baris baru untuk setiap keputusan arsitektur aplikasi. Jangan hapus baris lama; tandai kalau digantikan. Sinkronkan dengan [CHANGELOG.md](../CHANGELOG.md).

@@ -60,7 +60,7 @@
 
 7.1. **Tidak ada rahasia di dalam aplikasi.** APK bisa dibongkar. Tidak boleh ada server key Midtrans, kredensial DB, atau secret apa pun di kode atau `app.config.ts`. Yang boleh: URL API publik dan ID publik (misalnya project ID Expo).
 
-7.2. Token login (access + refresh) **hanya** disimpan di `expo-secure-store`. Dilarang di AsyncStorage, log, atau pesan error.
+7.2. Token login **hanya** disimpan di `expo-secure-store`. Dilarang di AsyncStorage, log, atau pesan error.
 
 7.3. Semua komunikasi ke API lewat **HTTPS**. Tidak ada `usesCleartextTraffic` di build produksi.
 

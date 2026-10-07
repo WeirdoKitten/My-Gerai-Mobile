@@ -9,7 +9,7 @@ Dokumen ini otomatis dibaca setiap sesi Claude Code di repo ini. Tujuannya: **ko
 - **Backend tidak ada di repo ini.** Server, database, pembayaran, dan aturan bisnis ada di repo web **MyGerai** ([WeirdoKitten/My-Gerai](https://github.com/WeirdoKitten/My-Gerai)), yang di-clone bersebelahan di `../My-Gerai`. Aplikasi ini hanya klien dari REST API `/api/mobile/v1/*` di repo web.
 - Pembeli dan Admin **tidak** memakai aplikasi ini. Mereka tetap lewat web.
 
-Status saat ini: **fondasi dokumentasi** (2026-10-07). Belum ada kode. Langkah berikutnya: Fase 12a (API mobile, di repo web) dan Tahap 0 scaffolding Expo (repo ini). Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
+Status saat ini: **fondasi dokumentasi** (2026-10-07). Belum ada kode. **API backend (Fase 12a, repo web) sudah tersedia**, kontrak di [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md). Langkah berikutnya: Tahap 0 scaffolding Expo. Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
 
 ## Ground Truth — Dua Tempat, Satu Sumber per Topik
 
@@ -42,7 +42,7 @@ Status saat ini: **fondasi dokumentasi** (2026-10-07). Belum ada kode. Langkah b
 | [../My-Gerai/docs/ARSITEKTUR-SISTEM.md](../My-Gerai/docs/ARSITEKTUR-SISTEM.md) | Perlu paham keputusan backend (ADR 2026-10-07 = keputusan aplikasi ini) |
 | [../My-Gerai/docs/DESAIN-SISTEM.md](../My-Gerai/docs/DESAIN-SISTEM.md) | Sumber token warna/tipografi web yang diturunkan ke tema mobile |
 | [../My-Gerai/docs/BACKLOG.md](../My-Gerai/docs/BACKLOG.md) | Status Fase 12a (endpoint API yang sudah tersedia) |
-| Kontrak API mobile (dibuat di Fase 12a, lokasinya dicatat di sini setelah ada) | Memanggil endpoint apa pun |
+| [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md) | **Kontrak API**: auth Bearer, format respons & kode error, semua endpoint, isi push. Wajib dibaca sebelum memanggil endpoint apa pun |
 
 Kalau `../My-Gerai` tidak ada, **berhenti dan minta User meng-clone** repo web bersebelahan. Jangan menebak aturan bisnis.
 

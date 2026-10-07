@@ -1,6 +1,6 @@
 # Backlog — Aplikasi Android Pedagang
 
-> Task aplikasi per tahap. Pekerjaan backend (endpoint, auth token, push) ada di **Fase 12a** [BACKLOG repo web](../../My-Gerai/docs/BACKLOG.md). Setiap tahap di sini bergantung pada endpoint terkait di sana sudah tersedia.
+> Task aplikasi per tahap. Pekerjaan backend (endpoint, auth token, push) ada di **Fase 12a** (kode selesai 2026-10-07, kontrak: [API-MOBILE.md](../../My-Gerai/docs/API-MOBILE.md)) [BACKLOG repo web](../../My-Gerai/docs/BACKLOG.md). Setiap tahap di sini bergantung pada endpoint terkait di sana sudah tersedia.
 >
 > Keputusan User (2026-10-07): React Native + Expo, repo terpisah, cakupan v1 setara dashboard web Pedagang, daftar + login di aplikasi, dokumen domain dirujuk dari repo web, styling StyleSheet + token.
 
@@ -19,7 +19,7 @@
 - [ ] `expo-dev-client`, `eas.json` (profil development, preview, production), hubungkan project EAS (akun Expo User).
 - [ ] `src/theme.ts` + font Plus Jakarta Sans + komponen UI baku awal (Button, Input, Field, Card, Badge, Alert, Spinner) lewat `/frontend-design:frontend-design`.
 - [ ] Layar contoh komponen (hanya di build development) untuk review visual.
-- [ ] `src/api/client.ts` (base URL, timeout, pemetaan error) + `QueryClientProvider`.
+- [ ] `src/api/client.ts` (base URL, timeout, pemetaan format error [API-MOBILE §3](../../My-Gerai/docs/API-MOBILE.md#3-format-respons)) + `QueryClientProvider`.
 - [ ] Development build berjalan di emulator dan HP User.
 - [ ] Perbarui ARSITEKTUR-FOLDER, README (cara menjalankan), CHANGELOG.
 
@@ -27,7 +27,7 @@
 
 Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a).
 
-- [ ] Login No. HP + password, simpan token di secure store, refresh otomatis, logout.
+- [ ] Login No. HP + password, simpan token di secure store, `401` → kembali ke login, logout.
 - [ ] Pendaftaran Pedagang (alur dan field sama dengan `/daftar` web), layar status menunggu persetujuan Admin.
 - [ ] Antrean Pesanan aktif + riwayat, polling saat layar aktif, pull-to-refresh.
 - [ ] Detail Pesanan + ubah status (proses, siap, selesai, gagal antar) + tandai lunas untuk QRIS Pribadi.
@@ -53,7 +53,7 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a).
 ## Tahap 4 — Laporan, Profil, Uang, Lainnya
 
 - [ ] Laporan penjualan + asisten rekomendasi (skill `dataviz`).
-- [ ] Profil Lapak, alamat + titik peta, QR Menu (lihat/unduh/bagikan).
+- [ ] Profil Lapak, alamat + titik peta (endpoint geocoding belum ada; putuskan dulu cara peta di aplikasi native, lalu buat endpoint di repo web), QR Menu (lihat/unduh/bagikan).
 - [ ] Pengaturan pengantaran (tarif, radius).
 - [ ] Mode pembayaran, rekening Pencairan, riwayat Pencairan/Saldo.
 - [ ] Tagihan Biaya Layanan (QRIS Pribadi): daftar dan bayar.

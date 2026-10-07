@@ -12,7 +12,7 @@
 |---|---|---|
 | Alur bisnis, aturan uang, status Pesanan, scope fitur | **web** | `../My-Gerai/docs/PRD.md`, `BACKLOG.md` |
 | Tabel/kolom/relasi data | **web** | `../My-Gerai/docs/DATA-MODEL.md` |
-| Endpoint API mobile (tambah/ubah/hapus field) | **web** | Kontrak API mobile (Fase 12a) + ADR web kalau berdampak |
+| Endpoint API mobile (tambah/ubah/hapus field) | **web** | [API-MOBILE.md](../../My-Gerai/docs/API-MOBILE.md) + ADR web kalau berdampak |
 | Istilah domain baru | **web** | `../My-Gerai/docs/GLOSSARY.md` |
 | Library/tool/layanan mobile | mobile | [TEKNOLOGI.md](TEKNOLOGI.md) |
 | Keputusan arsitektur aplikasi (navigasi, cache, auth klien, printer, push klien) | mobile | [ARSITEKTUR-SISTEM.md](ARSITEKTUR-SISTEM.md) (baris ADR baru) |

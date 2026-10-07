@@ -28,7 +28,7 @@
 │   └── pesanan/[orderId].tsx  # Detail Pesanan (target ketuk notifikasi)
 ├── src/
 │   ├── api/
-│   │   ├── client.ts          # fetch + base URL + Bearer + refresh otomatis + timeout + pemetaan error
+│   │   ├── client.ts          # fetch + base URL + Bearer + timeout + pemetaan error (401 → logout lokal)
 │   │   ├── schemas/           # Skema Zod respons/permintaan per domain (orders.ts, products.ts, ...)
 │   │   └── endpoints/         # Satu fungsi per endpoint, mengikuti kontrak API web
 │   ├── features/<fitur>/      # Hook TanStack Query, komponen khusus fitur, logika tampilan

@@ -14,7 +14,7 @@ Target: HP Android murah (RAM 2–3 GB, CPU lambat), jaringan seluler lambat, di
 ## Keamanan
 
 - Aturan wajib di [RULES.md §7](RULES.md#7-keamanan).
-- Token hanya di `expo-secure-store`. Logout dan refresh gagal → hapus token **dan** `queryClient.clear()`.
+- Token hanya di `expo-secure-store`. Logout dan respons `401` → hapus token **dan** `queryClient.clear()`.
 - Jangan percaya data dari payload notifikasi; pakai hanya ID, lalu ambil detail dari API.
 - Deep link (ketuk notifikasi) tidak boleh melewati pengecekan login.
 - Jangan mencatat (log) respons API utuh di build produksi.
@@ -36,7 +36,7 @@ Target: HP Android murah (RAM 2–3 GB, CPU lambat), jaringan seluler lambat, di
 
 ## Testing
 
-- **Unit (Jest)** wajib untuk: encoder struk ESC/POS (hasil byte dibandingkan dengan contoh dari web), format Rupiah/tanggal, logika refresh token di klien API, skema Zod.
+- **Unit (Jest)** wajib untuk: encoder struk ESC/POS (hasil byte dibandingkan dengan contoh dari web), format Rupiah/tanggal, pemetaan error dan penanganan `401` di klien API, skema Zod.
 - **Komponen (React Native Testing Library)** untuk komponen UI baku dan kartu Pesanan.
 - **E2E (Maestro)** minimal: login → antrean Pesanan → ubah status sampai selesai. Dijalankan ke server staging/dev dengan data seed repo web.
 - **Manual di HP nyata** untuk push (aplikasi tertutup dan HP terkunci) dan printer BLE. Ini tidak bisa diganti emulator.

@@ -5,7 +5,7 @@
 ## Wajib Dipakai
 
 - **`/frontend-design:frontend-design`**: **setiap** membuat layar baru, komponen UI baru, atau merombak tampilan yang ada (termasuk ikon aplikasi, splash, dan screenshot Play Store). Permintaan User 2026-10-07: desain UI harus **sangat bagus**, bukan sekadar berfungsi. Saat memanggil skill, sertakan konteks: token dan komponen di [DESAIN-SISTEM.md](DESAIN-SISTEM.md), pengguna (Pedagang di lapak ramai, HP murah, layar dilihat sekilas), dan bahwa hasilnya React Native `StyleSheet`, bukan HTML/CSS. Hasil skill **tidak boleh** keluar dari token; kalau butuh token/pola baru, usulkan ke User dan catat di DESAIN-SISTEM dulu.
-- **`/security-review`**: setelah mengerjakan auth/token, refresh, logout, push notification, deep link, penyimpanan lokal, atau layar yang menampilkan/mengirim data uang ([RULES.md §7](RULES.md#7-keamanan)).
+- **`/security-review`**: setelah mengerjakan auth/token, logout, push notification, deep link, penyimpanan lokal, atau layar yang menampilkan/mengirim data uang ([RULES.md §7](RULES.md#7-keamanan)).
 - **Plan mode / agent `Plan`**: untuk fitur besar atau yang menyentuh banyak file/dokumen, sebelum menulis kode.
 
 ## Direkomendasikan
