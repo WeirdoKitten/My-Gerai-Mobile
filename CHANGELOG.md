@@ -2,6 +2,14 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-07 — Uji akses baca dokumen repo web lolos
+
+**Dampak:** `docs/BACKLOG.md` (Tahap −1 selesai).
+**Alasan:** Item uji terakhir Tahap −1: sesi Claude baru harus bisa membaca `../My-Gerai/docs/` tanpa prompt izin.
+**Ringkasan:**
+- Sesi baru membaca `../My-Gerai/docs/PRD.md` dan `../My-Gerai/docs/GLOSSARY.md` tanpa prompt izin. Izin baca di `.claude/settings.json` berfungsi.
+- Tahap −1 selesai. Berikutnya: Tahap 0 scaffolding Expo.
+
 ## 2026-10-07 — Sesuaikan dokumen dengan API mobile (Fase 12a selesai di repo web)
 
 **Dampak:** `CLAUDE.md`, `docs/ARSITEKTUR-SISTEM.md` (alur auth + push, ADR baru), `docs/ARSITEKTUR-FOLDER.md`, `docs/BACKLOG.md`, `docs/BEST-PRACTICES.md`, `docs/CLAUDE-SKILLS.md`, `docs/RULES.md`, `docs/DOKUMENTASI.md`, `docs/TEKNOLOGI.md`.

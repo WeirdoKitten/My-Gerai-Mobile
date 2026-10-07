@@ -8,7 +8,7 @@
 
 - [x] `CLAUDE.md`, `README.md`, `CHANGELOG.md`, `.gitignore`, `.claude/settings.json`.
 - [x] `docs/`: RULES, DOKUMENTASI, TEKNOLOGI, ARSITEKTUR-SISTEM, ARSITEKTUR-FOLDER, CODING-STYLE, DESAIN-SISTEM, BEST-PRACTICES, BACKLOG, CLAUDE-SKILLS, PROMPT-TIPS.
-- [ ] Uji: buka sesi Claude baru di repo ini, pastikan dokumen `../My-Gerai/docs/` bisa dibaca tanpa prompt izin.
+- [x] Uji: buka sesi Claude baru di repo ini, pastikan dokumen `../My-Gerai/docs/` bisa dibaca tanpa prompt izin. (2026-10-07, lolos)
 
 ## Tahap 0 — Scaffolding
 
