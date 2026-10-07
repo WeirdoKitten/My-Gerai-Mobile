@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "additionalDirectories": ["../My-Gerai"],
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm exec tsc:*)",
+      "Bash(pnpm exec biome check:*)",
+      "Bash(pnpm expo start:*)",
+      "Bash(pnpm expo install:*)",
+      "Bash(pnpm expo-doctor:*)"
+    ]
+  }
+}

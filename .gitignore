@@ -1,0 +1,54 @@
+# Dependensi
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native (dibuat ulang oleh prebuild / EAS)
+/android
+/ios
+
+# Rahasia & kredensial build — JANGAN di-commit (lihat docs/RULES.md §7)
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+google-services.json
+GoogleService-Info.plist
+credentials.json
+*-service-account*.json
+
+# Build & test
+*.apk
+*.aab
+coverage/
+.maestro/output/
+
+# Metro
+.metro-health-check*
+
+# Log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+pnpm-debug.log*
+*.log
+
+# OS & editor
+.DS_Store
+Thumbs.db
+*.pem
+
+# Claude Code lokal
+.claude/settings.local.json
+
+# TypeScript
+*.tsbuildinfo
