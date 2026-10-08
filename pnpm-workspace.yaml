@@ -1,3 +1,7 @@
+# Wajib untuk Expo + pnpm: tanpa hoisted bisa ada dua salinan react-native, dan path C++ di node_modules/.pnpm terlalu panjang untuk build native di Windows.
+# pnpm 11 tidak membaca node-linker dari .npmrc lagi.
+nodeLinker: hoisted
+
 # Paket ini memakai binary prebuilt dari optional dependency; build script tidak perlu dijalankan.
 allowBuilds:
   '@parcel/watcher': false

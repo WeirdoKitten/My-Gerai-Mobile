@@ -2,6 +2,16 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-08 — Development build jalan di emulator; perbaikan linker pnpm
+
+**Dampak:** `pnpm-workspace.yaml`, `.npmrc` (dihapus), `CLAUDE.md`, `README.md`, `docs/BACKLOG.md`, `docs/ARSITEKTUR-FOLDER.md`, `docs/DESAIN-SISTEM.md`, `docs/TEKNOLOGI.md`.
+**Alasan:** Build native pertama gagal (`ninja: error: manifest 'build.ninja' still dirty after 100 tries`). Penyebabnya: pnpm 11 mengabaikan `node-linker=hoisted` di `.npmrc`, sehingga paket terpasang dalam mode isolated dan path C++ di `node_modules/.pnpm/...` terlalu panjang.
+**Ringkasan:**
+- `nodeLinker: hoisted` dipindah ke `pnpm-workspace.yaml`, dan `.npmrc` dihapus. Cek dengan `pnpm config get node-linker`.
+- Mesin dev disiapkan: Android Studio + SDK API 36, JDK 17 (Zulu), `ANDROID_HOME`, dan long paths Windows. Langkahnya dicatat di README.
+- `pnpm android` berhasil di emulator API 37. Layar awal dan `app/dev/komponen.tsx` dicek lewat screenshot: font Plus Jakarta Sans termuat, token warna, kartu Pesanan bergaya tiket, semua badge status, alert, state fokus dan error input, keyboard angka, serta spinner.
+- Belum: HP fisik User dan hubungan project EAS.
+
 ## 2026-10-07 — Tahap 0: scaffolding Expo
 
 **Dampak:** kode baru (config proyek, `app/`, `src/`, `tests/`), `CLAUDE.md`, `README.md`, `docs/BACKLOG.md`, `docs/ARSITEKTUR-FOLDER.md`, `docs/DESAIN-SISTEM.md`, `docs/TEKNOLOGI.md`.

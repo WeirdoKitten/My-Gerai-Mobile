@@ -39,7 +39,7 @@ cp .env.example .env   # isi EXPO_PUBLIC_API_URL (emulator: 10.0.2.2, HP fisik: 
 
 Development build, pilih salah satu:
 
-- **Lokal** (butuh Android Studio + SDK + emulator atau HP via USB): `pnpm android`. Perintah ini memasang development build lalu menjalankan Metro.
+- **Lokal** (butuh Android Studio + SDK API 36, **JDK 17** di `JAVA_HOME`, `ANDROID_HOME` + `platform-tools` di PATH, dan long paths Windows aktif): nyalakan emulator atau colok HP via USB, lalu `pnpm android`. Perintah ini memasang development build lalu menjalankan Metro. Build pertama ±10–20 menit. JDK yang lebih baru (mis. 25) tidak dipakai untuk build ini.
 - **EAS** (tanpa Android Studio): `npx eas-cli login`, `npx eas-cli init` (sekali), lalu `npx eas-cli build --profile development --platform android`. Pasang APK hasilnya di HP, lalu `pnpm start`.
 
 Setelah development build terpasang, cukup `pnpm start` untuk pengembangan sehari-hari. Di build development, layar awal punya tombol **Lihat komponen UI** untuk review tampilan.

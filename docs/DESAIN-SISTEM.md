@@ -110,4 +110,4 @@ Satu set: **`MaterialCommunityIcons`** dari `@expo/vector-icons` (dipilih Tahap 
 
 ## 8. Status Implementasi
 
-Tahap 0 (2026-10-07): `src/theme.ts` (semua token di atas + `onBrand` putih untuk teks di atas tombol berwarna), `Button`, `Input` (termasuk `multiline` sebagai Textarea), `Field`, `Card`, `Badge`, `OrderStatusBadge`, `Alert`, `Spinner` di `src/components/ui/`. Review visual di `app/dev/komponen.tsx` (hanya build development). **Belum diverifikasi di emulator/HP.** Komponen lain di §3 dibuat saat dibutuhkan fitur.
+Tahap 0 (2026-10-07): `src/theme.ts` (semua token di atas + `onBrand` putih untuk teks di atas tombol berwarna), `Button`, `Input` (termasuk `multiline` sebagai Textarea), `Field`, `Card`, `Badge`, `OrderStatusBadge`, `Alert`, `Spinner` di `src/components/ui/`. Review visual di `app/dev/komponen.tsx` (hanya build development). Dicek di emulator Android API 37 (2026-10-08); belum dicek di HP fisik. Komponen lain di §3 dibuat saat dibutuhkan fitur.

@@ -11,8 +11,7 @@
 ├── .claude/settings.json      # Izin Claude Code + akses baca ke ../My-Gerai
 ├── app.config.ts              # Konfigurasi Expo (nama, package, plugin, izin, env publik)
 ├── eas.json                   # Profil EAS Build: development, preview, production
-├── .npmrc                     # node-linker=hoisted (wajib untuk Expo + pnpm)
-├── pnpm-workspace.yaml        # Kebijakan pnpm 11: allowBuilds, minimumReleaseAgeExclude
+├── pnpm-workspace.yaml        # pnpm 11: nodeLinker hoisted (wajib untuk Expo), allowBuilds, minimumReleaseAgeExclude
 ├── .env.example               # EXPO_PUBLIC_API_URL (salin ke .env, tidak di-commit)
 ├── jest.config.js             # preset jest-expo + alias @/
 ├── biome.json

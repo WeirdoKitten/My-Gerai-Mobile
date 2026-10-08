@@ -9,7 +9,7 @@ Dokumen ini otomatis dibaca setiap sesi Claude Code di repo ini. Tujuannya: **ko
 - **Backend tidak ada di repo ini.** Server, database, pembayaran, dan aturan bisnis ada di repo web **MyGerai** ([WeirdoKitten/My-Gerai](https://github.com/WeirdoKitten/My-Gerai)), yang di-clone bersebelahan di `../My-Gerai`. Aplikasi ini hanya klien dari REST API `/api/mobile/v1/*` di repo web.
 - Pembeli dan Admin **tidak** memakai aplikasi ini. Mereka tetap lewat web.
 
-Status saat ini: **Tahap 0 scaffolding** (2026-10-07). Proyek Expo SDK 57, tema, komponen UI baku awal, dan klien API sudah ada; belum ada fitur. Sisa Tahap 0: hubungkan EAS dan jalankan development build di emulator/HP. **API backend (Fase 12a, repo web) sudah tersedia**, kontrak di [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md). Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
+Status saat ini: **Tahap 0 scaffolding** (2026-10-07). Proyek Expo SDK 57, tema, komponen UI baku awal, dan klien API sudah ada; belum ada fitur. Development build sudah jalan di emulator. Sisa Tahap 0: hubungkan EAS dan uji di HP fisik User. **API backend (Fase 12a, repo web) sudah tersedia**, kontrak di [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md). Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
 
 ## Ground Truth — Dua Tempat, Satu Sumber per Topik
 
@@ -65,7 +65,7 @@ Kalau `../My-Gerai` tidak ada, **berhenti dan minta User meng-clone** repo web b
 
 ## Stack Ringkas (detail di [docs/TEKNOLOGI.md](docs/TEKNOLOGI.md))
 
-React Native + **Expo** (SDK 57, development build) + TypeScript strict + expo-router + TanStack Query + Zod + StyleSheet dengan token tema + expo-secure-store + expo-notifications (FCM) + react-native-ble-plx (printer thermal) + Biome + Jest/RNTL + Maestro + EAS Build/Submit + pnpm (`node-linker=hoisted`).
+React Native + **Expo** (SDK 57, development build) + TypeScript strict + expo-router + TanStack Query + Zod + StyleSheet dengan token tema + expo-secure-store + expo-notifications (FCM) + react-native-ble-plx (printer thermal) + Biome + Jest/RNTL + Maestro + EAS Build/Submit + pnpm (`nodeLinker: hoisted` di `pnpm-workspace.yaml`).
 
 ## Alur Kerja Default untuk Task Apa Pun
 

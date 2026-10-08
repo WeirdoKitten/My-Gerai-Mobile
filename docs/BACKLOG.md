@@ -13,14 +13,14 @@
 ## Tahap 0 — Scaffolding
 
 - [x] Cek ulang versi stabil Expo SDK, perbarui [TEKNOLOGI.md](TEKNOLOGI.md) kalau berubah. (SDK 57 tetap stabil terbaru, `expo@57.0.27`.)
-- [x] `create-expo-app` (template expo-router, TypeScript), `.npmrc` `node-linker=hoisted`, pnpm.
+- [x] `create-expo-app` (template expo-router, TypeScript), pnpm dengan linker hoisted (`nodeLinker: hoisted` di `pnpm-workspace.yaml`; pnpm 11 mengabaikan `.npmrc` untuk setting ini).
 - [x] `tsconfig` strict + alias `@/`, Biome (sesuaikan dengan konfigurasi repo web), Jest (`jest-expo`) + RNTL, satu test contoh.
 - [x] `app.config.ts`: nama aplikasi, package Android (ditanyakan ke User), ikon & splash sementara, `EXPO_PUBLIC_API_URL`, targetSdk 36. (Nama `MyGerai`, package `com.mygerai.pedagang`; ikon & splash masih bawaan template Expo; URL API lewat `.env`.)
 - [ ] `expo-dev-client`, `eas.json` (profil development, preview, production), hubungkan project EAS (akun Expo User). (`expo-dev-client` dan `eas.json` sudah ada. **Sisa**: User login lalu `npx eas-cli init`. `EXPO_PUBLIC_API_URL` staging/produksi diisi saat URL-nya ada.)
-- [ ] `src/theme.ts` + font Plus Jakarta Sans + komponen UI baku awal (Button, Input, Field, Card, Badge, Alert, Spinner) lewat `/frontend-design:frontend-design`. (Kode dan test selesai. **Sisa**: review visual di development build.)
-- [ ] Layar contoh komponen (hanya di build development) untuk review visual. (`app/dev/komponen.tsx` sudah ada. **Sisa**: dilihat di emulator/HP.)
+- [x] `src/theme.ts` + font Plus Jakarta Sans + komponen UI baku awal (Button, Input, Field, Card, Badge, Alert, Spinner) lewat `/frontend-design:frontend-design`. (Dicek di emulator 2026-10-08: font, warna, badge, alert, state fokus/error input, spinner.)
+- [x] Layar contoh komponen (hanya di build development) untuk review visual. (`app/dev/komponen.tsx`, dicek di emulator 2026-10-08.)
 - [x] `src/api/client.ts` (base URL, timeout, pemetaan format error [API-MOBILE §3](../../My-Gerai/docs/API-MOBILE.md#3-format-respons)) + `QueryClientProvider`. (Diuji unit dengan fetch tiruan; panggilan nyata ke server menyusul bersama development build.)
-- [ ] Development build berjalan di emulator dan HP User. (**Terhambat**: Android SDK belum terpasang di mesin dev. Bundle JS Android sudah lolos `expo export`.)
+- [ ] Development build berjalan di emulator dan HP User. (Emulator API 37 **lolos** 2026-10-08 lewat `pnpm android`. **Sisa**: HP fisik User.)
 - [x] Perbarui ARSITEKTUR-FOLDER, README (cara menjalankan), CHANGELOG.
 
 ## Tahap 1 — Login, Daftar, Antrean Pesanan, Push

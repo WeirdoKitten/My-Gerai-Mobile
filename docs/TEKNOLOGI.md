@@ -31,7 +31,7 @@
 | E2E | **Maestro** (`.maestro/*.yaml`) | Alur di emulator/HP nyata dengan YAML sederhana, lebih ringan daripada Detox. |
 | Build & rilis | **EAS Build** + **EAS Submit** (Play Store) | Build Android di cloud, keystore dikelola EAS, upload ke Play Console otomatis. Free tier cukup untuk awal. |
 | Update OTA | **expo-updates** (EAS Update), opsional | Perbaikan JS kecil tanpa rilis Play Store. Diaktifkan saat Tahap 5, setelah ada kebijakan kapan boleh dipakai. |
-| Package manager | **pnpm** (11.x) dengan `.npmrc` berisi `node-linker=hoisted` | Sama dengan repo web. Expo **masih mensyaratkan** hoisted untuk pnpm; tanpa itu bisa ada dua salinan `react-native` dan crash saat start. pnpm 11 memblokir build script dan paket yang terlalu baru: atur di `pnpm-workspace.yaml` (`allowBuilds`, `minimumReleaseAgeExclude`). |
+| Package manager | **pnpm** (11.x) dengan `nodeLinker: hoisted` di **`pnpm-workspace.yaml`** | Sama dengan repo web. Expo **masih mensyaratkan** hoisted untuk pnpm; tanpa itu bisa ada dua salinan `react-native` dan crash saat start. Di Windows, mode isolated (`node_modules/.pnpm/...`) juga membuat path C++ terlalu panjang sehingga build native gagal (`ninja: error: manifest 'build.ninja' still dirty`). **pnpm 11 mengabaikan `node-linker` di `.npmrc`**, jadi setting ini wajib di `pnpm-workspace.yaml`; cek dengan `pnpm config get node-linker`. pnpm 11 juga memblokir build script dan paket yang terlalu baru: atur di `pnpm-workspace.yaml` (`allowBuilds`, `minimumReleaseAgeExclude`). |
 | Monitoring error (nanti) | Sentry (`@sentry/react-native`), free tier | Setelah rilis uji tertutup, bukan blocker awal. |
 
 ## Target Android
