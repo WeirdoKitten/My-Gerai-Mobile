@@ -3,7 +3,8 @@ import type { ConfigContext, ExpoConfig } from "expo/config";
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "MyGerai",
-  slug: "mygerai-pedagang",
+  slug: "my-gerai",
+  owner: "satriapss-team",
   version: "0.1.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
@@ -41,6 +42,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
   ],
+  extra: {
+    eas: { projectId: "346753b3-df0a-48e6-87b7-c0712c246fa3" },
+  },
   experiments: {
     typedRoutes: true,
     reactCompiler: true,

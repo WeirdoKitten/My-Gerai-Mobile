@@ -16,7 +16,7 @@
 - [x] `create-expo-app` (template expo-router, TypeScript), pnpm dengan linker hoisted (`nodeLinker: hoisted` di `pnpm-workspace.yaml`; pnpm 11 mengabaikan `.npmrc` untuk setting ini).
 - [x] `tsconfig` strict + alias `@/`, Biome (sesuaikan dengan konfigurasi repo web), Jest (`jest-expo`) + RNTL, satu test contoh.
 - [x] `app.config.ts`: nama aplikasi, package Android (ditanyakan ke User), ikon & splash sementara, `EXPO_PUBLIC_API_URL`, targetSdk 36. (Nama `MyGerai`, package `com.mygerai.pedagang`; ikon & splash masih bawaan template Expo; URL API lewat `.env`.)
-- [ ] `expo-dev-client`, `eas.json` (profil development, preview, production), hubungkan project EAS (akun Expo User). (`expo-dev-client` dan `eas.json` sudah ada. **Sisa**: User login lalu `npx eas-cli init`. `EXPO_PUBLIC_API_URL` staging/produksi diisi saat URL-nya ada.)
+- [x] `expo-dev-client`, `eas.json` (profil development, preview, production), hubungkan project EAS (akun Expo User). (Project `@satriapss-team/my-gerai`, `projectId` + `owner` di `app.config.ts`, 2026-10-08. `EXPO_PUBLIC_API_URL` staging/produksi diisi saat URL-nya ada.)
 - [x] `src/theme.ts` + font Plus Jakarta Sans + komponen UI baku awal (Button, Input, Field, Card, Badge, Alert, Spinner) lewat `/frontend-design:frontend-design`. (Dicek di emulator 2026-10-08: font, warna, badge, alert, state fokus/error input, spinner.)
 - [x] Layar contoh komponen (hanya di build development) untuk review visual. (`app/dev/komponen.tsx`, dicek di emulator 2026-10-08.)
 - [x] `src/api/client.ts` (base URL, timeout, pemetaan format error [API-MOBILE §3](../../My-Gerai/docs/API-MOBILE.md#3-format-respons)) + `QueryClientProvider`. (Diuji unit dengan fetch tiruan; panggilan nyata ke server menyusul bersama development build.)

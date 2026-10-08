@@ -10,7 +10,8 @@
 - `nodeLinker: hoisted` dipindah ke `pnpm-workspace.yaml`, dan `.npmrc` dihapus. Cek dengan `pnpm config get node-linker`.
 - Mesin dev disiapkan: Android Studio + SDK API 36, JDK 17 (Zulu), `ANDROID_HOME`, dan long paths Windows. Langkahnya dicatat di README.
 - `pnpm android` berhasil di emulator API 37. Layar awal dan `app/dev/komponen.tsx` dicek lewat screenshot: font Plus Jakarta Sans termuat, token warna, kartu Pesanan bergaya tiket, semua badge status, alert, state fokus dan error input, keyboard angka, serta spinner.
-- Belum: HP fisik User dan hubungan project EAS.
+- Project EAS terhubung: `@satriapss-team/my-gerai` (akun tim). `app.config.ts` kini berisi `owner: "satriapss-team"`, `extra.eas.projectId`, dan `slug` diganti ke `my-gerai` supaya sama dengan project di dashboard (EAS menolak slug yang berbeda). `eas init` tidak bisa menulis ke config dinamis, jadi diisi manual.
+- Belum: HP fisik User.
 
 ## 2026-10-07 — Tahap 0: scaffolding Expo
 
