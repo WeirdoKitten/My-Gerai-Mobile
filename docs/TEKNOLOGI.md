@@ -2,7 +2,7 @@
 
 > Prinsip: **cepat, ringan, minim biaya, hemat effort dev**, dan sebisa mungkin **sebahasa dengan repo web** (TypeScript) supaya Claude dan User tidak berganti konteks. Setiap pilihan wajib punya alasan tertulis. Kalau berubah, catat di [CHANGELOG.md](../CHANGELOG.md) dan baris ADR di [ARSITEKTUR-SISTEM.md](ARSITEKTUR-SISTEM.md).
 >
-> **Versi dicek 2026-10-07** lewat web search (lihat Sumber di bawah). Cek ulang saat scaffolding dan setiap upgrade.
+> **Versi dicek 2026-10-07** lewat web search (lihat Sumber di bawah), lalu **dicek ulang saat scaffolding** (npm dist-tag `latest` = `expo@57.0.27`, SDK 58 masih `next`). Versi pasti ada di `package.json`; selaraskan lewat `pnpm expo install --check`. Cek ulang setiap upgrade.
 
 ## Ringkasan Stack
 
@@ -27,17 +27,18 @@
 | Ikon | **@expo/vector-icons** (set terbatas, lihat DESAIN-SISTEM) | Bawaan Expo, tidak menambah dependency besar. |
 | Grafik Laporan | Ditentukan saat Tahap 4 (kandidat: `react-native-svg` + komponen sendiri) | Jangan tambah library chart besar sebelum ada kebutuhan konkret. Pakai skill `dataviz`. |
 | Lint & format | **Biome** | Sama dengan repo web. |
-| Unit/komponen test | **Jest** (`jest-expo`) + **React Native Testing Library** | Preset resmi Expo. Vitest belum didukung baik untuk React Native. |
+| Unit/komponen test | **Jest** 29 (`jest-expo`) + **React Native Testing Library** 14 | Preset resmi Expo. Vitest belum didukung baik untuk React Native. Versi Jest mengikuti yang diharapkan `expo install --check`. RNTL 14: `render` dan `fireEvent` async (`await`). |
 | E2E | **Maestro** (`.maestro/*.yaml`) | Alur di emulator/HP nyata dengan YAML sederhana, lebih ringan daripada Detox. |
 | Build & rilis | **EAS Build** + **EAS Submit** (Play Store) | Build Android di cloud, keystore dikelola EAS, upload ke Play Console otomatis. Free tier cukup untuk awal. |
 | Update OTA | **expo-updates** (EAS Update), opsional | Perbaikan JS kecil tanpa rilis Play Store. Diaktifkan saat Tahap 5, setelah ada kebijakan kapan boleh dipakai. |
-| Package manager | **pnpm** dengan `.npmrc` berisi `node-linker=hoisted` | Sama dengan repo web. Expo **masih mensyaratkan** hoisted untuk pnpm; tanpa itu bisa ada dua salinan `react-native` dan crash saat start. |
+| Package manager | **pnpm** (11.x) dengan `.npmrc` berisi `node-linker=hoisted` | Sama dengan repo web. Expo **masih mensyaratkan** hoisted untuk pnpm; tanpa itu bisa ada dua salinan `react-native` dan crash saat start. pnpm 11 memblokir build script dan paket yang terlalu baru: atur di `pnpm-workspace.yaml` (`allowBuilds`, `minimumReleaseAgeExclude`). |
 | Monitoring error (nanti) | Sentry (`@sentry/react-native`), free tier | Setelah rilis uji tertutup, bukan blocker awal. |
 
 ## Target Android
 
 - **targetSdk 36 (Android 16)**: wajib untuk aplikasi baru dan update di Play Store sejak 31 Agustus 2026. Saat scaffolding, cek nilai default `targetSdkVersion` Expo SDK yang dipakai; kalau di bawah 36, atur lewat `expo-build-properties`.
-- **minSdk**: ikuti default Expo SDK 57. Jangan diturunkan tanpa diskusi (HP Pedagang mungkin lama, tapi Android sangat lama tidak didukung React Native terbaru).
+- Dicek saat scaffolding: default React Native 0.86 sudah **targetSdk/compileSdk 36, minSdk 24**. targetSdk tetap dikunci 36 lewat `expo-build-properties` di `app.config.ts`.
+- **minSdk**: ikuti default Expo SDK 57 (24). Jangan diturunkan tanpa diskusi (HP Pedagang mungkin lama, tapi Android sangat lama tidak didukung React Native terbaru).
 
 ## Kenapa Bukan Alternatif Lain?
 

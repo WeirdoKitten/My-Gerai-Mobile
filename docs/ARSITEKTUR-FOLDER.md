@@ -1,6 +1,6 @@
 # Arsitektur Folder
 
-> Ini **target** struktur. Saat ini repo baru berisi dokumen. Perbarui dokumen ini setiap kali struktur nyata berubah.
+> Ini **target** struktur. Sejak Tahap 0 (2026-10-07) yang sudah ada: config proyek, `app/_layout.tsx`, `app/index.tsx` (sementara), `app/dev/komponen.tsx`, `src/api/{client,query-client}.ts` + `/meta`, `src/components/ui/`, `src/lib/format/money.ts`, `src/theme.ts`, `src/types/order-status.ts`, `tests/`. Perbarui dokumen ini setiap kali struktur nyata berubah.
 
 ```
 /
@@ -12,6 +12,9 @@
 ├── app.config.ts              # Konfigurasi Expo (nama, package, plugin, izin, env publik)
 ├── eas.json                   # Profil EAS Build: development, preview, production
 ├── .npmrc                     # node-linker=hoisted (wajib untuk Expo + pnpm)
+├── pnpm-workspace.yaml        # Kebijakan pnpm 11: allowBuilds, minimumReleaseAgeExclude
+├── .env.example               # EXPO_PUBLIC_API_URL (salin ke .env, tidak di-commit)
+├── jest.config.js             # preset jest-expo + alias @/
 ├── biome.json
 ├── tsconfig.json              # strict + alias @/ → src/
 ├── app/                       # Layar (expo-router, routing berbasis file)
@@ -25,10 +28,12 @@
 │   │   ├── item/              # Kelola Item, varian, stok
 │   │   ├── laporan/           # Laporan penjualan
 │   │   └── profil/            # Profil, buka/tutup, jadwal, pengantaran, pembayaran, tagihan, ulasan, event, printer
-│   └── pesanan/[orderId].tsx  # Detail Pesanan (target ketuk notifikasi)
+│   ├── pesanan/[orderId].tsx  # Detail Pesanan (target ketuk notifikasi)
+│   └── dev/komponen.tsx       # Review visual komponen UI, hanya __DEV__ (redirect ke / di build rilis)
 ├── src/
 │   ├── api/
 │   │   ├── client.ts          # fetch + base URL + Bearer + timeout + pemetaan error (401 → logout lokal)
+│   │   ├── query-client.ts    # QueryClient: retry GET hanya untuk gangguan sementara, mutation tanpa retry
 │   │   ├── schemas/           # Skema Zod respons/permintaan per domain (orders.ts, products.ts, ...)
 │   │   └── endpoints/         # Satu fungsi per endpoint, mengikuti kontrak API web
 │   ├── features/<fitur>/      # Hook TanStack Query, komponen khusus fitur, logika tampilan
@@ -41,7 +46,7 @@
 │   │   ├── receipt/           # Encoder ESC/POS (port dari repo web, harus identik)
 │   │   └── format/            # Rupiah, tanggal/jam WIB, nomor HP
 │   ├── theme.ts               # Token warna, tipografi, radius, spacing, bayangan
-│   └── types/                 # Tipe bersama yang tidak diturunkan dari skema Zod
+│   └── types/                 # Tipe bersama yang tidak diturunkan dari skema Zod (mis. order-status.ts, salinan enum web)
 ├── assets/                    # Ikon aplikasi, splash, bunyi notifikasi, font lokal bila perlu
 ├── tests/                     # Jest + React Native Testing Library (unit & komponen)
 └── .maestro/                  # Alur E2E Maestro (YAML)

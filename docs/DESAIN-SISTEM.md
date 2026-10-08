@@ -37,7 +37,7 @@ Hitam murni, abu polos di luar token, dan warna sekali pakai **dilarang**. Kalau
 
 ### Tipografi
 
-- **Plus Jakarta Sans** bobot 400/500/600/700 (`@expo-google-fonts/plus-jakarta-sans`). Di React Native setiap bobot adalah `fontFamily` terpisah; pakai token, bukan `fontWeight`.
+- **Plus Jakarta Sans** bobot 400/500/600/700, plus 800 khusus `orderCode` (`@expo-google-fonts/plus-jakarta-sans`). Di React Native setiap bobot adalah `fontFamily` terpisah; pakai token, bukan `fontWeight`.
 - Ukuran dasar **16** (sedikit lebih besar daripada web 15px karena dibaca sambil bekerja). Hormati pengaturan ukuran huruf sistem (`allowFontScaling` tetap aktif); uji di skala 1.3×.
 
 | Token | Ukuran / tinggi baris | Bobot | Dipakai |
@@ -72,8 +72,8 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 | `Input`, `Textarea`, `Field` | `Field` = label + input + hint/error. Keyboard type sesuai isi (angka untuk harga, telepon untuk No. HP). |
 | `Select` / `PillOption` | Pilihan sedikit → pill; banyak → bottom sheet. |
 | `Toggle` | Buka/tutup Lapak, aktif/nonaktif Item. |
-| `Card` | Border `line`, radius 16, padding 16. |
-| `Badge`, `OrderStatusBadge` | Warna status sama persis dengan web. |
+| `Card` | Border `line`, radius 16, padding 16. `elevated` = `shadow.card` tanpa border. `accent` = garis `brand` 5px di sisi kiri untuk hal yang butuh perhatian (Pesanan baru). |
+| `Badge`, `OrderStatusBadge` | Warna status sama persis dengan web. `OrderStatusBadge` selalu memakai titik warna (`dot`) di depan label supaya terbaca sekali lirik. |
 | `Alert` | Info/sukses/peringatan/error di dalam layar. |
 | `Toast` | Umpan balik singkat setelah aksi. |
 | `Modal` / `BottomSheet` | Konfirmasi dan pilihan. Aksi destruktif selalu konfirmasi. |
@@ -93,13 +93,13 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 
 ## 5. Pola Spesifik
 
-- **Kartu Pesanan baru**: paling menonjol di antrean (aksen `brand`, Kode Pesanan besar, nama Pembeli, ringkasan Item, total, waktu). Aksi berikutnya (proses / siap / selesai) satu tombol besar.
+- **Kartu Pesanan baru**: paling menonjol di antrean, bergaya **tiket**: `Card elevated accent`, waktu masuk + `OrderStatusBadge` di atas, Kode Pesanan `orderCode`, nama Pembeli, lalu **sobekan tiket** (garis putus-putus `line` dengan coakan setengah lingkaran warna `bg` di kedua sisi), daftar Item (qty `brandStrong` tabular), total, dan satu tombol `lg` untuk aksi berikutnya. Ini satu-satunya elemen "berani" di aplikasi; komponen lain sengaja tenang. Contoh: `app/dev/komponen.tsx`.
 - **Notifikasi**: bunyi khusus Pesanan, ikon notifikasi monokrom sesuai aturan Android.
 - **Uang**: selalu `Rp12.000` (titik ribuan, tanpa desimal), tabular nums.
 
 ## 6. Ikon
 
-Satu set dari `@expo/vector-icons` (pilih satu keluarga saat Tahap 0 dan catat di sini). Ukuran 20/24. Warna dari token.
+Satu set: **`MaterialCommunityIcons`** dari `@expo/vector-icons` (dipilih Tahap 0, 2026-10-07: terasa native Android, varian `-outline` lengkap). Impor per keluarga (`@expo/vector-icons/MaterialCommunityIcons`). Ukuran 20/24. Warna dari token. Jangan mencampur keluarga lain.
 
 ## 7. Yang Dihindari
 
@@ -110,4 +110,4 @@ Satu set dari `@expo/vector-icons` (pilih satu keluarga saat Tahap 0 dan catat d
 
 ## 8. Status Implementasi
 
-Belum ada kode. Token dan komponen dibuat di Tahap 0 ([BACKLOG.md](BACKLOG.md)).
+Tahap 0 (2026-10-07): `src/theme.ts` (semua token di atas + `onBrand` putih untuk teks di atas tombol berwarna), `Button`, `Input` (termasuk `multiline` sebagai Textarea), `Field`, `Card`, `Badge`, `OrderStatusBadge`, `Alert`, `Spinner` di `src/components/ui/`. Review visual di `app/dev/komponen.tsx` (hanya build development). **Belum diverifikasi di emulator/HP.** Komponen lain di §3 dibuat saat dibutuhkan fitur.
