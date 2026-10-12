@@ -1,21 +1,27 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Redirect } from "expo-router";
+import { Redirect, router } from "expo-router";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import type { ActiveOrder } from "@/api/schemas/orders";
 import {
   Alert,
   Badge,
   Button,
-  Card,
+  EmptyState,
   Field,
   Input,
   OrderStatusBadge,
+  PasswordInput,
+  ScreenHeader,
+  SegmentedControl,
+  Sheet,
   Spinner,
+  useToast,
 } from "@/components/ui";
-import { formatRupiah } from "@/lib/format/money";
+import { ActiveOrderCard } from "@/features/orders/ActiveOrderCard";
 import { colors, layout, space, type } from "@/theme";
 import { ORDER_STATUSES } from "@/types/order-status";
 
@@ -25,22 +31,57 @@ export default function ComponentShowcase() {
   return <Showcase />;
 }
 
-const SAMPLE_ITEMS = [
-  { qty: 2, name: "Bakso urat", note: "Tanpa seledri", price: 30_000 },
-  { qty: 1, name: "Es teh manis", note: null, price: 5_000 },
-];
+// Contoh tampilan saja; tombol di kartu ini akan gagal karena Pesanan-nya tidak ada di server.
+const SAMPLE_ORDER: ActiveOrder = {
+  id: "contoh",
+  orderCode: "K7QX9MB4",
+  status: "dibayar",
+  buyerName: "Rina",
+  buyerNote: null,
+  createdAt: new Date(Date.now() - 2 * 60_000).toISOString(),
+  items: [
+    {
+      id: "1",
+      productNameSnapshot: "Bakso Urat",
+      priceSnapshot: 15_000,
+      qty: 2,
+      note: "Tanpa seledri",
+      variantSelections: [
+        { groupNameSnapshot: "Kuah", optionNameSnapshot: "Pedas", priceDeltaSnapshot: 0 },
+      ],
+    },
+    {
+      id: "2",
+      productNameSnapshot: "Es Teh Manis",
+      priceSnapshot: 5_000,
+      qty: 1,
+      note: null,
+      variantSelections: [],
+    },
+  ],
+  fulfillmentMethod: "ambil_sendiri",
+  deliveryFeeSnapshot: 0,
+  delivery: null,
+  scheduledFor: null,
+  buyerPhone: null,
+  eventName: null,
+  awaitingManualConfirmation: false,
+};
 
 function Showcase() {
+  const { showToast } = useToast();
   const [price, setPrice] = useState("");
+  const [segment, setSegment] = useState<"aktif" | "riwayat">("aktif");
+  const [sheetOpen, setSheetOpen] = useState(false);
   const priceError = price !== "" && !/^\d+$/.test(price) ? "Harga hanya boleh angka." : undefined;
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={type.title}>Komponen UI</Text>
+        <ScreenHeader title="Komponen UI" onBack={() => router.back()} />
 
         <Section title="Kartu Pesanan baru">
-          <OrderTicket />
+          <ActiveOrderCard order={SAMPLE_ORDER} />
         </Section>
 
         <Section title="Tombol">
@@ -50,13 +91,14 @@ function Showcase() {
             <Button label="Batal" variant="ghost" />
             <Button label="Hapus Item" variant="danger" />
           </View>
+          <Button label="Keluar" variant="dangerOutline" fullWidth />
           <Button label="Menyimpan" loading fullWidth />
           <Button label="Tidak bisa ditekan" disabled fullWidth />
         </Section>
 
         <Section title="Isian">
           <Field label="Nama Item">
-            <Input placeholder="Mis. Bakso urat" />
+            <Input placeholder="Mis. Bakso Urat" />
           </Field>
           <Field label="Harga" hint="Dalam Rupiah, tanpa titik." error={priceError}>
             <Input
@@ -67,9 +109,23 @@ function Showcase() {
               invalid={priceError !== undefined}
             />
           </Field>
+          <Field label="Password">
+            <PasswordInput />
+          </Field>
           <Field label="Deskripsi">
             <Input multiline placeholder="Ceritakan isi atau porsi Item ini" />
           </Field>
+        </Section>
+
+        <Section title="Pilihan">
+          <SegmentedControl
+            segments={[
+              { value: "aktif", label: "Aktif" },
+              { value: "riwayat", label: "Riwayat" },
+            ]}
+            value={segment}
+            onChange={setSegment}
+          />
         </Section>
 
         <Section title="Status Pesanan">
@@ -80,7 +136,8 @@ function Showcase() {
           </View>
           <View style={styles.wrap}>
             <Badge label="Stok 3" tone="warning" />
-            <Badge label="Pre-order" tone="primary" />
+            <Badge label="Pre-order" tone="info" />
+            <Badge label="Diantar" tone="primary" />
             <Badge label="Habis" />
           </View>
         </Section>
@@ -97,15 +154,42 @@ function Showcase() {
             message="Printer tidak ditemukan. Nyalakan Bluetooth lalu coba lagi."
           />
           <Alert tone="info" message="Tidak ada koneksi. Data yang tampil adalah data terakhir." />
+          <Button
+            label="Tampilkan toast"
+            variant="secondary"
+            fullWidth
+            onPress={() => showToast("Pesanan K7QX9MB4 ditandai Diproses")}
+          />
+          <Button
+            label="Buka sheet konfirmasi"
+            variant="secondary"
+            fullWidth
+            onPress={() => setSheetOpen(true)}
+          />
         </Section>
 
-        <Section title="Memuat">
+        <Section title="Kosong dan memuat">
+          <EmptyState
+            icon="receipt-text-outline"
+            title="Belum ada Pesanan masuk"
+            description="Pesanan yang sudah dibayar Pembeli muncul di sini."
+          />
           <View style={styles.row}>
             <Spinner />
             <Spinner size="large" />
           </View>
         </Section>
       </ScrollView>
+
+      <Sheet
+        visible={sheetOpen}
+        title="Tandai Pesanan K7QX9MB4 lunas?"
+        description="Pastikan uangnya sudah masuk. Status lunas tidak bisa dibatalkan."
+        onClose={() => setSheetOpen(false)}
+      >
+        <Button label="Ya, sudah lunas" size="lg" fullWidth onPress={() => setSheetOpen(false)} />
+        <Button label="Batal" variant="ghost" fullWidth onPress={() => setSheetOpen(false)} />
+      </Sheet>
     </SafeAreaView>
   );
 }
@@ -123,104 +207,15 @@ function PrinterIcon() {
   return <MaterialCommunityIcons name="printer-outline" size={20} color={colors.ink} />;
 }
 
-function OrderTicket() {
-  const total = SAMPLE_ITEMS.reduce((sum, item) => sum + item.price, 0);
-  return (
-    <Card elevated accent style={styles.ticket}>
-      <View style={styles.ticketHead}>
-        <Text style={type.micro}>Masuk 2 menit lalu</Text>
-        <OrderStatusBadge status="dibayar" />
-      </View>
-      <Text style={type.orderCode} accessibilityLabel="Kode Pesanan K 7 Q X 9 M B 4">
-        K7QX9MB4
-      </Text>
-      <Text style={type.bodyStrong}>Atas nama Rina</Text>
-
-      <Perforation />
-
-      <View style={styles.items}>
-        {SAMPLE_ITEMS.map((item) => (
-          <View key={item.name} style={styles.itemRow}>
-            <Text style={[type.amount, styles.qty]}>{item.qty}×</Text>
-            <View style={styles.itemBody}>
-              <Text style={type.body}>{item.name}</Text>
-              {item.note ? <Text style={type.caption}>{item.note}</Text> : null}
-            </View>
-          </View>
-        ))}
-      </View>
-
-      <View style={styles.totalRow}>
-        <Text style={type.caption}>Total</Text>
-        <Text style={[type.amount, styles.total]}>{formatRupiah(total)}</Text>
-      </View>
-
-      <Button label="Tandai Diproses" size="lg" fullWidth />
-    </Card>
-  );
-}
-
-// Sobekan tiket: garis putus-putus dengan coakan setengah lingkaran di kedua sisi kartu.
-function Perforation() {
-  return (
-    <View style={styles.perforation}>
-      <View style={[styles.notch, styles.notchLeft]} />
-      <View style={styles.dashClip}>
-        <View style={styles.dash} />
-      </View>
-      <View style={[styles.notch, styles.notchRight]} />
-    </View>
-  );
-}
-
-const NOTCH = 20;
-
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
   content: {
     paddingHorizontal: layout.screenPaddingX,
-    paddingTop: space.xl,
+    paddingTop: space.sm,
     paddingBottom: space.xxxl * 2,
     gap: space.xxxl,
   },
   section: { gap: space.md },
   row: { flexDirection: "row", alignItems: "center", gap: space.md },
   wrap: { flexDirection: "row", flexWrap: "wrap", gap: space.sm },
-  ticket: { gap: space.xs, paddingLeft: space.xl },
-  ticketHead: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: space.xs,
-  },
-  perforation: {
-    height: NOTCH,
-    marginVertical: space.sm,
-    marginLeft: -space.xl,
-    marginRight: -space.lg,
-    justifyContent: "center",
-  },
-  notch: {
-    position: "absolute",
-    width: NOTCH,
-    height: NOTCH,
-    borderRadius: NOTCH / 2,
-    backgroundColor: colors.bg,
-  },
-  notchLeft: { left: -NOTCH / 2 },
-  notchRight: { right: -NOTCH / 2 },
-  dashClip: { height: 1, overflow: "hidden", marginHorizontal: NOTCH },
-  dash: { height: 2, borderWidth: 1, borderColor: colors.line, borderStyle: "dashed" },
-  items: { gap: space.sm },
-  itemRow: { flexDirection: "row", gap: space.md },
-  qty: { fontSize: 16, lineHeight: 24, minWidth: 28, color: colors.brandStrong },
-  itemBody: { flex: 1 },
-  totalRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "space-between",
-    marginTop: space.md,
-    marginBottom: space.md,
-  },
-  total: { fontSize: 22, lineHeight: 28 },
 });

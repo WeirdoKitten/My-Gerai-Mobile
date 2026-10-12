@@ -12,8 +12,11 @@ export function createQueryClient() {
         retry: (failureCount, error) =>
           failureCount < MAX_GET_RETRIES && error instanceof ApiError && error.isTransient,
         staleTime: 30_000,
+        // Coba sekali walau offline supaya layar tanpa cache menampilkan pesan, bukan spinner tanpa akhir.
+        networkMode: "offlineFirst",
       },
-      mutations: { retry: false },
+      // Aksi tulis tidak diantrekan saat offline (ARSITEKTUR-SISTEM §5): langsung gagal dengan pesan jelas.
+      mutations: { retry: false, networkMode: "always" },
     },
   });
 }

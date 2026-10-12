@@ -2,6 +2,21 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-12 — Tahap 1a: login, daftar, antrean Pesanan, ubah status
+
+**Dampak:** kode (`app/`, `src/api/`, `src/features/`, `src/components/ui/`, `src/lib/`), `app.config.ts` (plugin `expo-secure-store`), `package.json` (`expo-secure-store`, `@react-native-community/netinfo`), `CLAUDE.md`, `README.md`, `docs/BACKLOG.md`, `docs/ARSITEKTUR-FOLDER.md`, `docs/DESAIN-SISTEM.md`, `docs/TEKNOLOGI.md`; BACKLOG repo web (Fase 12b).
+**Alasan:** User ingin melihat aplikasi Pedagang yang berfungsi. Keputusan User di Plan mode: Tahap 1 dipecah 1a/1b (push butuh Firebase); empat tab tampil sejak awal (Item dan Laporan "segera hadir"); kartu Pesanan mengikuti web tanpa total.
+**Ringkasan:**
+- Auth: token di `expo-secure-store`, `AuthProvider` + `Stack.Protected`. `401` menghapus token, mengosongkan cache, dan menampilkan "Sesi berakhir, silakan login kembali." Keluar tetap lokal walau server tidak terjangkau.
+- Layar: Masuk, Daftar (field sama dengan web), Status Lapak (pesan server), Pesanan (Aktif/Riwayat, polling 10 detik saat fokus, pull-to-refresh, badge tab), Detail Pesanan, Profil + Keluar, Item/Laporan "segera hadir". Semua lewat `/frontend-design:frontend-design`.
+- Aksi Pesanan: maju status, Tandai Lunas (QRIS Pribadi, dengan konfirmasi), Gagal Diantar (alasan + catatan, hitung mundur 15 menit). Tabel transisi disalin dari web hanya untuk memilih tombol; server tetap memutuskan.
+- Tidak ada `GET /orders/{id}`: detail diambil dari cache antrean lalu riwayat.
+- Tanggal WIB dan nomor HP diformat manual (hasil sama dengan web), diuji unit.
+- Bug yang ditemukan saat uji emulator dan diperbaiki: mutation TanStack ditahan selamanya saat offline (sekarang `networkMode: always`); error isian tidak hilang saat diketik ulang; huruf "item" pada teks "segera hadir".
+- Review keamanan manual (skill `/security-review` butuh remote `origin`): URL API wajib HTTPS di build rilis, pesan layar menunggu lewat context bukan parameter URL (deep link tidak bisa memalsukan teks), link WhatsApp/Telepon hanya untuk nomor berisi angka.
+- Verifikasi: 28 test unit lolos, `tsc` + Biome bersih, `expo-doctor` 21/21. Emulator API 37 terhadap server web lokal: salah login, login, antrean nyata, ubah status sampai Selesai, Riwayat, detail, Profil, Keluar, daftar, akun `pending`, offline, sesi dicabut di server, skala huruf 1.3×.
+- Database dev repo web perlu `pnpm db:migrate` (migrasi `0021` belum diterapkan). Belum dicek di emulator: Pesanan Antar dan QRIS Pribadi (belum ada data uji).
+
 ## 2026-10-08 — Development build jalan di emulator; perbaikan linker pnpm
 
 **Dampak:** `pnpm-workspace.yaml`, `.npmrc` (dihapus), `CLAUDE.md`, `README.md`, `docs/BACKLOG.md`, `docs/ARSITEKTUR-FOLDER.md`, `docs/DESAIN-SISTEM.md`, `docs/TEKNOLOGI.md`.

@@ -14,9 +14,13 @@ import { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { createQueryClient } from "@/api/query-client";
+import { ToastProvider } from "@/components/ui";
+import { AuthProvider, useAuth } from "@/lib/auth/AuthProvider";
+import { setupQueryNetworking } from "@/lib/network/setup";
 import { colors } from "@/theme";
 
 SplashScreen.preventAutoHideAsync();
+setupQueryNetworking();
 
 export default function RootLayout() {
   const [queryClient] = useState(createQueryClient);
@@ -27,25 +31,43 @@ export default function RootLayout() {
     PlusJakartaSans_700Bold,
     PlusJakartaSans_800ExtraBold,
   });
-  const ready = fontsLoaded || fontError !== null;
 
-  useEffect(() => {
-    if (ready) SplashScreen.hideAsync();
-  }, [ready]);
-
-  if (!ready) return null;
+  if (!fontsLoaded && fontError === null) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
-        <StatusBar style="dark" />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: colors.bg },
-          }}
-        />
+        <AuthProvider>
+          <ToastProvider>
+            <StatusBar style="dark" />
+            <RootNavigator />
+          </ToastProvider>
+        </AuthProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
+  );
+}
+
+function RootNavigator() {
+  const { status } = useAuth();
+
+  useEffect(() => {
+    if (status !== "loading") SplashScreen.hideAsync();
+  }, [status]);
+
+  if (status === "loading") return null;
+  const signedIn = status === "signedIn";
+
+  return (
+    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
+      <Stack.Protected guard={signedIn}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="pesanan/[orderId]" />
+      </Stack.Protected>
+      <Stack.Protected guard={!signedIn}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+      <Stack.Screen name="dev/komponen" />
+    </Stack>
   );
 }

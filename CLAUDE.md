@@ -9,7 +9,7 @@ Dokumen ini otomatis dibaca setiap sesi Claude Code di repo ini. Tujuannya: **ko
 - **Backend tidak ada di repo ini.** Server, database, pembayaran, dan aturan bisnis ada di repo web **MyGerai** ([WeirdoKitten/My-Gerai](https://github.com/WeirdoKitten/My-Gerai)), yang di-clone bersebelahan di `../My-Gerai`. Aplikasi ini hanya klien dari REST API `/api/mobile/v1/*` di repo web.
 - Pembeli dan Admin **tidak** memakai aplikasi ini. Mereka tetap lewat web.
 
-Status saat ini: **Tahap 0 scaffolding** (2026-10-07). Proyek Expo SDK 57, tema, komponen UI baku awal, dan klien API sudah ada; belum ada fitur. Development build sudah jalan di emulator. Project EAS terhubung (`@satriapss-team/my-gerai`). Sisa Tahap 0: uji di HP fisik User. **API backend (Fase 12a, repo web) sudah tersedia**, kontrak di [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md). Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
+Status saat ini: **Tahap 1a selesai** (2026-10-12): login, daftar, layar menunggu persetujuan, antrean + riwayat Pesanan, detail + ubah status, profil + keluar, empat tab. Diuji di emulator terhadap server web lokal. Berikutnya: Tahap 1b (push, butuh project Firebase). Sisa Tahap 0: uji di HP fisik User. Project EAS: `@satriapss-team/my-gerai`. **API backend (Fase 12a, repo web) sudah tersedia**, kontrak di [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md). Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
 
 ## Ground Truth — Dua Tempat, Satu Sumber per Topik
 

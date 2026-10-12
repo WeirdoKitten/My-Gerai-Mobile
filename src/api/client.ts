@@ -77,6 +77,10 @@ function getBaseUrl(): string {
   if (!url) {
     throw new Error("EXPO_PUBLIC_API_URL belum diisi. Salin .env.example ke .env.");
   }
+  // Token Bearer tidak boleh lewat HTTP polos di luar development.
+  if (!__DEV__ && !url.startsWith("https://")) {
+    throw new Error("EXPO_PUBLIC_API_URL wajib HTTPS di build rilis.");
+  }
   return url.replace(/\/+$/, "");
 }
 

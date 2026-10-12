@@ -25,12 +25,21 @@
 
 ## Tahap 1 — Login, Daftar, Antrean Pesanan, Push
 
-Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a).
+Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Dipecah 1a/1b atas keputusan User (2026-10-12): push butuh project Firebase.
 
-- [ ] Login No. HP + password, simpan token di secure store, `401` → kembali ke login, logout.
-- [ ] Pendaftaran Pedagang (alur dan field sama dengan `/daftar` web), layar status menunggu persetujuan Admin.
-- [ ] Antrean Pesanan aktif + riwayat, polling saat layar aktif, pull-to-refresh.
-- [ ] Detail Pesanan + ubah status (proses, siap, selesai, gagal antar) + tandai lunas untuk QRIS Pribadi.
+### Tahap 1a — Login, Daftar, Antrean, Ubah Status
+
+- [x] Login No. HP + password, simpan token di secure store, `401` → kembali ke login, logout. (Dicek di emulator 2026-10-12: salah login, login, sesi dicabut di server → kembali ke login dengan pesan, Keluar dengan konfirmasi.)
+- [x] Pendaftaran Pedagang (alur dan field sama dengan `/daftar` web), layar status menunggu persetujuan Admin. (Dicek di emulator: daftar akun baru, login akun `pending`.)
+- [x] Antrean Pesanan aktif + riwayat, polling saat layar aktif, pull-to-refresh. (Polling 10 detik hanya saat tab Pesanan fokus dan aplikasi aktif.)
+- [x] Detail Pesanan + ubah status (proses, siap, selesai) + tandai lunas untuk QRIS Pribadi + gagal antar. (Ambil Sendiri dicek di emulator sampai `selesai` dan pindah ke Riwayat. **Belum dicek di emulator**: Pesanan Antar + sheet Gagal Diantar, dan Tandai Lunas QRIS Pribadi, karena data seed dev belum punya Pesanan jenis itu. Logika transisi dan hitung mundur 15 menit diuji unit.)
+- [x] Empat tab bawah: Pesanan (badge jumlah yang perlu ditindak), Item dan Laporan ("segera hadir"), Profil (info Lapak + Keluar).
+- [x] Penanda offline + aksi tulis langsung gagal dengan pesan saat offline (dicek di emulator).
+- [x] Review keamanan manual (skill `/security-review` butuh remote `origin`, belum ada): URL API wajib HTTPS di build rilis, pesan layar menunggu tidak lewat parameter URL, link WhatsApp/Telepon hanya untuk nomor berisi angka.
+- [ ] Uji Pesanan Antar dan QRIS Pribadi di emulator setelah ada data uji (Lapak demo dengan antar aktif dan mode QRIS Pribadi).
+
+### Tahap 1b — Push Notification
+
 - [ ] Push notification: izin, channel Pesanan dengan bunyi, registrasi token, ketuk notifikasi membuka detail.
 - [ ] Panduan penghemat baterai untuk merek tertentu.
 - [ ] Maestro: login → antrean → ubah status sampai selesai.

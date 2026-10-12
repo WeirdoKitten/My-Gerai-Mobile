@@ -4,7 +4,7 @@ Aplikasi Android **khusus Pedagang** untuk platform **MyGerai** (pemesanan QR + 
 
 Backend, database, dan aturan bisnis ada di repo web **[My-Gerai](https://github.com/WeirdoKitten/My-Gerai)**. Aplikasi ini hanya klien dari REST API `/api/mobile/v1/*` di sana.
 
-> Status: **Tahap 0 scaffolding** (2026-10-07). Proyek Expo, tema, dan komponen UI baku sudah ada; belum ada fitur. Lihat [docs/BACKLOG.md](docs/BACKLOG.md).
+> Status: **Tahap 1a** (2026-10-12). Login, daftar, antrean Pesanan, dan ubah status sudah jalan. Push notification menyusul (Tahap 1b). Lihat [docs/BACKLOG.md](docs/BACKLOG.md).
 
 ## Struktur Repo Lokal
 
@@ -53,7 +53,7 @@ pnpm format      # Biome, perbaiki otomatis
 pnpm test        # Jest + React Native Testing Library
 ```
 
-Server repo web harus berjalan supaya API bisa dipanggil (`pnpm dev` di `../My-Gerai`).
+Server repo web harus berjalan supaya API bisa dipanggil. Di `../My-Gerai`: `pnpm db:migrate`, `pnpm db:seed:demo` (sekali), lalu `pnpm dev`. Akun Pedagang demo: `082222222222` / `password`. Pesanan uji dibuat dari halaman menu Pembeli di browser (`localhost:3000/menu/bakso-pak-budi`, tombol simulasi bayar).
 
 ## Dokumentasi
 
