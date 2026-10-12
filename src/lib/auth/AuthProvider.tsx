@@ -46,16 +46,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await deleteToken().catch(() => {});
   }, [queryClient]);
 
-  useEffect(() => {
-    configureApiClient({
-      getToken: () => tokenRef.current,
-      onUnauthorized: () => {
-        if (tokenRef.current === null) return;
-        setNotice(SESSION_EXPIRED_NOTICE);
-        void clearLocalSession();
-      },
-    });
+  // Didaftarkan ulang tiap render (idempoten): kalau modul klien API dimuat ulang
+  // (fast refresh), penyedia token tidak hilang dan request tidak terkirim tanpa token.
+  configureApiClient({
+    getToken: () => tokenRef.current,
+    onUnauthorized: () => {
+      if (tokenRef.current === null) return;
+      setNotice(SESSION_EXPIRED_NOTICE);
+      void clearLocalSession();
+    },
+  });
 
+  useEffect(() => {
     let cancelled = false;
     readToken()
       .catch(() => null)
@@ -67,7 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [clearLocalSession]);
+  }, []);
 
   const signIn = useCallback(async (token: string) => {
     await saveToken(token);

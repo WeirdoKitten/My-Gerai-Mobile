@@ -84,6 +84,11 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 | `Screen` | Kerangka layar sesudah login: `ScreenHeader` + `OfflineBanner` di atas, isi mengisi sisa layar. |
 | `SegmentedControl` | Dua sampai tiga pilihan setara (mis. Aktif / Riwayat). Wadah pill `surface` berborder, aktif `brandTint` + teks `brandStrong`. |
 | `PasswordInput` | `Input` + tombol lihat/sembunyikan password. |
+| `Toggle` | `Switch` bawaan Android (terasa native), track `brand` saat aktif, label wajib untuk pembaca layar. |
+| `PhotoThumb` | `expo-image` dengan cache disk, radius `control`; tanpa foto = kotak `brandTint` + ikon. `dimmed` untuk Item Habis. |
+| `MoneyInput` | `Input` keyboard angka yang hanya menerima digit. Pratinjau `Rp15.000` ditaruh di hint `Field`. |
+| `ListRow` | Baris menu (ikon dalam kotak `brandTint`, judul, keterangan, chevron) untuk membuka layar lain. |
+| `TimeField` | Tombol jam (`09.00`, tabular) yang membuka pemilih jam native 24 jam. |
 | `OfflineBanner` | Penanda "Tidak ada koneksi" ([ARSITEKTUR-SISTEM §5](ARSITEKTUR-SISTEM.md#5-jaringan-lambat-dan-offline)). |
 
 ## 4. Layout
@@ -102,6 +107,9 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 - **Kartu Pesanan di antrean** (Tahap 1a): aksen `brand` + `elevated` hanya untuk Pesanan yang perlu ditindak (`dibayar` atau QRIS Pribadi menunggu konfirmasi). Pesanan yang sedang diproses memakai kartu berborder biasa. Harga per baris Item dari server (qty × harga snapshot, sama dengan web); **tanpa total** karena `GET /orders` tidak membawanya. Catatan Item berwarna `warning` supaya tidak terlewat. Bagian atas kartu (kode, nama) membuka detail; tombol aksi tetap di kartu.
 - **Riwayat**: kartu berborder read-only, kode `heading` dengan letter spacing, footer "Bagianmu" (`totalForMerchant`, untuk `selesai`) atau "Nilai Pesanan" (`subtotal`), nilai dari server.
 - **Konfirmasi**: `Sheet` dari bawah untuk aksi uang atau yang tidak bisa dibatalkan (Tandai Lunas, Keluar, Gagal Diantar). Web tidak memakai konfirmasi untuk Tandai Lunas; di HP salah ketuk lebih mungkin.
+- **Daftar Item** (Tahap 3): satu panel `surface` berborder berisi baris; foto 64 di kiri, nama + harga + badge (Pre-order, Stok N, Habis), `Toggle` Tersedia/Habis di kanan dengan label kecil berwarna `success` saat tersedia. Item Habis: foto dan nama diredupkan. Tombol "Tambah Item" `lg` menempel di bawah.
+- **Form Item**: satu kolom, foto 96 + tombol galeri/kamera di atas, pre-order dalam panel berborder dengan `Toggle`, editor varian berupa panel per grup. Tombol "Simpan Item" menempel di bawah; error isian ditandai merah dan diringkas di atas tombol.
+- **Status Lapak** (di atas tab Pesanan): panel berwarna `successBg`/`dangerBg` dengan border sewarna, titik status, "Lapak Buka/Tutup", keterangan (termasuk "Buka lagi … sesuai jadwal"), dan `Toggle`.
 - **Layar sebelum login**: ikon Lapak dalam kotak `brandTint`, judul, satu kalimat penjelas, isian di tengah, tombol utama `lg` di bawah.
 
 ## 6. Ikon

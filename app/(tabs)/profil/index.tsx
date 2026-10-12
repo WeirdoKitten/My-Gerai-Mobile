@@ -3,12 +3,12 @@ import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { errorMessage } from "@/api/error-message";
-import { Alert, Button, Card, ScreenHeader, Sheet, Spinner } from "@/components/ui";
+import { Alert, Button, Card, ListRow, ScreenHeader, Sheet, Spinner } from "@/components/ui";
 import { Screen } from "@/components/ui/Screen";
 import { useMe } from "@/features/profile/use-me";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { formatIndonesianPhone } from "@/lib/format/phone";
-import { colors, layout, space, type } from "@/theme";
+import { colors, layout, radius, space, type } from "@/theme";
 
 export default function ProfileScreen() {
   const me = useMe();
@@ -41,8 +41,17 @@ export default function ProfileScreen() {
           </Card>
         )}
 
+        <View style={styles.menu}>
+          <ListRow
+            icon="clock-outline"
+            title="Jadwal Operasional"
+            description="Atur jam buka dan tutup otomatis"
+            onPress={() => router.push("/jadwal")}
+          />
+        </View>
+
         <Text style={[type.caption, styles.note]}>
-          Ubah profil, jadwal, dan pengaturan Lapak lewat dashboard web untuk sementara. Fiturnya
+          Ubah profil dan pengaturan Lapak lainnya lewat dashboard web untuk sementara. Fiturnya
           menyusul di aplikasi.
         </Text>
 
@@ -108,4 +117,10 @@ const styles = StyleSheet.create({
   divider: { height: 1, backgroundColor: colors.line, marginVertical: space.md },
   row: { gap: 2, marginBottom: space.sm },
   note: { paddingHorizontal: space.xs },
+  menu: {
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: colors.line,
+    overflow: "hidden",
+  },
 });

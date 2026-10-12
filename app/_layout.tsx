@@ -63,6 +63,9 @@ function RootNavigator() {
       <Stack.Protected guard={signedIn}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="pesanan/[orderId]" />
+        <Stack.Screen name="item/baru" />
+        <Stack.Screen name="item/[productId]" />
+        <Stack.Screen name="jadwal" />
       </Stack.Protected>
       <Stack.Protected guard={!signedIn}>
         <Stack.Screen name="(auth)" />

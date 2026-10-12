@@ -54,10 +54,10 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Di
 
 ## Tahap 3 — Kelola Item & Lapak
 
-- [ ] Daftar Item, tambah/ubah, harga, harga modal, stok, aktif/nonaktif.
-- [ ] Varian Item (grup + opsi + selisih harga).
-- [ ] Foto Item dan foto Lapak (kamera/galeri, kompres, upload).
-- [ ] Buka/tutup Lapak + jadwal operasional.
+- [x] Daftar Item, tambah/ubah, harga, harga modal, stok, aktif/nonaktif. (Dicek di emulator 2026-10-12: tambah Item lengkap, ubah ke pre-order, ubah harga, toggle Habis; data dicek lewat API dan muncul di menu Pembeli web. Tidak ada hapus Item, sama dengan web.)
+- [x] Varian Item (grup + opsi + selisih harga). (Dicek di emulator dan di server.)
+- [ ] Foto Item dan foto Lapak (kamera/galeri, kompres, upload). (Foto Item dari galeri **selesai** dan dicek di emulator. **Sisa**: foto Lapak masuk Tahap 4 bersama Profil; tombol kamera belum dicoba karena emulator tanpa kamera.)
+- [x] Buka/tutup Lapak + jadwal operasional. (Kartu status di atas tab Pesanan, layar Jadwal Operasional dari Profil dengan pemilih jam native. Dicek di emulator dan di server.)
 
 ## Tahap 4 — Laporan, Profil, Uang, Lainnya
 

@@ -1,6 +1,6 @@
 # Arsitektur Folder
 
-> Ini **target** struktur. Yang sudah ada per Tahap 1a (2026-10-12): `app/` (`_layout`, `index` redirect, `(auth)/{login,daftar,menunggu}`, `(tabs)/{pesanan,item,laporan,profil}`, `pesanan/[orderId]`, `dev/komponen`), `src/api/` (client, query-client, error-message, schemas + endpoints auth/me/orders/meta), `src/features/{auth,orders,profile,placeholder}/`, `src/components/ui/`, `src/lib/{auth,network,format}/`, `src/theme.ts`, `src/types/order-status.ts`, `tests/`. Perbarui dokumen ini setiap kali struktur nyata berubah.
+> Ini **target** struktur. Yang sudah ada per Tahap 1a (2026-10-12): `app/` (`_layout`, `index` redirect, `(auth)/{login,daftar,menunggu}`, `(tabs)/{pesanan,item,laporan,profil}`, `pesanan/[orderId]`, `dev/komponen`), `src/api/` (client, query-client, error-message, schemas + endpoints auth/me/orders/meta), `src/features/{auth,orders,products,lapak,profile,placeholder}/`, `app/item/{baru,[productId]}.tsx`, `app/jadwal.tsx` (Tahap 3), `src/components/ui/`, `src/lib/{auth,network,format}/`, `src/theme.ts`, `src/types/order-status.ts`, `tests/`. Perbarui dokumen ini setiap kali struktur nyata berubah.
 >
 > Catatan expo-router: rute sesudah login dibungkus `Stack.Protected` di `app/_layout.tsx`. Tab memakai `expo-router/js-tabs`. Folder tab berisi `index.tsx` (`(tabs)/pesanan/index.tsx`), sehingga URL tab `/pesanan` dan detail `/pesanan/[orderId]` (di luar tab) tidak bentrok.
 

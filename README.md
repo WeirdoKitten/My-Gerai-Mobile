@@ -4,7 +4,7 @@ Aplikasi Android **khusus Pedagang** untuk platform **MyGerai** (pemesanan QR + 
 
 Backend, database, dan aturan bisnis ada di repo web **[My-Gerai](https://github.com/WeirdoKitten/My-Gerai)**. Aplikasi ini hanya klien dari REST API `/api/mobile/v1/*` di sana.
 
-> Status: **Tahap 1a** (2026-10-12). Login, daftar, antrean Pesanan, dan ubah status sudah jalan. Push notification menyusul (Tahap 1b). Lihat [docs/BACKLOG.md](docs/BACKLOG.md).
+> Status (2026-10-12): login, daftar, antrean Pesanan, ubah status, kelola Item, buka/tutup Lapak, dan jadwal sudah jalan. Push notification (Tahap 1b), cetak struk (Tahap 2), dan laporan/profil lengkap (Tahap 4) menyusul. Lihat [docs/BACKLOG.md](docs/BACKLOG.md).
 
 ## Struktur Repo Lokal
 

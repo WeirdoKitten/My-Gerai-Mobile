@@ -13,15 +13,21 @@ import {
   EmptyState,
   Field,
   Input,
+  ListRow,
+  MoneyInput,
   OrderStatusBadge,
   PasswordInput,
+  PhotoThumb,
   ScreenHeader,
   SegmentedControl,
   Sheet,
   Spinner,
+  TimeField,
+  Toggle,
   useToast,
 } from "@/components/ui";
 import { ActiveOrderCard } from "@/features/orders/ActiveOrderCard";
+import { formatRupiah } from "@/lib/format/money";
 import { colors, layout, space, type } from "@/theme";
 import { ORDER_STATUSES } from "@/types/order-status";
 
@@ -73,6 +79,9 @@ function Showcase() {
   const [price, setPrice] = useState("");
   const [segment, setSegment] = useState<"aktif" | "riwayat">("aktif");
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [money, setMoney] = useState("15000");
+  const [toggle, setToggle] = useState(true);
+  const [time, setTime] = useState("09:00");
   const priceError = price !== "" && !/^\d+$/.test(price) ? "Harga hanya boleh angka." : undefined;
 
   return (
@@ -115,6 +124,23 @@ function Showcase() {
           <Field label="Deskripsi">
             <Input multiline placeholder="Ceritakan isi atau porsi Item ini" />
           </Field>
+        </Section>
+
+        <Section title="Kontrol Lapak">
+          <Field label="Harga Jual (Rp)" hint={money ? formatRupiah(Number(money)) : undefined}>
+            <MoneyInput value={money} onChangeText={setMoney} />
+          </Field>
+          <View style={styles.row}>
+            <Toggle value={toggle} onValueChange={setToggle} label="Contoh toggle" />
+            <TimeField value={time} onChange={setTime} label="Jam buka" />
+            <PhotoThumb src={null} />
+          </View>
+          <ListRow
+            icon="clock-outline"
+            title="Jadwal Operasional"
+            description="Atur jam buka dan tutup otomatis"
+            onPress={() => showToast("Contoh baris menu")}
+          />
         </Section>
 
         <Section title="Pilihan">

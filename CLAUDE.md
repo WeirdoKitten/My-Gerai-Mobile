@@ -9,7 +9,7 @@ Dokumen ini otomatis dibaca setiap sesi Claude Code di repo ini. Tujuannya: **ko
 - **Backend tidak ada di repo ini.** Server, database, pembayaran, dan aturan bisnis ada di repo web **MyGerai** ([WeirdoKitten/My-Gerai](https://github.com/WeirdoKitten/My-Gerai)), yang di-clone bersebelahan di `../My-Gerai`. Aplikasi ini hanya klien dari REST API `/api/mobile/v1/*` di repo web.
 - Pembeli dan Admin **tidak** memakai aplikasi ini. Mereka tetap lewat web.
 
-Status saat ini: **Tahap 1a selesai** (2026-10-12): login, daftar, layar menunggu persetujuan, antrean + riwayat Pesanan, detail + ubah status, profil + keluar, empat tab. Diuji di emulator terhadap server web lokal. Berikutnya: Tahap 1b (push, butuh project Firebase). Sisa Tahap 0: uji di HP fisik User. Project EAS: `@satriapss-team/my-gerai`. **API backend (Fase 12a, repo web) sudah tersedia**, kontrak di [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md). Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
+Status saat ini: **Tahap 1a dan 3 selesai** (2026-10-12): login, daftar, antrean + riwayat Pesanan, ubah status, profil + keluar; kelola Item (foto, varian, pre-order, stok, Tersedia/Habis), buka/tutup Lapak, jadwal operasional. Diuji di emulator terhadap server web lokal. Ditunda: Tahap 1b (push, butuh project Firebase). Berikutnya: Tahap 4, lalu Tahap 2 (butuh HP + printer BLE). Sisa Tahap 0: uji di HP fisik User. Project EAS: `@satriapss-team/my-gerai`. **API backend (Fase 12a, repo web) sudah tersedia**, kontrak di [../My-Gerai/docs/API-MOBILE.md](../My-Gerai/docs/API-MOBILE.md). Lihat [docs/BACKLOG.md](docs/BACKLOG.md) & [CHANGELOG.md](CHANGELOG.md).
 
 ## Ground Truth — Dua Tempat, Satu Sumber per Topik
 

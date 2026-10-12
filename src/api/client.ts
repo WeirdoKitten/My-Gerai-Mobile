@@ -141,6 +141,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions<T>): P
     });
   } catch (error) {
     if (signal?.aborted) throw error;
+    if (__DEV__) console.warn(`[api] ${method} ${path}: fetch gagal`, String(error));
     throw new ApiError(timedOut ? "timeout" : "network", undefined, null);
   } finally {
     clearTimeout(timer);

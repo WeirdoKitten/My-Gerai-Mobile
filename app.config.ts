@@ -27,6 +27,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     "expo-font",
     "expo-status-bar",
     "expo-secure-store",
+    "expo-image",
+    "@react-native-community/datetimepicker",
+    [
+      "expo-image-picker",
+      {
+        photosPermission: "MyGerai butuh akses galeri untuk memilih foto Item dan Lapak.",
+        cameraPermission: "MyGerai butuh akses kamera untuk memotret Item dan Lapak.",
+        microphonePermission: false,
+      },
+    ],
     [
       "expo-splash-screen",
       {

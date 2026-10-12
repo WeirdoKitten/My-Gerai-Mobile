@@ -2,6 +2,19 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-12 — Tahap 3: kelola Item, buka/tutup Lapak, jadwal
+
+**Dampak:** kode (`app/(tabs)/item`, `app/item/`, `app/jadwal.tsx`, `src/features/{products,lapak}/`, `src/api/` products/lapak, komponen UI baru), `app.config.ts` (plugin `expo-image`, `expo-image-picker`, datetimepicker), `package.json` (`expo-image`, `expo-image-picker`, `expo-image-manipulator`, `expo-file-system`, `@react-native-community/datetimepicker`), `docs/BACKLOG.md`, `docs/ARSITEKTUR-FOLDER.md`, `docs/DESAIN-SISTEM.md`, `docs/TEKNOLOGI.md`, `CLAUDE.md`, `README.md`; BACKLOG repo web.
+**Alasan:** User meminta semua tahap dilanjutkan; push (Tahap 1b) ditunda sampai ada Firebase. Tahap 3 lebih dulu karena bisa diuji penuh di emulator.
+**Ringkasan:**
+- Tab Item: daftar dengan foto, harga, badge Pre-order/Stok/Habis, toggle Tersedia/Habis (optimistik). Form Tambah/Ubah Item setara web: foto galeri/kamera (dikecilkan ke 1280px JPEG 0,7 di HP), harga jual, harga modal, pre-order, stok, varian. Varian disimpan ulang setelah Item, sama dengan web. Konfirmasi "Buang perubahan?" saat keluar dari form yang belum disimpan.
+- Kartu status Lapak (Buka/Tutup) di atas tab Pesanan, padanan `OpenToggle` web. Layar Jadwal Operasional dari Profil dengan pemilih jam 24 jam bawaan Android.
+- Build native dibuat ulang dengan `expo prebuild --clean`, sekaligus memperbaiki skema deep link lama (`exp+my-gerai`).
+- Bug yang ketemu saat uji emulator dan diperbaiki: upload foto gagal karena `fetch` bawaan Expo tidak menerima objek `{ uri }` ala React Native (sekarang `File` dari `expo-file-system`); setelah fast refresh, klien API kehilangan penyedia token sehingga Pedagang dikeluarkan (penyedia token kini didaftarkan ulang tiap render); form Ubah Item dibuat ulang setelah simpan sehingga tidak kembali ke daftar.
+- 39 test unit lolos (tambahan: konversi form Item ↔ payload, aturan pre-order, varian, jadwal lewat tengah malam, `assetUrl`). `tsc`, Biome, `expo-doctor` bersih.
+- Data uji di database dev: Item "Laksa Ayam" (ditandai Habis). Jadwal Lapak demo dikembalikan kosong setelah uji.
+- Belum: foto Lapak (Tahap 4), tombol kamera di HP fisik.
+
 ## 2026-10-12 — Tahap 1a: login, daftar, antrean Pesanan, ubah status
 
 **Dampak:** kode (`app/`, `src/api/`, `src/features/`, `src/components/ui/`, `src/lib/`), `app.config.ts` (plugin `expo-secure-store`), `package.json` (`expo-secure-store`, `@react-native-community/netinfo`), `CLAUDE.md`, `README.md`, `docs/BACKLOG.md`, `docs/ARSITEKTUR-FOLDER.md`, `docs/DESAIN-SISTEM.md`, `docs/TEKNOLOGI.md`; BACKLOG repo web (Fase 12b).
