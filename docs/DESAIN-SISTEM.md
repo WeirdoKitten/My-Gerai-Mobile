@@ -90,6 +90,8 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 | `ListRow` | Baris menu (ikon dalam kotak `brandTint`, judul, keterangan, chevron) untuk membuka layar lain. |
 | `TimeField` | Tombol jam (`09.00`, tabular) yang membuka pemilih jam native 24 jam. |
 | `OfflineBanner` | Penanda "Tidak ada koneksi" ([ARSITEKTUR-SISTEM §5](ARSITEKTUR-SISTEM.md#5-jaringan-lambat-dan-offline)). |
+| `SubScreen` | Kerangka layar turunan (dibuka dari tab): `ScreenHeader` dengan tombol kembali, `OfflineBanner`, isi, dan `footer` opsional yang menempel di bawah untuk aksi utama. |
+| `StarRating` | Lima bintang read-only (`star`/`star-outline`, `brand`/`line`), dibulatkan ke bintang utuh seperti web. |
 
 ## 4. Layout
 
@@ -110,6 +112,12 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 - **Daftar Item** (Tahap 3): satu panel `surface` berborder berisi baris; foto 64 di kiri, nama + harga + badge (Pre-order, Stok N, Habis), `Toggle` Tersedia/Habis di kanan dengan label kecil berwarna `success` saat tersedia. Item Habis: foto dan nama diredupkan. Tombol "Tambah Item" `lg` menempel di bawah.
 - **Form Item**: satu kolom, foto 96 + tombol galeri/kamera di atas, pre-order dalam panel berborder dengan `Toggle`, editor varian berupa panel per grup. Tombol "Simpan Item" menempel di bawah; error isian ditandai merah dan diringkas di atas tombol.
 - **Status Lapak** (di atas tab Pesanan): panel berwarna `successBg`/`dangerBg` dengan border sewarna, titik status, "Lapak Buka/Tutup", keterangan (termasuk "Buka lagi … sesuai jadwal"), dan `Toggle`.
+- **Kartu Lapak** (tab Profil, Tahap 4): kartu berborder dengan **tenda bergaris** di atas (garis `brand`/`brandTint` 24px + tepi bergelombang), foto Lapak 72, nama `title`, kategori, alamat, tombol "Ubah Profil" dan "QR Menu". Tenda ini hiasan kedua di aplikasi setelah tiket Pesanan, sengaja hanya di layar yang jarang dibuka. Di bawahnya satu panel `ListRow` (urutan sama dengan web: Jadwal, Metode Pembayaran, Pengantaran, Rating & Ulasan) dan kartu event kalau ada.
+- **Form Ubah Profil**: foto sampul lebar 200, bagian berjudul `heading` (Info Lapak, Lokasi Lapak, Rekening Pencairan, Akun), tombol "Simpan Profil" menempel di bawah.
+- **Pemilih lokasi**: kotak cari dengan ikon kaca pembesar, daftar saran dalam panel berborder, peta 240 berborder radius `card`, pin `map-marker` `brand` 44 di tengah (pudar kalau belum ada titik), tombol "Pakai lokasi saya" + "Hapus titik", keterangan status di bawah. Saat jari di peta, layar berhenti menggulir.
+- **Laporan**: `SegmentedControl` periode, Omzet sebagai angka utama (40, proporsional) + perubahan vs periode lalu (panah + `success`/`danger`), stat tile 2 kolom (Keuntungan, Pesanan, Rata-rata, Ongkir), panel `neutralBg` "Ditagih ke Pembeli", Rekomendasi Asisten, grafik kolom omzet per hari, Item terlaris dengan bar `revenueShare`. Grafik: satu seri `brand`, kolom maks 24px ujung atas membulat 4px, grid garis rambut `line`, label sumbu ringkas (`50rb`), ketuk kolom untuk melihat angkanya (kolom terpilih `brandStrong` + latar `neutralBg`). Grafik disembunyikan kalau hanya satu hari.
+- **Tagihan Biaya Layanan**: tagihan belum lunas = `Card elevated accent`, nominal 28 bold, jatuh tempo `warning`, QR dalam bingkai putih, tiga langkah bernomor, tombol "Simpan QR ke galeri" + "Bagikan QR". Tagihan lain kartu berborder dengan nominal lebih kecil.
+- **QR Menu**: poster dari server di tengah (maks 360), baris link + "Salin", tombol "Simpan ke galeri" dan "Bagikan" menempel di bawah.
 - **Layar sebelum login**: ikon Lapak dalam kotak `brandTint`, judul, satu kalimat penjelas, isian di tengah, tombol utama `lg` di bawah.
 
 ## 6. Ikon
@@ -125,4 +133,4 @@ Satu set: **`MaterialCommunityIcons`** dari `@expo/vector-icons` (dipilih Tahap 
 
 ## 8. Status Implementasi
 
-Tahap 0 (2026-10-07): `src/theme.ts` (semua token di atas + `onBrand` putih untuk teks di atas tombol berwarna), `Button`, `Input` (termasuk `multiline` sebagai Textarea), `Field`, `Card`, `Badge`, `OrderStatusBadge`, `Alert`, `Spinner` di `src/components/ui/`. Review visual di `app/dev/komponen.tsx` (hanya build development). Dicek di emulator Android API 37 (2026-10-08); belum dicek di HP fisik. Tahap 1a (2026-10-12) menambah `Toast`, `Sheet`, `EmptyState`, `ScreenHeader`, `Screen`, `SegmentedControl`, `OfflineBanner`, `PasswordInput`, dan varian `Button` `dangerOutline`; semua layar Tahap 1a dicek di emulator, termasuk skala huruf 1.3×. Komponen lain di §3 dibuat saat dibutuhkan fitur.
+Tahap 0 (2026-10-07): `src/theme.ts` (semua token di atas + `onBrand` putih untuk teks di atas tombol berwarna), `Button`, `Input` (termasuk `multiline` sebagai Textarea), `Field`, `Card`, `Badge`, `OrderStatusBadge`, `Alert`, `Spinner` di `src/components/ui/`. Review visual di `app/dev/komponen.tsx` (hanya build development). Dicek di emulator Android API 37 (2026-10-08); belum dicek di HP fisik. Tahap 1a (2026-10-12) menambah `Toast`, `Sheet`, `EmptyState`, `ScreenHeader`, `Screen`, `SegmentedControl`, `OfflineBanner`, `PasswordInput`, dan varian `Button` `dangerOutline`; semua layar Tahap 1a dicek di emulator, termasuk skala huruf 1.3×. Tahap 3 (2026-10-12) menambah `PhotoThumb`, `MoneyInput`, `ListRow`, `TimeField`, `Toggle`. Tahap 4 (2026-10-13) menambah `SubScreen`, `StarRating`, pola §5 untuk Profil, Laporan, Tagihan, dan QR Menu; dicek di emulator termasuk skala huruf 1.3×. Komponen lain di §3 dibuat saat dibutuhkan fitur.

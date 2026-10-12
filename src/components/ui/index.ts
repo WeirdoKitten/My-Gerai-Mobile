@@ -15,6 +15,8 @@ export { ScreenHeader } from "./ScreenHeader";
 export { SegmentedControl } from "./SegmentedControl";
 export { Sheet } from "./Sheet";
 export { Spinner } from "./Spinner";
+export { StarRating } from "./StarRating";
+export { SubScreen } from "./SubScreen";
 export { TimeField } from "./TimeField";
 export { ToastProvider, useToast } from "./Toast";
 export { Toggle } from "./Toggle";

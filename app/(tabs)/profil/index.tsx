@@ -1,11 +1,14 @@
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { errorMessage } from "@/api/error-message";
-import { Alert, Button, Card, ListRow, ScreenHeader, Sheet, Spinner } from "@/components/ui";
+import { Alert, Badge, Button, Card, ListRow, ScreenHeader, Sheet, Spinner } from "@/components/ui";
 import { Screen } from "@/components/ui/Screen";
+import { StallCard } from "@/features/profile/StallCard";
 import { useMe } from "@/features/profile/use-me";
+import { useMerchantEvents } from "@/features/profile/use-profile";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { formatIndonesianPhone } from "@/lib/format/phone";
 import { colors, layout, radius, space, type } from "@/theme";
@@ -29,16 +32,7 @@ export default function ProfileScreen() {
         ) : me.error ? (
           <Alert tone="error" message={errorMessage(me.error)} />
         ) : (
-          <Card style={styles.card}>
-            <Text style={type.title}>{me.data.profile.stallName}</Text>
-            <Text style={type.caption}>{me.data.profile.category}</Text>
-            <View style={styles.divider} />
-            <Row label="Nama Pedagang" value={me.data.profile.ownerName} />
-            <Row label="Nomor HP" value={formatPhone(me.data.profile.phone)} />
-            {me.data.profile.address ? (
-              <Row label="Alamat" value={me.data.profile.address} />
-            ) : null}
-          </Card>
+          <StallCard profile={me.data.profile} />
         )}
 
         <View style={styles.menu}>
@@ -48,12 +42,36 @@ export default function ProfileScreen() {
             description="Atur jam buka dan tutup otomatis"
             onPress={() => router.push("/jadwal")}
           />
+          <View style={styles.divider} />
+          <ListRow
+            icon="wallet-outline"
+            title="Metode Pembayaran"
+            description="QRIS Pribadi dan tagihan"
+            onPress={() => router.push("/pembayaran")}
+          />
+          <View style={styles.divider} />
+          <ListRow
+            icon="moped-outline"
+            title="Pengantaran"
+            description="Ongkir dan jangkauan pesanan antar"
+            onPress={() => router.push("/pengantaran")}
+          />
+          <View style={styles.divider} />
+          <ListRow
+            icon="star-outline"
+            title="Rating & Ulasan"
+            description="Apa kata Pembeli tentang Lapak kamu"
+            onPress={() => router.push("/ulasan")}
+          />
         </View>
 
-        <Text style={[type.caption, styles.note]}>
-          Ubah profil dan pengaturan Lapak lainnya lewat dashboard web untuk sementara. Fiturnya
-          menyusul di aplikasi.
-        </Text>
+        <EventsCard />
+
+        {me.data ? (
+          <Text style={[type.caption, styles.note]}>
+            Masuk sebagai {me.data.profile.ownerName}, {formatPhone(me.data.profile.phone)}
+          </Text>
+        ) : null}
 
         <Button
           label="Keluar"
@@ -97,12 +115,38 @@ function formatPhone(phone: string): string {
   return formatIndonesianPhone(phone.replace(/^0/, "62"));
 }
 
-function Row({ label, value }: { label: string; value: string }) {
+/** Event (Portal EO) yang diikuti Gerai, sama dengan kartu di Profil web. Tidak tampil kalau kosong. */
+function EventsCard() {
+  const events = useMerchantEvents();
+  const list = events.data?.events ?? [];
+  if (list.length === 0) return null;
   return (
-    <View style={styles.row}>
-      <Text style={type.caption}>{label}</Text>
-      <Text style={type.body}>{value}</Text>
-    </View>
+    <Card style={styles.events}>
+      <View style={styles.eventsHead}>
+        <MaterialCommunityIcons name="calendar-star" size={22} color={colors.brandStrong} />
+        <Text style={type.bodyStrong}>Gerai kamu ikut event</Text>
+      </View>
+      {list.map((event) => (
+        <View key={event.slug} style={styles.eventRow}>
+          <View style={styles.flex}>
+            <Text style={type.label} numberOfLines={1}>
+              {event.name}
+            </Text>
+            <Text style={type.micro} numberOfLines={1}>
+              {event.organizationName}
+            </Text>
+          </View>
+          <Badge
+            label={event.isActive ? "Aktif" : "Selesai"}
+            tone={event.isActive ? "success" : "neutral"}
+            dot
+          />
+        </View>
+      ))}
+      <Text style={type.micro}>
+        Pesanan dari event ditandai di kartu Pesanan dan diambil Pembeli langsung di Gerai.
+      </Text>
+    </Card>
   );
 }
 
@@ -113,10 +157,12 @@ const styles = StyleSheet.create({
     paddingBottom: space.xxxl,
     gap: space.lg,
   },
-  card: { gap: space.xs },
-  divider: { height: 1, backgroundColor: colors.line, marginVertical: space.md },
-  row: { gap: 2, marginBottom: space.sm },
-  note: { paddingHorizontal: space.xs },
+  flex: { flex: 1 },
+  divider: { height: 1, backgroundColor: colors.line },
+  note: { paddingHorizontal: space.xs, textAlign: "center" },
+  events: { gap: space.md },
+  eventsHead: { flexDirection: "row", alignItems: "center", gap: space.sm },
+  eventRow: { flexDirection: "row", alignItems: "center", gap: space.md },
   menu: {
     borderRadius: radius.card,
     borderWidth: 1,

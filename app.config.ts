@@ -38,6 +38,25 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     [
+      // Lokasi hanya saat Pedagang menekan "Pakai lokasi saya" di Ubah Profil; tanpa lokasi latar belakang.
+      "expo-location",
+      {
+        locationWhenInUsePermission: "MyGerai butuh lokasi untuk memasang titik Lapak di peta.",
+        isAndroidBackgroundLocationEnabled: false,
+        isAndroidForegroundServiceEnabled: false,
+      },
+    ],
+    [
+      // Hanya menyimpan gambar QR (QR Menu, QR tagihan) ke galeri; tidak membaca media lain.
+      "expo-media-library",
+      {
+        savePhotosPermission: "MyGerai butuh akses galeri untuk menyimpan gambar QR.",
+        isAccessMediaLocationEnabled: false,
+        granularPermissions: ["photo"],
+      },
+    ],
+    "expo-sharing",
+    [
       "expo-splash-screen",
       {
         backgroundColor: "#FAF6F1",

@@ -9,8 +9,14 @@ export type PickResult =
   | { kind: "cancelled" }
   | { kind: "denied"; message: string };
 
-/** Ambil foto dari galeri atau kamera, lalu perkecil di HP sebelum diunggah (hemat kuota). */
-export async function pickPhoto(source: "gallery" | "camera"): Promise<PickResult> {
+/**
+ * Ambil foto dari galeri atau kamera, lalu perkecil di HP sebelum diunggah (hemat kuota).
+ * `aspect` = rasio potongan (Item persegi; foto sampul Lapak lebar; QRIS tanpa potongan).
+ */
+export async function pickPhoto(
+  source: "gallery" | "camera",
+  aspect: [number, number] | null = [1, 1],
+): Promise<PickResult> {
   const permission =
     source === "camera"
       ? await ImagePicker.requestCameraPermissionsAsync()
@@ -27,8 +33,8 @@ export async function pickPhoto(source: "gallery" | "camera"): Promise<PickResul
 
   const options: ImagePicker.ImagePickerOptions = {
     mediaTypes: ["images"],
-    allowsEditing: true,
-    aspect: [1, 1],
+    allowsEditing: aspect !== null,
+    aspect: aspect ?? undefined,
     quality: 1,
   };
   const result =

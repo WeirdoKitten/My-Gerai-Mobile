@@ -1,6 +1,6 @@
 # Arsitektur Folder
 
-> Ini **target** struktur. Yang sudah ada per Tahap 1a (2026-10-12): `app/` (`_layout`, `index` redirect, `(auth)/{login,daftar,menunggu}`, `(tabs)/{pesanan,item,laporan,profil}`, `pesanan/[orderId]`, `dev/komponen`), `src/api/` (client, query-client, error-message, schemas + endpoints auth/me/orders/meta), `src/features/{auth,orders,products,lapak,profile,placeholder}/`, `app/item/{baru,[productId]}.tsx`, `app/jadwal.tsx` (Tahap 3), `src/components/ui/`, `src/lib/{auth,network,format}/`, `src/theme.ts`, `src/types/order-status.ts`, `tests/`. Perbarui dokumen ini setiap kali struktur nyata berubah.
+> Ini **target** struktur. Yang sudah ada per Tahap 1a (2026-10-12): `app/` (`_layout`, `index` redirect, `(auth)/{login,daftar,menunggu}`, `(tabs)/{pesanan,item,laporan,profil}`, `pesanan/[orderId]`, `dev/komponen`), `src/api/` (client, query-client, error-message, schemas + endpoints auth/me/orders/meta), `src/features/{auth,orders,products,lapak,profile,reports,payments}/`, `app/item/{baru,[productId]}.tsx`, `app/jadwal.tsx` (Tahap 3), `app/{ubah-profil,pengantaran,qr-menu,ulasan,pembayaran}.tsx` + `src/api/{schemas,endpoints}/{profile,reports,payments}.ts` + `src/lib/media/` (Tahap 4), `src/components/ui/`, `src/lib/{auth,network,format}/`, `src/theme.ts`, `src/types/order-status.ts`, `tests/`. Perbarui dokumen ini setiap kali struktur nyata berubah.
 >
 > Catatan expo-router: rute sesudah login dibungkus `Stack.Protected` di `app/_layout.tsx`. Tab memakai `expo-router/js-tabs`. Folder tab berisi `index.tsx` (`(tabs)/pesanan/index.tsx`), sehingga URL tab `/pesanan` dan detail `/pesanan/[orderId]` (di luar tab) tidak bentrok.
 
@@ -30,6 +30,8 @@
 │   │   ├── laporan/           # Laporan penjualan
 │   │   └── profil/            # Profil, buka/tutup, jadwal, pengantaran, pembayaran, tagihan, ulasan, event, printer
 │   ├── pesanan/[orderId].tsx  # Detail Pesanan (target ketuk notifikasi)
+│   ├── ubah-profil.tsx, pengantaran.tsx, qr-menu.tsx, ulasan.tsx, pembayaran.tsx, jadwal.tsx
+│   │                          # Layar turunan tab Profil (Tahap 3–4), kerangka `SubScreen`
 │   └── dev/komponen.tsx       # Review visual komponen UI, hanya __DEV__ (redirect ke / di build rilis)
 ├── src/
 │   ├── api/
@@ -45,6 +47,7 @@
 │   │   ├── notifications/     # Izin, channel Android, registrasi token push, handler ketuk
 │   │   ├── printer/           # Scan/sambung BLE, kirim byte per potongan MTU
 │   │   ├── receipt/           # Encoder ESC/POS (port dari repo web, harus identik)
+│   │   ├── media/             # Pilih + kompres foto, simpan/bagikan gambar, poster SVG QR
 │   │   └── format/            # Rupiah, tanggal/jam WIB, nomor HP
 │   ├── theme.ts               # Token warna, tipografi, radius, spacing, bayangan
 │   └── types/                 # Tipe bersama yang tidak diturunkan dari skema Zod (mis. order-status.ts, salinan enum web)

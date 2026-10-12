@@ -31,6 +31,8 @@ Target: HP Android murah (RAM 2–3 GB, CPU lambat), jaringan seluler lambat, di
 - **Notifikasi (Android 13+)**: minta izin setelah login dengan penjelasan singkat kenapa perlu ("supaya Pesanan baru terdengar walau HP terkunci"). Ditolak → banner di tab Pesanan dengan tombol ke Pengaturan.
 - **Bluetooth (Android 12+)**: `BLUETOOTH_SCAN` dan `BLUETOOTH_CONNECT`, diminta saat Pedagang pertama kali menyiapkan printer, bukan saat aplikasi dibuka.
 - **Kamera/galeri**: diminta saat memilih foto.
+- **Lokasi**: hanya saat Pedagang menekan "Pakai lokasi saya" di Ubah Profil. Tanpa lokasi latar belakang. Ditolak → pesan dan Pedagang tetap bisa mencari alamat atau menggeser peta.
+- **Simpan ke galeri**: izin tulis foto saja (`granularPermissions: ["photo"]`, `writeOnly`), diminta saat menyimpan QR. Aplikasi tidak membaca isi galeri lewat izin ini.
 - Jangan meminta izin yang tidak dipakai. Setiap izin baru dicatat di [TEKNOLOGI.md](TEKNOLOGI.md) dan dijelaskan di kebijakan privasi.
 - Penghemat baterai agresif di beberapa merek (Xiaomi, Oppo, Vivo) bisa menahan notifikasi. Sediakan panduan singkat di Profil untuk mengecualikan aplikasi dari penghemat baterai.
 

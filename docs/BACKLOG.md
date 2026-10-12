@@ -56,18 +56,23 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Di
 
 - [x] Daftar Item, tambah/ubah, harga, harga modal, stok, aktif/nonaktif. (Dicek di emulator 2026-10-12: tambah Item lengkap, ubah ke pre-order, ubah harga, toggle Habis; data dicek lewat API dan muncul di menu Pembeli web. Tidak ada hapus Item, sama dengan web.)
 - [x] Varian Item (grup + opsi + selisih harga). (Dicek di emulator dan di server.)
-- [ ] Foto Item dan foto Lapak (kamera/galeri, kompres, upload). (Foto Item dari galeri **selesai** dan dicek di emulator. **Sisa**: foto Lapak masuk Tahap 4 bersama Profil; tombol kamera belum dicoba karena emulator tanpa kamera.)
+- [ ] Foto Item dan foto Lapak (kamera/galeri, kompres, upload). (Foto Item dan foto sampul Lapak dari galeri **selesai** dan dicek di emulator. **Sisa**: tombol kamera belum dicoba karena emulator tanpa kamera.)
 - [x] Buka/tutup Lapak + jadwal operasional. (Kartu status di atas tab Pesanan, layar Jadwal Operasional dari Profil dengan pemilih jam native. Dicek di emulator dan di server.)
 
 ## Tahap 4 — Laporan, Profil, Uang, Lainnya
 
-- [ ] Laporan penjualan + asisten rekomendasi (skill `dataviz`).
-- [ ] Profil Lapak, alamat + titik peta (endpoint geocoding belum ada; putuskan dulu cara peta di aplikasi native, lalu buat endpoint di repo web), QR Menu (lihat/unduh/bagikan).
-- [ ] Pengaturan pengantaran (tarif, radius).
-- [ ] Mode pembayaran, rekening Pencairan, riwayat Pencairan/Saldo.
-- [ ] Tagihan Biaya Layanan (QRIS Pribadi): daftar dan bayar.
-- [ ] Ulasan Gerai.
-- [ ] Event yang diikuti Gerai.
+> Keputusan User di Plan mode (2026-10-13): peta = WebView Leaflet + tile OSM, geocoding lewat endpoint baru di repo web; menu mengikuti web (Ulasan di Profil, tab Laporan hanya Penjualan); QR tagihan disimpan ke galeri untuk dipindai dari e-wallet; poster QR Menu dirender di HP; dikerjakan sebagai 4a/4b/4c dalam satu sesi.
+
+- [x] **4a** Profil Lapak: ubah nama/pemilik/kategori, foto sampul, alamat + titik peta (cari alamat, geser peta, "Pakai lokasi saya", alamat terisi otomatis), rekening Pencairan. Endpoint `GET /places/search` dan `GET /places/reverse` dibuat dulu di repo web.
+- [x] **4a** QR Menu: lihat poster, salin link, simpan ke galeri (PNG 3x), bagikan.
+- [x] **4a** Pengaturan pengantaran (aktif, Ongkir, jangkauan km).
+- [x] **4a** Event yang diikuti Gerai (kartu di Profil).
+- [x] **4b** Laporan penjualan (Hari ini/7/30 hari, ringkasan, grafik omzet per hari, Item terlaris) + Rekomendasi Asisten (skill `dataviz`).
+- [x] **4b** Rating & Ulasan Gerai.
+- [x] **4c** Metode pembayaran (lihat saja) + unggah/ganti foto QRIS Pribadi; peringatan Lapak terkunci karena tagihan menunggak.
+- [x] **4c** Tagihan Biaya Layanan: daftar, QR bayar (simpan ke galeri/bagikan), status diperbarui tiap 4 detik selama ada yang belum lunas.
+- [ ] Riwayat Pencairan/Saldo Pedagang. **Ditunda** (keputusan User 2026-10-13): dashboard web Pedagang juga belum punya, dan belum ada endpoint. Dikerjakan di repo web dulu (dicatat di BACKLOG web), baru aplikasi.
+- [ ] QR tagihan dari server berukuran kecil sehingga tampak buram saat diperbesar di HP (tetap terbaca). Opsional: server mengirim `qrString` atau PNG lebih besar supaya aplikasi bisa menggambar QR tajam.
 
 ## Tahap 5 — Rilis Play Store
 

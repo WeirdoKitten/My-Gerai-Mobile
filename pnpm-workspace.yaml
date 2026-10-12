@@ -25,3 +25,5 @@ minimumReleaseAgeExclude:
   - '@expo/ui@57.0.22'
   - expo-linking@57.0.12
   - expo-router@57.0.25
+  - expo-location@57.0.21
+  - expo-sharing@57.0.23

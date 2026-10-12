@@ -22,9 +22,9 @@ import {
 } from "@/components/ui";
 import { fieldErrors } from "@/features/auth/field-errors";
 import { formatRupiah } from "@/lib/format/money";
+import { pickPhoto } from "@/lib/media/photo";
 import { colors, layout, radius, space, type } from "@/theme";
 
-import { pickPhoto } from "./photo";
 import {
   draftsToInput,
   EMPTY_PRODUCT_FORM,

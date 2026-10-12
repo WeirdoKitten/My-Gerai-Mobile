@@ -43,3 +43,24 @@ export function formatSince(value: Date | string, now: Date = new Date()): strin
   }
   return formatDateTime(value);
 }
+
+const SHORT_DAYS = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+
+/** Kunci hari laporan "2026-10-07" (tanggal WIB dari server) menjadi "Rab 7/10", sama dengan web. */
+export function formatDayKey(dayKey: string): string {
+  const [year, month, day] = dayKey.split("-").map(Number);
+  if (!year || !month || !day) return dayKey;
+  const weekday = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
+  return `${SHORT_DAYS[weekday]} ${day}/${month}`;
+}
+
+/** Rating 4.5 menjadi "4,5" (koma desimal), sama dengan formatRating web. */
+export function formatRating(average: number): string {
+  return average.toFixed(1).replace(".", ",");
+}
+
+/** "9 Sep 2026" (WIB), tanpa jam. */
+export function formatDate(value: Date | string): string {
+  const d = toWib(value);
+  return `${d.day} ${MONTHS[d.month]} ${d.year}`;
+}

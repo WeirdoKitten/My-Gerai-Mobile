@@ -66,6 +66,11 @@ function RootNavigator() {
         <Stack.Screen name="item/baru" />
         <Stack.Screen name="item/[productId]" />
         <Stack.Screen name="jadwal" />
+        <Stack.Screen name="ubah-profil" />
+        <Stack.Screen name="pengantaran" />
+        <Stack.Screen name="qr-menu" />
+        <Stack.Screen name="ulasan" />
+        <Stack.Screen name="pembayaran" />
       </Stack.Protected>
       <Stack.Protected guard={!signedIn}>
         <Stack.Screen name="(auth)" />
