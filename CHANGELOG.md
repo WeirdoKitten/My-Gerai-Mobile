@@ -2,6 +2,17 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-13 — Encoder struk ESC/POS, uji Antar dan QRIS Pribadi, Maestro
+
+**Dampak:** kode (`src/lib/receipt/escpos.ts`, `receiptSchema` + `getOrderReceipt`, `testID` di layar Masuk, placeholder "Mis." → "Contoh:"), `tests/receipt.test.ts`, `tests/fixtures/receipt-golden.json`, `.maestro/antrean-pesanan.yaml`, `docs/{BACKLOG,TEKNOLOGI,ARSITEKTUR-FOLDER}.md`.
+**Alasan:** User meminta lanjut ke pekerjaan yang bisa diverifikasi tanpa HP fisik, printer, atau Firebase.
+**Ringkasan:**
+- Encoder struk di-port dari `src/lib/utils/receipt.ts` repo web. `Intl` diganti format manual (Hermes), regex karakter ditulis dengan escape unicode supaya terbaca. Fixture dibuat dengan menjalankan kode web asli (`tsx` di repo web, berkas sementara lalu dihapus) untuk 6 kasus; tes membandingkan baris dan byte persis. Di Hermes emulator juga identik. Kalau format struk web berubah: buat ulang fixture dengan cara yang sama, lalu sesuaikan port.
+- Data uji dibuat lewat alur Pembeli web asli (Playwright ke server dev, berkas sementara lalu dihapus): satu Pesanan Antar lunas untuk Bakso Pak Budi dan dua Pesanan QRIS Pribadi menunggu pembayaran untuk Nasi Goreng. Alur Antar sampai `selesai` dan Tandai Lunas QRIS Pribadi dicek di aplikasi dan DB.
+- Maestro CLI 2.11 dipasang di mesin dev. Flow menangani launcher development build (tunggu launcher, buka Metro, tutup penjelasan dan menu developer). Lulus di emulator.
+- Teks UI "Mis." diganti "Contoh:" (aturan teks DESAIN-SISTEM web §1).
+- Data dev berubah: beberapa Pesanan demo Bakso Pak Budi kini `diproses`/`selesai`; Pesanan uji Antar dan QRIS Pribadi tetap ada.
+
 ## 2026-10-13 — Tahap 4: profil, peta, QR Menu, pengantaran, laporan, ulasan, pembayaran, tagihan
 
 **Dampak:** kode (`app/(tabs)/{profil,laporan}`, `app/{ubah-profil,pengantaran,qr-menu,ulasan,pembayaran}.tsx`, `src/features/{profile,reports,payments}/`, `src/api/` profile/reports/payments, `src/lib/media/`, `src/components/ui/{SubScreen,StarRating}`), `app.config.ts` (plugin `expo-location`, `expo-media-library`, `expo-sharing`), `package.json` (`react-native-webview`, `expo-location`, `react-native-svg`, `react-native-view-shot`, `expo-sharing`, `expo-media-library`, `expo-clipboard`), `pnpm-workspace.yaml` (`minimumReleaseAgeExclude` untuk `expo-location` dan `expo-sharing`), `docs/{BACKLOG,DESAIN-SISTEM,ARSITEKTUR-FOLDER,ARSITEKTUR-SISTEM,TEKNOLOGI,BEST-PRACTICES}.md`, `CLAUDE.md`; repo web: endpoint `places/search` + `places/reverse`, `API-MOBILE.md`, BACKLOG, CHANGELOG, e2e.

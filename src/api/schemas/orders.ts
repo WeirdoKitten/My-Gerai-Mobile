@@ -83,6 +83,28 @@ export const historyOrderSchema = z.object({
 
 export const orderHistorySchema = z.object({ orders: z.array(historyOrderSchema) });
 
+// Mengikuti OrderReceiptView (src/types/order.ts) repo web, dari GET /orders/{id}/receipt.
+export const receiptSchema = z.object({
+  stallName: z.string(),
+  stallAddress: z.string().nullable(),
+  orderCode: z.string(),
+  buyerName: z.string(),
+  buyerNote: z.string().nullable(),
+  paidAt: isoDate,
+  items: z.array(orderItemSchema),
+  subtotal: z.number().int(),
+  serviceFeePaid: z.number().int(),
+  deliveryFee: z.number().int(),
+  amountPaid: z.number().int(),
+  scheduledFor: isoDate.nullable(),
+  delivery: z
+    .object({ buyerPhone: z.string(), address: z.string(), landmark: z.string().nullable() })
+    .nullable(),
+});
+
+export const receiptResultSchema = z.object({ receipt: receiptSchema });
+
+export type Receipt = z.infer<typeof receiptSchema>;
 export type OrderItem = z.infer<typeof orderItemSchema>;
 export type OrderDelivery = z.infer<typeof orderDeliverySchema>;
 export type ActiveOrder = z.infer<typeof activeOrderSchema>;

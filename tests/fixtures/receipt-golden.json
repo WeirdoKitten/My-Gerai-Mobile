@@ -1,0 +1,737 @@
+{
+  "source": "My-Gerai src/lib/utils/receipt.ts",
+  "cases": [
+    {
+      "name": "biasa",
+      "receipt": {
+        "stallName": "Bakso Pak Budi",
+        "stallAddress": "Jl. Merdeka No. 10, Bandung",
+        "orderCode": "A7K2QX9M",
+        "buyerName": "Rina",
+        "buyerNote": null,
+        "paidAt": "2026-09-25T07:32:00.000Z",
+        "scheduledFor": null,
+        "items": [
+          {
+            "id": "x",
+            "productNameSnapshot": "Bakso Urat",
+            "priceSnapshot": 15000,
+            "qty": 2,
+            "note": null,
+            "variantSelections": [
+              {
+                "groupNameSnapshot": "Level",
+                "optionNameSnapshot": "Pedas",
+                "priceDeltaSnapshot": 0
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "productNameSnapshot": "Es Teh",
+            "priceSnapshot": 5000,
+            "qty": 1,
+            "note": null,
+            "variantSelections": []
+          }
+        ],
+        "subtotal": 35000,
+        "serviceFeePaid": 1000,
+        "deliveryFee": 0,
+        "amountPaid": 36000,
+        "delivery": null
+      },
+      "lines": [
+        {
+          "text": "BAKSO PAK BUDI",
+          "align": "center",
+          "bold": true,
+          "tall": true
+        },
+        {
+          "text": "Jl. Merdeka No. 10, Bandung",
+          "align": "center"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "No. Pesanan             A7K2QX9M"
+        },
+        {
+          "text": "Atas nama                   Rina"
+        },
+        {
+          "text": "25/09/2026 14:32"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "2x Bakso Urat             30.000"
+        },
+        {
+          "text": "   Level: Pedas"
+        },
+        {
+          "text": "1x Es Teh                  5.000"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Subtotal                  35.000"
+        },
+        {
+          "text": "Biaya Layanan              1.000"
+        },
+        {
+          "text": "TOTAL                   Rp36.000",
+          "bold": true
+        },
+        {
+          "text": "Dibayar via QRIS"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Terima kasih telah berbelanja",
+          "align": "center"
+        },
+        {
+          "text": "Barang yang sudah dibeli tidak",
+          "align": "center"
+        },
+        {
+          "text": "dapat dikembalikan",
+          "align": "center"
+        }
+      ],
+      "bytes": "G0AbYQEbRQEdIQFCQUtTTyBQQUsgQlVESQobYQEbRQAdIQBKbC4gTWVyZGVrYSBOby4gMTAsIEJhbmR1bmcKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EAG0UAHSEATm8uIFBlc2FuYW4gICAgICAgICAgICAgQTdLMlFYOU0KG2EAG0UAHSEAQXRhcyBuYW1hICAgICAgICAgICAgICAgICAgIFJpbmEKG2EAG0UAHSEAMjUvMDkvMjAyNiAxNDozMgobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQAdIQAyeCBCYWtzbyBVcmF0ICAgICAgICAgICAgIDMwLjAwMAobYQAbRQAdIQAgICBMZXZlbDogUGVkYXMKG2EAG0UAHSEAMXggRXMgVGVoICAgICAgICAgICAgICAgICAgNS4wMDAKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EAG0UAHSEAU3VidG90YWwgICAgICAgICAgICAgICAgICAzNS4wMDAKG2EAG0UAHSEAQmlheWEgTGF5YW5hbiAgICAgICAgICAgICAgMS4wMDAKG2EAG0UBHSEAVE9UQUwgICAgICAgICAgICAgICAgICAgUnAzNi4wMDAKG2EAG0UAHSEARGliYXlhciB2aWEgUVJJUwobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQEbRQAdIQBUZXJpbWEga2FzaWggdGVsYWggYmVyYmVsYW5qYQobYQEbRQAdIQBCYXJhbmcgeWFuZyBzdWRhaCBkaWJlbGkgdGlkYWsKG2EBG0UAHSEAZGFwYXQgZGlrZW1iYWxpa2FuChthABtFAB0hABtkBA=="
+    },
+    {
+      "name": "qris_pribadi_tanpa_alamat",
+      "receipt": {
+        "stallName": "Bakso Pak Budi",
+        "stallAddress": null,
+        "orderCode": "A7K2QX9M",
+        "buyerName": "Rina",
+        "buyerNote": null,
+        "paidAt": "2026-09-25T07:32:00.000Z",
+        "scheduledFor": null,
+        "items": [
+          {
+            "id": "x",
+            "productNameSnapshot": "Bakso Urat",
+            "priceSnapshot": 15000,
+            "qty": 2,
+            "note": null,
+            "variantSelections": [
+              {
+                "groupNameSnapshot": "Level",
+                "optionNameSnapshot": "Pedas",
+                "priceDeltaSnapshot": 0
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "productNameSnapshot": "Es Teh",
+            "priceSnapshot": 5000,
+            "qty": 1,
+            "note": null,
+            "variantSelections": []
+          }
+        ],
+        "subtotal": 35000,
+        "serviceFeePaid": 0,
+        "deliveryFee": 0,
+        "amountPaid": 35000,
+        "delivery": null
+      },
+      "lines": [
+        {
+          "text": "BAKSO PAK BUDI",
+          "align": "center",
+          "bold": true,
+          "tall": true
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "No. Pesanan             A7K2QX9M"
+        },
+        {
+          "text": "Atas nama                   Rina"
+        },
+        {
+          "text": "25/09/2026 14:32"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "2x Bakso Urat             30.000"
+        },
+        {
+          "text": "   Level: Pedas"
+        },
+        {
+          "text": "1x Es Teh                  5.000"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "TOTAL                   Rp35.000",
+          "bold": true
+        },
+        {
+          "text": "Dibayar via QRIS"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Terima kasih telah berbelanja",
+          "align": "center"
+        },
+        {
+          "text": "Barang yang sudah dibeli tidak",
+          "align": "center"
+        },
+        {
+          "text": "dapat dikembalikan",
+          "align": "center"
+        }
+      ],
+      "bytes": "G0AbYQEbRQEdIQFCQUtTTyBQQUsgQlVESQobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQAdIQBOby4gUGVzYW5hbiAgICAgICAgICAgICBBN0syUVg5TQobYQAbRQAdIQBBdGFzIG5hbWEgICAgICAgICAgICAgICAgICAgUmluYQobYQAbRQAdIQAyNS8wOS8yMDI2IDE0OjMyChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthABtFAB0hADJ4IEJha3NvIFVyYXQgICAgICAgICAgICAgMzAuMDAwChthABtFAB0hACAgIExldmVsOiBQZWRhcwobYQAbRQAdIQAxeCBFcyBUZWggICAgICAgICAgICAgICAgICA1LjAwMAobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQEdIQBUT1RBTCAgICAgICAgICAgICAgICAgICBScDM1LjAwMAobYQAbRQAdIQBEaWJheWFyIHZpYSBRUklTChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthARtFAB0hAFRlcmltYSBrYXNpaCB0ZWxhaCBiZXJiZWxhbmphChthARtFAB0hAEJhcmFuZyB5YW5nIHN1ZGFoIGRpYmVsaSB0aWRhawobYQEbRQAdIQBkYXBhdCBkaWtlbWJhbGlrYW4KG2EAG0UAHSEAG2QE"
+    },
+    {
+      "name": "nama_panjang_dan_unicode",
+      "receipt": {
+        "stallName": "Warung Bakso dan Mie Ayam Legendaris “Pak Budi” Sejak 1987 😋",
+        "stallAddress": "Jl. Merdeka No. 10, Bandung",
+        "orderCode": "A7K2QX9M",
+        "buyerName": "José Ñoño — Rina’s",
+        "buyerNote": "Tolong  sambal dipisah ya 🙏, kuahnya panas–panas",
+        "paidAt": "2026-09-25T07:32:00.000Z",
+        "scheduledFor": null,
+        "items": [
+          {
+            "id": "x",
+            "productNameSnapshot": "Mie Ayam Jamur Spesial Ceker Pangsit Bakso Komplit",
+            "priceSnapshot": 123456,
+            "qty": 12,
+            "note": "Tanpa seledri, tanpa daun bawang, sambalnya banyak sekali",
+            "variantSelections": []
+          },
+          {
+            "id": "3",
+            "productNameSnapshot": "Kopi",
+            "priceSnapshot": 8000,
+            "qty": 1,
+            "note": null,
+            "variantSelections": [
+              {
+                "groupNameSnapshot": "Gula",
+                "optionNameSnapshot": "Sedikit",
+                "priceDeltaSnapshot": 0
+              },
+              {
+                "groupNameSnapshot": "Suhu",
+                "optionNameSnapshot": "Es",
+                "priceDeltaSnapshot": 2000
+              }
+            ]
+          }
+        ],
+        "subtotal": 1489472,
+        "serviceFeePaid": 2500,
+        "deliveryFee": 0,
+        "amountPaid": 1491972,
+        "delivery": null
+      },
+      "lines": [
+        {
+          "text": "WARUNG BAKSO DAN MIE AYAM",
+          "align": "center",
+          "bold": true,
+          "tall": true
+        },
+        {
+          "text": "LEGENDARIS \"PAK BUDI\" SEJAK 1987",
+          "align": "center",
+          "bold": true,
+          "tall": true
+        },
+        {
+          "text": "Jl. Merdeka No. 10, Bandung",
+          "align": "center"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "No. Pesanan             A7K2QX9M"
+        },
+        {
+          "text": "Atas nama     Jose Nono - Rina's"
+        },
+        {
+          "text": "25/09/2026 14:32"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "12x Mie Ayam Jamur Spesial Ceker"
+        },
+        {
+          "text": "Pangsit Bakso Komplit  1.481.472"
+        },
+        {
+          "text": "   Catatan: Tanpa seledri, tanpa"
+        },
+        {
+          "text": "   daun bawang, sambalnya banyak"
+        },
+        {
+          "text": "   sekali"
+        },
+        {
+          "text": "1x Kopi                    8.000"
+        },
+        {
+          "text": "   Gula: Sedikit"
+        },
+        {
+          "text": "   Suhu: Es"
+        },
+        {
+          "text": "Catatan: Tolong sambal dipisah"
+        },
+        {
+          "text": "ya , kuahnya panas-panas"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Subtotal               1.489.472"
+        },
+        {
+          "text": "Biaya Layanan              2.500"
+        },
+        {
+          "text": "TOTAL                Rp1.491.972",
+          "bold": true
+        },
+        {
+          "text": "Dibayar via QRIS"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Terima kasih telah berbelanja",
+          "align": "center"
+        },
+        {
+          "text": "Barang yang sudah dibeli tidak",
+          "align": "center"
+        },
+        {
+          "text": "dapat dikembalikan",
+          "align": "center"
+        }
+      ],
+      "bytes": "G0AbYQEbRQEdIQFXQVJVTkcgQkFLU08gREFOIE1JRSBBWUFNChthARtFAR0hAUxFR0VOREFSSVMgIlBBSyBCVURJIiBTRUpBSyAxOTg3ChthARtFAB0hAEpsLiBNZXJkZWthIE5vLiAxMCwgQmFuZHVuZwobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQAdIQBOby4gUGVzYW5hbiAgICAgICAgICAgICBBN0syUVg5TQobYQAbRQAdIQBBdGFzIG5hbWEgICAgIEpvc2UgTm9ubyAtIFJpbmEncwobYQAbRQAdIQAyNS8wOS8yMDI2IDE0OjMyChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthABtFAB0hADEyeCBNaWUgQXlhbSBKYW11ciBTcGVzaWFsIENla2VyChthABtFAB0hAFBhbmdzaXQgQmFrc28gS29tcGxpdCAgMS40ODEuNDcyChthABtFAB0hACAgIENhdGF0YW46IFRhbnBhIHNlbGVkcmksIHRhbnBhChthABtFAB0hACAgIGRhdW4gYmF3YW5nLCBzYW1iYWxueWEgYmFueWFrChthABtFAB0hACAgIHNla2FsaQobYQAbRQAdIQAxeCBLb3BpICAgICAgICAgICAgICAgICAgICA4LjAwMAobYQAbRQAdIQAgICBHdWxhOiBTZWRpa2l0ChthABtFAB0hACAgIFN1aHU6IEVzChthABtFAB0hAENhdGF0YW46IFRvbG9uZyBzYW1iYWwgZGlwaXNhaAobYQAbRQAdIQB5YSAsIGt1YWhueWEgcGFuYXMtcGFuYXMKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EAG0UAHSEAU3VidG90YWwgICAgICAgICAgICAgICAxLjQ4OS40NzIKG2EAG0UAHSEAQmlheWEgTGF5YW5hbiAgICAgICAgICAgICAgMi41MDAKG2EAG0UBHSEAVE9UQUwgICAgICAgICAgICAgICAgUnAxLjQ5MS45NzIKG2EAG0UAHSEARGliYXlhciB2aWEgUVJJUwobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQEbRQAdIQBUZXJpbWEga2FzaWggdGVsYWggYmVyYmVsYW5qYQobYQEbRQAdIQBCYXJhbmcgeWFuZyBzdWRhaCBkaWJlbGkgdGlkYWsKG2EBG0UAHSEAZGFwYXQgZGlrZW1iYWxpa2FuChthABtFAB0hABtkBA=="
+    },
+    {
+      "name": "pre_order",
+      "receipt": {
+        "stallName": "Bakso Pak Budi",
+        "stallAddress": "Jl. Merdeka No. 10, Bandung",
+        "orderCode": "A7K2QX9M",
+        "buyerName": "Rina",
+        "buyerNote": null,
+        "paidAt": "2026-09-25T07:32:00.000Z",
+        "scheduledFor": "2026-10-03T03:00:00.000Z",
+        "items": [
+          {
+            "id": "x",
+            "productNameSnapshot": "Bakso Urat",
+            "priceSnapshot": 15000,
+            "qty": 2,
+            "note": null,
+            "variantSelections": [
+              {
+                "groupNameSnapshot": "Level",
+                "optionNameSnapshot": "Pedas",
+                "priceDeltaSnapshot": 0
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "productNameSnapshot": "Es Teh",
+            "priceSnapshot": 5000,
+            "qty": 1,
+            "note": null,
+            "variantSelections": []
+          }
+        ],
+        "subtotal": 35000,
+        "serviceFeePaid": 1000,
+        "deliveryFee": 0,
+        "amountPaid": 36000,
+        "delivery": null
+      },
+      "lines": [
+        {
+          "text": "BAKSO PAK BUDI",
+          "align": "center",
+          "bold": true,
+          "tall": true
+        },
+        {
+          "text": "Jl. Merdeka No. 10, Bandung",
+          "align": "center"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "No. Pesanan             A7K2QX9M"
+        },
+        {
+          "text": "Atas nama                   Rina"
+        },
+        {
+          "text": "25/09/2026 14:32"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "PRE-ORDER",
+          "bold": true
+        },
+        {
+          "text": "Jadwal: 03/10/2026 10:00"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "2x Bakso Urat             30.000"
+        },
+        {
+          "text": "   Level: Pedas"
+        },
+        {
+          "text": "1x Es Teh                  5.000"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Subtotal                  35.000"
+        },
+        {
+          "text": "Biaya Layanan              1.000"
+        },
+        {
+          "text": "TOTAL                   Rp36.000",
+          "bold": true
+        },
+        {
+          "text": "Dibayar via QRIS"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Terima kasih telah berbelanja",
+          "align": "center"
+        },
+        {
+          "text": "Barang yang sudah dibeli tidak",
+          "align": "center"
+        },
+        {
+          "text": "dapat dikembalikan",
+          "align": "center"
+        }
+      ],
+      "bytes": "G0AbYQEbRQEdIQFCQUtTTyBQQUsgQlVESQobYQEbRQAdIQBKbC4gTWVyZGVrYSBOby4gMTAsIEJhbmR1bmcKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EAG0UAHSEATm8uIFBlc2FuYW4gICAgICAgICAgICAgQTdLMlFYOU0KG2EAG0UAHSEAQXRhcyBuYW1hICAgICAgICAgICAgICAgICAgIFJpbmEKG2EAG0UAHSEAMjUvMDkvMjAyNiAxNDozMgobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQEdIQBQUkUtT1JERVIKG2EAG0UAHSEASmFkd2FsOiAwMy8xMC8yMDI2IDEwOjAwChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthABtFAB0hADJ4IEJha3NvIFVyYXQgICAgICAgICAgICAgMzAuMDAwChthABtFAB0hACAgIExldmVsOiBQZWRhcwobYQAbRQAdIQAxeCBFcyBUZWggICAgICAgICAgICAgICAgICA1LjAwMAobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQAdIQBTdWJ0b3RhbCAgICAgICAgICAgICAgICAgIDM1LjAwMAobYQAbRQAdIQBCaWF5YSBMYXlhbmFuICAgICAgICAgICAgICAxLjAwMAobYQAbRQEdIQBUT1RBTCAgICAgICAgICAgICAgICAgICBScDM2LjAwMAobYQAbRQAdIQBEaWJheWFyIHZpYSBRUklTChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthARtFAB0hAFRlcmltYSBrYXNpaCB0ZWxhaCBiZXJiZWxhbmphChthARtFAB0hAEJhcmFuZyB5YW5nIHN1ZGFoIGRpYmVsaSB0aWRhawobYQEbRQAdIQBkYXBhdCBkaWtlbWJhbGlrYW4KG2EAG0UAHSEAG2QE"
+    },
+    {
+      "name": "antar",
+      "receipt": {
+        "stallName": "Bakso Pak Budi",
+        "stallAddress": "Jl. Merdeka No. 10, Bandung",
+        "orderCode": "A7K2QX9M",
+        "buyerName": "Rina",
+        "buyerNote": null,
+        "paidAt": "2026-10-11T17:05:00.000Z",
+        "scheduledFor": null,
+        "items": [
+          {
+            "id": "x",
+            "productNameSnapshot": "Bakso Urat",
+            "priceSnapshot": 15000,
+            "qty": 2,
+            "note": null,
+            "variantSelections": [
+              {
+                "groupNameSnapshot": "Level",
+                "optionNameSnapshot": "Pedas",
+                "priceDeltaSnapshot": 0
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "productNameSnapshot": "Es Teh",
+            "priceSnapshot": 5000,
+            "qty": 1,
+            "note": null,
+            "variantSelections": []
+          }
+        ],
+        "subtotal": 35000,
+        "serviceFeePaid": 1000,
+        "deliveryFee": 5000,
+        "amountPaid": 41000,
+        "delivery": {
+          "buyerPhone": "6281234567890",
+          "address": "Jl. Raya Baleendah No. 12 RT 03/RW 05, Kab. Bandung",
+          "landmark": "Depan masjid, pagar hijau"
+        }
+      },
+      "lines": [
+        {
+          "text": "BAKSO PAK BUDI",
+          "align": "center",
+          "bold": true,
+          "tall": true
+        },
+        {
+          "text": "Jl. Merdeka No. 10, Bandung",
+          "align": "center"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "No. Pesanan             A7K2QX9M"
+        },
+        {
+          "text": "Atas nama                   Rina"
+        },
+        {
+          "text": "12/10/2026 00:05"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "DIANTAR",
+          "bold": true
+        },
+        {
+          "text": "0812-3456-7890"
+        },
+        {
+          "text": "Jl. Raya Baleendah No. 12 RT"
+        },
+        {
+          "text": "03/RW 05, Kab. Bandung"
+        },
+        {
+          "text": "Patokan: Depan masjid, pagar"
+        },
+        {
+          "text": "hijau"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "2x Bakso Urat             30.000"
+        },
+        {
+          "text": "   Level: Pedas"
+        },
+        {
+          "text": "1x Es Teh                  5.000"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Subtotal                  35.000"
+        },
+        {
+          "text": "Biaya Layanan              1.000"
+        },
+        {
+          "text": "Ongkir                     5.000"
+        },
+        {
+          "text": "TOTAL                   Rp41.000",
+          "bold": true
+        },
+        {
+          "text": "Dibayar via QRIS"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Terima kasih telah berbelanja",
+          "align": "center"
+        },
+        {
+          "text": "Barang yang sudah dibeli tidak",
+          "align": "center"
+        },
+        {
+          "text": "dapat dikembalikan",
+          "align": "center"
+        }
+      ],
+      "bytes": "G0AbYQEbRQEdIQFCQUtTTyBQQUsgQlVESQobYQEbRQAdIQBKbC4gTWVyZGVrYSBOby4gMTAsIEJhbmR1bmcKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EAG0UAHSEATm8uIFBlc2FuYW4gICAgICAgICAgICAgQTdLMlFYOU0KG2EAG0UAHSEAQXRhcyBuYW1hICAgICAgICAgICAgICAgICAgIFJpbmEKG2EAG0UAHSEAMTIvMTAvMjAyNiAwMDowNQobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQEdIQBESUFOVEFSChthABtFAB0hADA4MTItMzQ1Ni03ODkwChthABtFAB0hAEpsLiBSYXlhIEJhbGVlbmRhaCBOby4gMTIgUlQKG2EAG0UAHSEAMDMvUlcgMDUsIEthYi4gQmFuZHVuZwobYQAbRQAdIQBQYXRva2FuOiBEZXBhbiBtYXNqaWQsIHBhZ2FyChthABtFAB0hAGhpamF1ChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthABtFAB0hADJ4IEJha3NvIFVyYXQgICAgICAgICAgICAgMzAuMDAwChthABtFAB0hACAgIExldmVsOiBQZWRhcwobYQAbRQAdIQAxeCBFcyBUZWggICAgICAgICAgICAgICAgICA1LjAwMAobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQAdIQBTdWJ0b3RhbCAgICAgICAgICAgICAgICAgIDM1LjAwMAobYQAbRQAdIQBCaWF5YSBMYXlhbmFuICAgICAgICAgICAgICAxLjAwMAobYQAbRQAdIQBPbmdraXIgICAgICAgICAgICAgICAgICAgICA1LjAwMAobYQAbRQEdIQBUT1RBTCAgICAgICAgICAgICAgICAgICBScDQxLjAwMAobYQAbRQAdIQBEaWJheWFyIHZpYSBRUklTChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthARtFAB0hAFRlcmltYSBrYXNpaCB0ZWxhaCBiZXJiZWxhbmphChthARtFAB0hAEJhcmFuZyB5YW5nIHN1ZGFoIGRpYmVsaSB0aWRhawobYQEbRQAdIQBkYXBhdCBkaWtlbWJhbGlrYW4KG2EAG0UAHSEAG2QE"
+    },
+    {
+      "name": "antar_qris_pribadi_tanpa_patokan",
+      "receipt": {
+        "stallName": "Bakso Pak Budi",
+        "stallAddress": "Jl. Merdeka No. 10, Bandung",
+        "orderCode": "A7K2QX9M",
+        "buyerName": "Rina",
+        "buyerNote": null,
+        "paidAt": "2026-09-25T07:32:00.000Z",
+        "scheduledFor": null,
+        "items": [
+          {
+            "id": "x",
+            "productNameSnapshot": "Bakso Urat",
+            "priceSnapshot": 15000,
+            "qty": 2,
+            "note": null,
+            "variantSelections": [
+              {
+                "groupNameSnapshot": "Level",
+                "optionNameSnapshot": "Pedas",
+                "priceDeltaSnapshot": 0
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "productNameSnapshot": "Es Teh",
+            "priceSnapshot": 5000,
+            "qty": 1,
+            "note": null,
+            "variantSelections": []
+          }
+        ],
+        "subtotal": 35000,
+        "serviceFeePaid": 0,
+        "deliveryFee": 7000,
+        "amountPaid": 42000,
+        "delivery": {
+          "buyerPhone": "6289912345678",
+          "address": "Kos Melati",
+          "landmark": null
+        }
+      },
+      "lines": [
+        {
+          "text": "BAKSO PAK BUDI",
+          "align": "center",
+          "bold": true,
+          "tall": true
+        },
+        {
+          "text": "Jl. Merdeka No. 10, Bandung",
+          "align": "center"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "No. Pesanan             A7K2QX9M"
+        },
+        {
+          "text": "Atas nama                   Rina"
+        },
+        {
+          "text": "25/09/2026 14:32"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "DIANTAR",
+          "bold": true
+        },
+        {
+          "text": "0899-1234-5678"
+        },
+        {
+          "text": "Kos Melati"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "2x Bakso Urat             30.000"
+        },
+        {
+          "text": "   Level: Pedas"
+        },
+        {
+          "text": "1x Es Teh                  5.000"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Subtotal                  35.000"
+        },
+        {
+          "text": "Ongkir                     7.000"
+        },
+        {
+          "text": "TOTAL                   Rp42.000",
+          "bold": true
+        },
+        {
+          "text": "Dibayar via QRIS"
+        },
+        {
+          "text": "--------------------------------"
+        },
+        {
+          "text": "Terima kasih telah berbelanja",
+          "align": "center"
+        },
+        {
+          "text": "Barang yang sudah dibeli tidak",
+          "align": "center"
+        },
+        {
+          "text": "dapat dikembalikan",
+          "align": "center"
+        }
+      ],
+      "bytes": "G0AbYQEbRQEdIQFCQUtTTyBQQUsgQlVESQobYQEbRQAdIQBKbC4gTWVyZGVrYSBOby4gMTAsIEJhbmR1bmcKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EAG0UAHSEATm8uIFBlc2FuYW4gICAgICAgICAgICAgQTdLMlFYOU0KG2EAG0UAHSEAQXRhcyBuYW1hICAgICAgICAgICAgICAgICAgIFJpbmEKG2EAG0UAHSEAMjUvMDkvMjAyNiAxNDozMgobYQAbRQAdIQAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQobYQAbRQEdIQBESUFOVEFSChthABtFAB0hADA4OTktMTIzNC01Njc4ChthABtFAB0hAEtvcyBNZWxhdGkKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EAG0UAHSEAMnggQmFrc28gVXJhdCAgICAgICAgICAgICAzMC4wMDAKG2EAG0UAHSEAICAgTGV2ZWw6IFBlZGFzChthABtFAB0hADF4IEVzIFRlaCAgICAgICAgICAgICAgICAgIDUuMDAwChthABtFAB0hAC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tChthABtFAB0hAFN1YnRvdGFsICAgICAgICAgICAgICAgICAgMzUuMDAwChthABtFAB0hAE9uZ2tpciAgICAgICAgICAgICAgICAgICAgIDcuMDAwChthABtFAR0hAFRPVEFMICAgICAgICAgICAgICAgICAgIFJwNDIuMDAwChthABtFAB0hAERpYmF5YXIgdmlhIFFSSVMKG2EAG0UAHSEALS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KG2EBG0UAHSEAVGVyaW1hIGthc2loIHRlbGFoIGJlcmJlbGFuamEKG2EBG0UAHSEAQmFyYW5nIHlhbmcgc3VkYWggZGliZWxpIHRpZGFrChthARtFAB0hAGRhcGF0IGRpa2VtYmFsaWthbgobYQAbRQAdIQAbZAQ="
+    }
+  ]
+}

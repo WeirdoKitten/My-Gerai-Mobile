@@ -72,7 +72,7 @@ export default function RegisterScreen() {
           value={form.stallName}
           onChangeText={set("stallName")}
           maxLength={100}
-          placeholder="Mis. Bakso Pak Budi"
+          placeholder="Contoh: Bakso Pak Budi"
           invalid={errors.stallName !== undefined}
         />
       </Field>

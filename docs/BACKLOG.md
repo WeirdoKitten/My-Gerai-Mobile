@@ -36,18 +36,18 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Di
 - [x] Empat tab bawah: Pesanan (badge jumlah yang perlu ditindak), Item dan Laporan ("segera hadir"), Profil (info Lapak + Keluar).
 - [x] Penanda offline + aksi tulis langsung gagal dengan pesan saat offline (dicek di emulator).
 - [x] Review keamanan manual (skill `/security-review` butuh remote `origin`, belum ada): URL API wajib HTTPS di build rilis, pesan layar menunggu tidak lewat parameter URL, link WhatsApp/Telepon hanya untuk nomor berisi angka.
-- [ ] Uji Pesanan Antar dan QRIS Pribadi di emulator setelah ada data uji (Lapak demo dengan antar aktif dan mode QRIS Pribadi).
+- [x] Uji Pesanan Antar dan QRIS Pribadi di emulator (2026-10-13). Data dibuat lewat alur Pembeli web asli (Playwright ke server dev): Pesanan Antar Bakso Pak Budi Diproses → Mulai Antar → sheet Gagal Diantar (tombol terkunci 15 menit) → Tandai Sudah Diterima → `selesai`; Pesanan QRIS Pribadi Nasi Goreng → konfirmasi Tandai Lunas → `dibayar`. Dicek di DB.
 
 ### Tahap 1b — Push Notification
 
 - [ ] Push notification: izin, channel Pesanan dengan bunyi, registrasi token, ketuk notifikasi membuka detail.
 - [ ] Panduan penghemat baterai untuk merek tertentu.
-- [ ] Maestro: login → antrean → ubah status sampai selesai.
+- [x] Maestro: login → antrean → ubah status sampai selesai (`.maestro/antrean-pesanan.yaml`, lulus di emulator 2026-10-13). Tidak butuh push, jadi dikerjakan lebih dulu.
 - [ ] Uji push nyata di HP (aplikasi tertutup, HP terkunci). `/security-review`.
 
 ## Tahap 2 — Cetak Struk Bluetooth
 
-- [ ] Port encoder ESC/POS dari repo web, unit test byte identik.
+- [x] Port encoder ESC/POS dari repo web (`src/lib/receipt/escpos.ts`), unit test byte identik terhadap fixture yang dibuat dari kode web (`tests/fixtures/receipt-golden.json`, 6 kasus termasuk Antar, pre-order, QRIS Pribadi, unicode). Dicek juga di Hermes (emulator): 6/6 identik. Endpoint `getOrderReceipt` + skema `receiptSchema` siap dipakai.
 - [ ] Scan, pilih, simpan printer; kirim per potongan MTU; pesan error jelas.
 - [ ] Pratinjau struk + tombol cetak di detail Pesanan dan riwayat.
 - [ ] Uji dengan printer thermal 58mm nyata.

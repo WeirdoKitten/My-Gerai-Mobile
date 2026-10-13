@@ -6,6 +6,7 @@ import {
   type DeliveryFailureReason,
   orderHistorySchema,
   orderQueueSchema,
+  receiptResultSchema,
 } from "../schemas/orders";
 
 export function getOrderQueue() {
@@ -42,4 +43,9 @@ export function markDeliveryFailed(
     body: input,
     schema: emptyResultSchema,
   });
+}
+
+/** Data struk Pesanan yang sudah dibayar. Byte ESC/POS disusun di HP (src/lib/receipt). */
+export function getOrderReceipt(orderId: string) {
+  return apiRequest(`${orderPath(orderId)}/receipt`, { schema: receiptResultSchema });
 }

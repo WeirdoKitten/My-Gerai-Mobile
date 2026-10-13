@@ -1,0 +1,67 @@
+# Alur utama Pedagang: masuk → antrean → ubah status Pesanan ambil sendiri sampai Selesai.
+# Prasyarat: development build terpasang, Metro jalan (10.0.2.2:8081 = komputer dari emulator),
+# server web lokal jalan, dan Lapak punya minimal satu Pesanan "Dibayar" yang diambil sendiri.
+# Jalankan: maestro test .maestro/antrean-pesanan.yaml -e PHONE=082222222222 -e PASSWORD=password
+appId: com.mygerai.pedagang
+env:
+  DEV_URL: mygerai://expo-development-client/?url=http%3A%2F%2F10.0.2.2%3A8081
+---
+- launchApp:
+    clearState: true
+# Development build: tunggu layar launcher siap, baru arahkan ke Metro.
+- extendedWaitUntil:
+    visible: "Development Build"
+    timeout: 30000
+- openLink: ${DEV_URL}
+# Sesudah clearState, dev client menampilkan penjelasan menu developer sekali. Tutup kalau ada.
+- extendedWaitUntil:
+    visible: "Continue"
+    timeout: 90000
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+# Menu developer lalu terbuka; tutup dengan tombol Back.
+- runFlow:
+    when:
+      visible: "Go home"
+    commands:
+      - back
+- extendedWaitUntil:
+    visible: "Masuk ke MyGerai"
+    timeout: 30000
+
+# Masuk
+- tapOn:
+    id: "login-phone"
+- inputText: ${PHONE}
+- tapOn:
+    id: "login-password"
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn: "Masuk"
+- extendedWaitUntil:
+    visible: "Aktif"
+    timeout: 30000
+- assertVisible: "Riwayat"
+
+# Pesanan pertama yang dibayar: Diproses → Siap Diambil → Selesai.
+# Tombol berikutnya baru muncul setelah server menerima perubahan status.
+- tapOn: "Tandai Diproses"
+- extendedWaitUntil:
+    visible: "Tandai Siap Diambil"
+    timeout: 15000
+- tapOn: "Tandai Siap Diambil"
+- extendedWaitUntil:
+    visible: "Tandai Selesai"
+    timeout: 15000
+- tapOn: "Tandai Selesai"
+- extendedWaitUntil:
+    notVisible: "Tandai Selesai"
+    timeout: 15000
+
+# Pesanan pindah ke Riwayat.
+- tapOn: "Riwayat"
+- extendedWaitUntil:
+    visible: "Selesai"
+    timeout: 15000

@@ -169,7 +169,7 @@ function DeliveryFailedSheet({
           value={note}
           onChangeText={setNote}
           maxLength={500}
-          placeholder="Mis. sudah ditelepon 3 kali"
+          placeholder="Contoh: sudah ditelepon 3 kali"
         />
       </Field>
       {error ? <Alert tone="error" message={error} /> : null}

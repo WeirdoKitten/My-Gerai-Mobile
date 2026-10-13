@@ -154,7 +154,7 @@ export function ProductForm({ product, initialGroups }: ProductFormProps) {
               value={form.name}
               onChangeText={set("name")}
               maxLength={100}
-              placeholder="Mis. Bakso Urat"
+              placeholder="Contoh: Bakso Urat"
               invalid={errors.name !== undefined}
             />
           </Field>

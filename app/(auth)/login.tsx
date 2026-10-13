@@ -70,6 +70,7 @@ export default function LoginScreen() {
           textContentType="telephoneNumber"
           placeholder="081234567890"
           invalid={errors.phone !== undefined}
+          testID="login-phone"
         />
       </Field>
       <Field label="Password" error={errors.password}>
@@ -81,6 +82,7 @@ export default function LoginScreen() {
           returnKeyType="go"
           onSubmitEditing={submit}
           invalid={errors.password !== undefined}
+          testID="login-password"
         />
       </Field>
       {mutation.error ? <Alert tone="error" message={errorMessage(mutation.error)} /> : null}

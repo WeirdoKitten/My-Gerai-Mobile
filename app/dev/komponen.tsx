@@ -107,7 +107,7 @@ function Showcase() {
 
         <Section title="Isian">
           <Field label="Nama Item">
-            <Input placeholder="Mis. Bakso Urat" />
+            <Input placeholder="Contoh: Bakso Urat" />
           </Field>
           <Field label="Harga" hint="Dalam Rupiah, tanpa titik." error={priceError}>
             <Input
