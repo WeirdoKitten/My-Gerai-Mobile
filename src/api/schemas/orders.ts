@@ -50,6 +50,8 @@ export const activeOrderSchema = z.object({
   items: z.array(orderItemSchema),
   fulfillmentMethod: fulfillmentMethodSchema,
   deliveryFeeSnapshot: z.number().int(),
+  /** Bagian Pedagang (subtotal + Ongkir) dari server, sama dengan footer Riwayat. */
+  totalForMerchant: z.number().int(),
   delivery: orderDeliverySchema.nullable(),
   scheduledFor: isoDate.nullable(),
   buyerPhone: z.string().nullable(),
@@ -83,6 +85,14 @@ export const historyOrderSchema = z.object({
 
 export const orderHistorySchema = z.object({ orders: z.array(historyOrderSchema) });
 
+// GET /orders/{id}: status akhir → bentuk Riwayat, selain itu → bentuk antrean.
+export const orderDetailSchema = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("active"), order: activeOrderSchema }),
+  z.object({ kind: z.literal("history"), order: historyOrderSchema }),
+]);
+
+export type OrderDetail = z.infer<typeof orderDetailSchema>;
+
 // Mengikuti OrderReceiptView (src/types/order.ts) repo web, dari GET /orders/{id}/receipt.
 export const receiptSchema = z.object({
   stallName: z.string(),
@@ -110,5 +120,6 @@ export type OrderDelivery = z.infer<typeof orderDeliverySchema>;
 export type ActiveOrder = z.infer<typeof activeOrderSchema>;
 export type OrderQueue = z.infer<typeof orderQueueSchema>;
 export type HistoryOrder = z.infer<typeof historyOrderSchema>;
+export type OrderHistory = z.infer<typeof orderHistorySchema>;
 export type FulfillmentMethod = z.infer<typeof fulfillmentMethodSchema>;
 export type DeliveryFailureReason = z.infer<typeof deliveryFailureReasonSchema>;

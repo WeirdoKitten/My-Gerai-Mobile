@@ -51,6 +51,13 @@ export default function ProfileScreen() {
           />
           <View style={styles.divider} />
           <ListRow
+            icon="cash-multiple"
+            title="Saldo & Pencairan"
+            description="Saldo belum dicairkan dan riwayatnya"
+            onPress={() => router.push("/saldo")}
+          />
+          <View style={styles.divider} />
+          <ListRow
             icon="moped-outline"
             title="Pengantaran"
             description="Ongkir dan jangkauan pesanan antar"

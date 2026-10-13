@@ -1,10 +1,11 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Image } from "expo-image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { captureRef } from "react-native-view-shot";
 
 import type { ServiceFeeInvoice } from "@/api/schemas/payments";
-import { Alert, Badge, type BadgeTone, Button, Card, useToast } from "@/components/ui";
+import { Alert, Badge, type BadgeTone, Button, Card, QrCode, useToast } from "@/components/ui";
 import { formatDateTime } from "@/lib/format/datetime";
 import { formatRupiah } from "@/lib/format/money";
 import { imageToFile, saveToGallery, shareImage } from "@/lib/media/save-image";
@@ -42,8 +43,12 @@ export function InvoiceCard({ invoice }: { invoice: ServiceFeeInvoice }) {
       ) : invoice.paidAt ? (
         <Text style={type.micro}>Dibayar {formatDateTime(invoice.paidAt)}</Text>
       ) : null}
-      {unpaid && invoice.qrImageUrl ? (
-        <PayQr invoiceId={invoice.id} src={invoice.qrImageUrl} />
+      {unpaid && (invoice.qrString || invoice.qrImageUrl) ? (
+        <PayQr
+          invoiceId={invoice.id}
+          qrString={invoice.qrString ?? null}
+          src={invoice.qrImageUrl}
+        />
       ) : null}
       {unpaid && !invoice.qrImageUrl ? (
         <Text style={type.caption}>QR pembayaran sedang disiapkan. Cek lagi sebentar.</Text>
@@ -52,8 +57,23 @@ export function InvoiceCard({ invoice }: { invoice: ServiceFeeInvoice }) {
   );
 }
 
-function PayQr({ invoiceId, src }: { invoiceId: string; src: string }) {
+const QR_EXPORT_SIZE = 720;
+
+/**
+ * QR bayar tagihan. Kalau server mengirim isi QR (`qrString`), QR digambar tajam di HP dan
+ * disimpan sebagai PNG besar; kalau tidak, pakai gambar QR dari server.
+ */
+function PayQr({
+  invoiceId,
+  qrString,
+  src,
+}: {
+  invoiceId: string;
+  qrString: string | null;
+  src: string | null;
+}) {
   const { showToast } = useToast();
+  const qrRef = useRef<View>(null);
   const [busy, setBusy] = useState<"save" | "share" | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -61,7 +81,17 @@ function PayQr({ invoiceId, src }: { invoiceId: string; src: string }) {
     setError(null);
     setBusy(kind);
     try {
-      const file = await imageToFile(src, `tagihan-${invoiceId.slice(0, 8)}.png`);
+      const name = `tagihan-${invoiceId.slice(0, 8)}.png`;
+      const source = qrString
+        ? await captureRef(qrRef, {
+            format: "png",
+            result: "tmpfile",
+            width: QR_EXPORT_SIZE,
+            height: QR_EXPORT_SIZE,
+          })
+        : src;
+      if (!source) throw new Error("QR tidak tersedia");
+      const file = await imageToFile(source, name);
       const result =
         kind === "save" ? await saveToGallery(file) : await shareImage(file, "Bagikan QR tagihan");
       if (!result.ok) setError(result.message);
@@ -76,12 +106,18 @@ function PayQr({ invoiceId, src }: { invoiceId: string; src: string }) {
   return (
     <View style={styles.pay}>
       <View style={styles.qrFrame}>
-        <Image
-          source={{ uri: src }}
-          style={styles.qr}
-          contentFit="contain"
-          accessibilityLabel="QR pembayaran tagihan"
-        />
+        {qrString ? (
+          <View ref={qrRef} collapsable={false}>
+            <QrCode value={qrString} size={QR_SIZE} accessibilityLabel="QR pembayaran tagihan" />
+          </View>
+        ) : src ? (
+          <Image
+            source={{ uri: src }}
+            style={styles.qr}
+            contentFit="contain"
+            accessibilityLabel="QR pembayaran tagihan"
+          />
+        ) : null}
       </View>
       <View style={styles.steps}>
         {[

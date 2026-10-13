@@ -91,6 +91,7 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 | `TimeField` | Tombol jam (`09.00`, tabular) yang membuka pemilih jam native 24 jam. |
 | `OfflineBanner` | Penanda "Tidak ada koneksi" ([ARSITEKTUR-SISTEM §5](ARSITEKTUR-SISTEM.md#5-jaringan-lambat-dan-offline)). |
 | `SubScreen` | Kerangka layar turunan (dibuka dari tab): `ScreenHeader` dengan tombol kembali, `OfflineBanner`, isi, dan `footer` opsional yang menempel di bawah untuk aksi utama. |
+| `QrCode` | QR dari isi mentah (lib `qrcode` + `react-native-svg`), modul `ink` di atas `surface`, zona kosong 4 modul. Tajam di ukuran berapa pun; untuk disimpan, potret dengan `react-native-view-shot`. |
 | `StarRating` | Lima bintang read-only (`star`/`star-outline`, `brand`/`line`), dibulatkan ke bintang utuh seperti web. |
 
 ## 4. Layout
@@ -117,6 +118,8 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 - **Pemilih lokasi**: kotak cari dengan ikon kaca pembesar, daftar saran dalam panel berborder, peta 240 berborder radius `card`, pin `map-marker` `brand` 44 di tengah (pudar kalau belum ada titik), tombol "Pakai lokasi saya" + "Hapus titik", keterangan status di bawah. Saat jari di peta, layar berhenti menggulir.
 - **Laporan**: `SegmentedControl` periode, Omzet sebagai angka utama (40, proporsional) + perubahan vs periode lalu (panah + `success`/`danger`), stat tile 2 kolom (Keuntungan, Pesanan, Rata-rata, Ongkir), panel `neutralBg` "Ditagih ke Pembeli", Rekomendasi Asisten, grafik kolom omzet per hari, Item terlaris dengan bar `revenueShare`. Grafik: satu seri `brand`, kolom maks 24px ujung atas membulat 4px, grid garis rambut `line`, label sumbu ringkas (`50rb`), ketuk kolom untuk melihat angkanya (kolom terpilih `brandStrong` + latar `neutralBg`). Grafik disembunyikan kalau hanya satu hari.
 - **Tagihan Biaya Layanan**: tagihan belum lunas = `Card elevated accent`, nominal 28 bold, jatuh tempo `warning`, QR dalam bingkai putih, tiga langkah bernomor, tombol "Simpan QR ke galeri" + "Bagikan QR". Tagihan lain kartu berborder dengan nominal lebih kecil.
+- **Kartu antrean**: di bawah daftar Item ada baris "Bagianmu" (caption) + nominal `amount` 18, dipisah garis `line`, sama dengan footer Riwayat. Pesanan Antar menambah "(termasuk Ongkir RpX)".
+- **Saldo & Pencairan**: panel `surface` berborder dengan "Saldo belum dicairkan", angka 36 bold, dan penjelasan `micro`; lalu "Riwayat Pencairan" sebagai satu panel berborder berisi baris (tanggal + catatan Admin di kiri, nominal di kanan). Kosong = `EmptyState` ikon dompet.
 - **QR Menu**: poster dari server di tengah (maks 360), baris link + "Salin", tombol "Simpan ke galeri" dan "Bagikan" menempel di bawah.
 - **Layar sebelum login**: ikon Lapak dalam kotak `brandTint`, judul, satu kalimat penjelas, isian di tengah, tombol utama `lg` di bawah.
 

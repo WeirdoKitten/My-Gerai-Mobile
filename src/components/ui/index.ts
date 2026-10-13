@@ -11,6 +11,7 @@ export { OfflineBanner } from "./OfflineBanner";
 export { OrderStatusBadge } from "./OrderStatusBadge";
 export { PasswordInput } from "./PasswordInput";
 export { PhotoThumb } from "./PhotoThumb";
+export { QrCode } from "./QrCode";
 export { ScreenHeader } from "./ScreenHeader";
 export { SegmentedControl } from "./SegmentedControl";
 export { Sheet } from "./Sheet";

@@ -1,14 +1,23 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useIsFocused } from "expo-router";
 
+import { ApiError } from "@/api/client";
 import {
+  getOrder,
   getOrderHistory,
   getOrderQueue,
   markDeliveryFailed,
   markOrderPaid,
   updateOrderStatus,
 } from "@/api/endpoints/orders";
-import type { ActiveOrder, DeliveryFailureReason, HistoryOrder } from "@/api/schemas/orders";
+import type {
+  ActiveOrder,
+  DeliveryFailureReason,
+  HistoryOrder,
+  OrderDetail,
+  OrderHistory,
+  OrderQueue,
+} from "@/api/schemas/orders";
 import { useToast } from "@/components/ui";
 import { ORDER_STATUS_LABEL, type OrderStatus } from "@/types/order-status";
 
@@ -36,19 +45,38 @@ export type OrderLookup =
   | { kind: "active"; order: ActiveOrder }
   | { kind: "history"; order: HistoryOrder }
   | { kind: "missing" }
-  | { kind: "loading" };
+  | { kind: "loading" }
+  | { kind: "error"; error: unknown; retry: () => void };
 
-/** Tidak ada GET /orders/{id}: cari di antrean, lalu di riwayat. */
+/**
+ * Detail satu Pesanan lewat GET /orders/{id} (juga untuk Pesanan yang dibuka dari notifikasi).
+ * Selagi memuat, data dari cache antrean/riwayat langsung ditampilkan.
+ */
 export function useOrderLookup(orderId: string): OrderLookup {
-  const queue = useOrderQueue();
-  const active = queue.data?.orders.find((o) => o.id === orderId);
-  const searchHistory = queue.isSuccess && !active;
-  const history = useOrderHistory(searchHistory);
-  if (active) return { kind: "active", order: active };
-  const past = history.data?.orders.find((o) => o.id === orderId);
-  if (past) return { kind: "history", order: past };
-  if (queue.isPending || (searchHistory && history.isPending)) return { kind: "loading" };
-  return { kind: "missing" };
+  const queryClient = useQueryClient();
+  const focused = useIsFocused();
+  const detail = useQuery({
+    queryKey: orderKeys.detail(orderId),
+    queryFn: () => getOrder(orderId),
+    // Status bisa berubah dari HP/web lain; ikut irama antrean selama layar terbuka.
+    refetchInterval: focused ? QUEUE_POLL_MS : false,
+    placeholderData: (): OrderDetail | undefined => {
+      const active = queryClient
+        .getQueryData<OrderQueue>(orderKeys.queue())
+        ?.orders.find((o) => o.id === orderId);
+      if (active) return { kind: "active", order: active };
+      const past = queryClient
+        .getQueryData<OrderHistory>(orderKeys.history())
+        ?.orders.find((o) => o.id === orderId);
+      return past ? { kind: "history", order: past } : undefined;
+    },
+  });
+  if (detail.data) return detail.data;
+  if (detail.isPending) return { kind: "loading" };
+  if (detail.error instanceof ApiError && detail.error.code === "not_found") {
+    return { kind: "missing" };
+  }
+  return { kind: "error", error: detail.error, retry: () => void detail.refetch() };
 }
 
 type OrderRef = { id: string; orderCode: string };

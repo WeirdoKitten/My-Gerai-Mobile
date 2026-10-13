@@ -71,8 +71,9 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Di
 - [x] **4b** Rating & Ulasan Gerai.
 - [x] **4c** Metode pembayaran (lihat saja) + unggah/ganti foto QRIS Pribadi; peringatan Lapak terkunci karena tagihan menunggak.
 - [x] **4c** Tagihan Biaya Layanan: daftar, QR bayar (simpan ke galeri/bagikan), status diperbarui tiap 4 detik selama ada yang belum lunas.
-- [ ] Riwayat Pencairan/Saldo Pedagang. **Ditunda** (keputusan User 2026-10-13): dashboard web Pedagang juga belum punya, dan belum ada endpoint. Dikerjakan di repo web dulu (dicatat di BACKLOG web), baru aplikasi.
-- [ ] QR tagihan dari server berukuran kecil sehingga tampak buram saat diperbesar di HP (tetap terbaca). Opsional: server mengirim `qrString` atau PNG lebih besar supaya aplikasi bisa menggambar QR tajam.
+- [x] Saldo & Pencairan Pedagang (2026-10-13): dibuat di web dulu (`/dashboard/saldo`, `GET /payouts`), lalu layar `app/saldo.tsx` dari baris di Profil. Saldo tidak lagi menghitung Pesanan QRIS Pribadi (perbaikan server, keputusan User).
+- [x] QR tagihan tajam (2026-10-13): server mengirim `qrString`, aplikasi menggambar QR sendiri (`QrCode`) dan menyimpan PNG 720px. Didekode ulang dan cocok.
+- [x] Total "Bagianmu" di kartu antrean (`totalForMerchant`, web ikut) dan detail Pesanan lewat `GET /orders/{id}` (2026-10-13).
 
 ## Tahap 5 — Rilis Play Store
 

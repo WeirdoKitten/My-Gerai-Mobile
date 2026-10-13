@@ -4,6 +4,7 @@ import { apiRequest } from "../client";
 import { emptyResultSchema } from "../schemas/auth";
 import {
   type DeliveryFailureReason,
+  orderDetailSchema,
   orderHistorySchema,
   orderQueueSchema,
   receiptResultSchema,
@@ -48,4 +49,9 @@ export function markDeliveryFailed(
 /** Data struk Pesanan yang sudah dibayar. Byte ESC/POS disusun di HP (src/lib/receipt). */
 export function getOrderReceipt(orderId: string) {
   return apiRequest(`${orderPath(orderId)}/receipt`, { schema: receiptResultSchema });
+}
+
+/** Satu Pesanan milik Lapak sendiri; Pesanan Lapak lain atau tidak ada = `not_found`. */
+export function getOrder(orderId: string) {
+  return apiRequest(orderPath(orderId), { schema: orderDetailSchema });
 }

@@ -3,6 +3,7 @@
 # server web lokal jalan, dan Lapak punya minimal satu Pesanan "Dibayar" yang diambil sendiri.
 # Jalankan: maestro test .maestro/antrean-pesanan.yaml -e PHONE=082222222222 -e PASSWORD=password
 appId: com.mygerai.pedagang
+# DEV_URL bisa ditimpa dengan -e, mis. memakai 127.0.0.1 setelah `adb reverse tcp:8081 tcp:8081`.
 env:
   DEV_URL: mygerai://expo-development-client/?url=http%3A%2F%2F10.0.2.2%3A8081
 ---
@@ -47,6 +48,9 @@ env:
 
 # Pesanan pertama yang dibayar: Diproses → Siap Diambil → Selesai.
 # Tombol berikutnya baru muncul setelah server menerima perubahan status.
+- scrollUntilVisible:
+    element: "Tandai Diproses"
+    direction: DOWN
 - tapOn: "Tandai Diproses"
 - extendedWaitUntil:
     visible: "Tandai Siap Diambil"

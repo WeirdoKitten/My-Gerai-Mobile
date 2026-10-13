@@ -1,7 +1,8 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { Button, EmptyState, ScreenHeader, Spinner } from "@/components/ui";
+import { errorMessage } from "@/api/error-message";
+import { Alert, Button, EmptyState, ScreenHeader, Spinner } from "@/components/ui";
 import { Screen } from "@/components/ui/Screen";
 import { ActiveOrderCard } from "@/features/orders/ActiveOrderCard";
 import { HistoryOrderCard } from "@/features/orders/HistoryOrderCard";
@@ -19,11 +20,16 @@ export default function OrderDetailScreen() {
         <View style={styles.center}>
           <Spinner size="large" />
         </View>
+      ) : lookup.kind === "error" ? (
+        <View style={styles.content}>
+          <Alert tone="error" message={errorMessage(lookup.error)} />
+          <Button label="Coba lagi" variant="secondary" fullWidth onPress={lookup.retry} />
+        </View>
       ) : lookup.kind === "missing" ? (
         <EmptyState
           icon="receipt-text-remove-outline"
           title="Pesanan tidak ditemukan"
-          description="Pesanan ini tidak ada di antrean maupun riwayat Lapak kamu."
+          description="Pesanan ini bukan milik Lapak kamu atau sudah tidak ada."
           action={
             <Button label="Kembali ke Pesanan" variant="secondary" fullWidth onPress={goBack} />
           }
@@ -47,5 +53,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: layout.screenPaddingX,
     paddingTop: space.lg,
     paddingBottom: space.xxxl,
+    gap: space.md,
   },
 });

@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useIsFocused } from "expo-router";
 
-import { getPaymentSettings, getServiceFeeInvoices } from "@/api/endpoints/payments";
+import {
+  getPaymentSettings,
+  getPayoutSummary,
+  getServiceFeeInvoices,
+} from "@/api/endpoints/payments";
 import { uploadQrisPhoto } from "@/api/endpoints/profile";
 import { useToast } from "@/components/ui";
 
@@ -11,6 +15,7 @@ const UNPAID_POLL_MS = 4_000;
 export const paymentKeys = {
   settings: () => ["payments", "settings"] as const,
   invoices: () => ["payments", "invoices"] as const,
+  payouts: () => ["payments", "payouts"] as const,
 };
 
 export function usePaymentSettings() {
@@ -53,4 +58,8 @@ export function useUploadQrisPhoto() {
       return queryClient.invalidateQueries({ queryKey: paymentKeys.settings() });
     },
   });
+}
+
+export function usePayoutSummary() {
+  return useQuery({ queryKey: paymentKeys.payouts(), queryFn: getPayoutSummary });
 }

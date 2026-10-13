@@ -67,6 +67,7 @@ const SAMPLE_ORDER: ActiveOrder = {
   ],
   fulfillmentMethod: "ambil_sendiri",
   deliveryFeeSnapshot: 0,
+  totalForMerchant: 35_000,
   delivery: null,
   scheduledFor: null,
   buyerPhone: null,

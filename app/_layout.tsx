@@ -71,6 +71,7 @@ function RootNavigator() {
         <Stack.Screen name="qr-menu" />
         <Stack.Screen name="ulasan" />
         <Stack.Screen name="pembayaran" />
+        <Stack.Screen name="saldo" />
       </Stack.Protected>
       <Stack.Protected guard={!signedIn}>
         <Stack.Screen name="(auth)" />

@@ -1,3 +1,4 @@
+import { qrPath } from "@/components/ui/QrCode";
 import { formatDayKey, formatRating } from "@/lib/format/datetime";
 import { formatRupiahCompact } from "@/lib/format/money";
 import { adaptPosterSvg, decodeSvgDataUri } from "@/lib/media/svg-data-uri";
@@ -46,5 +47,14 @@ describe("adaptPosterSvg", () => {
     expect(adaptPosterSvg(xml)).toBe(
       '<svg width="520"><g transform="translate(242 290) scale(1.5)" fill="none"><path d="M1 1" /></g><text>Pesan & bayar</text></svg>',
     );
+  });
+});
+
+describe("qrPath", () => {
+  it("membuat path QR dengan zona kosong 4 modul", () => {
+    const { path, count } = qrPath("00020101021126UJI-QRIS");
+    // QR versi 1 = 21 modul + 2×4 zona kosong.
+    expect(count).toBe(29);
+    expect(path.startsWith("M4 4h1v1h-1z")).toBe(true);
   });
 });

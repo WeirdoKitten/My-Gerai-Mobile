@@ -2,6 +2,18 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-13 — Saldo & Pencairan, total di antrean, detail Pesanan lewat API, QR tagihan tajam
+
+**Dampak:** kode (`app/saldo.tsx`, baris "Saldo & Pencairan" di Profil, `ActiveOrderCard` footer "Bagianmu", `useOrderLookup` memakai `GET /orders/{id}`, `InvoiceCard` memakai `QrCode`, komponen baru `src/components/ui/QrCode.tsx`, skema `orderDetailSchema`/`payoutSummarySchema`/`qrString`, `testID` tetap), `package.json` (`qrcode`, `@types/qrcode`), `.maestro/antrean-pesanan.yaml` (gulir ke Pesanan Dibayar, `DEV_URL` bisa ditimpa), `docs/{BACKLOG,DESAIN-SISTEM,ARSITEKTUR-FOLDER,TEKNOLOGI}.md`, `CLAUDE.md`; repo web (lihat CHANGELOG web 2026-10-13).
+**Alasan:** User meminta lanjut tanpa HP/printer/Firebase. Keputusan User: total = bagian Pedagang dan web ikut; Saldo tanpa Pesanan QRIS Pribadi; Saldo + riwayat dengan catatan Admin di menu baru Profil.
+**Ringkasan:**
+- Kartu antrean menampilkan "Bagianmu" dari server (termasuk keterangan Ongkir), sama dengan footer Riwayat dan dashboard web.
+- Layar detail Pesanan mengambil `GET /orders/{id}`; data dari cache antrean/riwayat tampil lebih dulu. Pesanan Lapak lain atau tidak ada → "Pesanan tidak ditemukan"; gangguan jaringan → pesan + Coba lagi. Siap dipakai untuk ketuk notifikasi (Tahap 1b).
+- Layar Saldo & Pencairan: Saldo belum dicairkan + riwayat (tanggal, nominal, catatan Admin). Semua angka dari server.
+- QR tagihan digambar di HP dari `qrString` (lib `qrcode`, sama dengan web) memakai `react-native-svg`, disimpan sebagai PNG 720px. Hasil PNG dari emulator didekode ulang (jsQR) dan isinya sama persis. Server lama tanpa `qrString` tetap memakai gambar dari server.
+- Verifikasi: `tsc`, Biome, 54 test unit, Maestro lulus, emulator: total di antrean, detail Pesanan selesai yang tidak ada di cache, Saldo Rp95.000 (Bakso, gateway) dan Rp0 (Nasi Goreng, QRIS Pribadi), QR tagihan tajam + simpan galeri. Tagihan uji dihapus dari DB dev setelah uji.
+- Catatan lingkungan: emulator yang dijalankan dengan `-no-snapshot-save` kembali ke snapshot lama sehingga APK terbaru hilang; pasang ulang `android/app/build/outputs/apk/debug/app-debug.apk` dengan `adb install -r`.
+
 ## 2026-10-13 — Encoder struk ESC/POS, uji Antar dan QRIS Pribadi, Maestro
 
 **Dampak:** kode (`src/lib/receipt/escpos.ts`, `receiptSchema` + `getOrderReceipt`, `testID` di layar Masuk, placeholder "Mis." → "Contoh:"), `tests/receipt.test.ts`, `tests/fixtures/receipt-golden.json`, `.maestro/antrean-pesanan.yaml`, `docs/{BACKLOG,TEKNOLOGI,ARSITEKTUR-FOLDER}.md`.

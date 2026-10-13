@@ -22,6 +22,7 @@ const response = {
       ],
       fulfillmentMethod: "ambil_sendiri",
       deliveryFeeSnapshot: 0,
+      totalForMerchant: 12000,
       delivery: null,
       scheduledFor: null,
       buyerPhone: null,

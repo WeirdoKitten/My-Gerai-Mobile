@@ -25,8 +25,26 @@ export const serviceFeeInvoiceSchema = z.object({
   paidAt: z.string().nullable(),
   /** Data URI PNG atau URL https gambar QR. Hanya terisi untuk `belum_lunas`. */
   qrImageUrl: z.string().nullable(),
+  /** Isi QR mentah untuk digambar tajam di HP. Opsional: server lama belum mengirimnya. */
+  qrString: z.string().nullable().optional(),
 });
 
 export type ServiceFeeInvoice = z.infer<typeof serviceFeeInvoiceSchema>;
 
 export const invoiceListSchema = z.object({ invoices: z.array(serviceFeeInvoiceSchema) });
+
+// Mengikuti MerchantPayoutSummaryView (src/types/payout.ts) di repo web.
+export const payoutSummarySchema = z.object({
+  /** Saldo belum dicairkan dari server; hanya Pesanan lunas lewat gateway. */
+  balance: z.number().int(),
+  payouts: z.array(
+    z.object({
+      id: z.string(),
+      amount: z.number().int(),
+      note: z.string().nullable(),
+      settledAt: z.string(),
+    }),
+  ),
+});
+
+export type PayoutSummary = z.infer<typeof payoutSummarySchema>;

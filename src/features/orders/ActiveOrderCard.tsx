@@ -5,6 +5,7 @@ import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import type { ActiveOrder } from "@/api/schemas/orders";
 import { Badge, Card, OrderStatusBadge } from "@/components/ui";
 import { formatDateTime, formatSchedule, formatSince } from "@/lib/format/datetime";
+import { formatRupiah } from "@/lib/format/money";
 import { formatIndonesianPhone } from "@/lib/format/phone";
 import { colors, fonts, radius, space, type } from "@/theme";
 
@@ -97,6 +98,19 @@ export function ActiveOrderCard({ order, detailed = false }: ActiveOrderCardProp
 
       <OrderItems items={order.items} />
 
+      {/* Nilai dari server (totalForMerchant), sama dengan footer Riwayat dan web. */}
+      <View style={styles.total}>
+        <Text style={type.caption}>
+          Bagianmu
+          {order.deliveryFeeSnapshot > 0
+            ? ` (termasuk Ongkir ${formatRupiah(order.deliveryFeeSnapshot)})`
+            : ""}
+        </Text>
+        <Text style={[type.amount, styles.totalAmount]}>
+          {formatRupiah(order.totalForMerchant)}
+        </Text>
+      </View>
+
       {detailed && order.buyerNote ? (
         <View style={styles.buyerNote}>
           <Text style={type.label}>Catatan Pembeli</Text>
@@ -151,5 +165,15 @@ const styles = StyleSheet.create({
     borderRadius: radius.control,
     padding: space.md,
   },
+  total: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    gap: space.sm,
+    borderTopWidth: 1,
+    borderTopColor: colors.line,
+    paddingTop: space.md,
+  },
+  totalAmount: { fontSize: 18, lineHeight: 24 },
   actions: { marginTop: space.xs },
 });
