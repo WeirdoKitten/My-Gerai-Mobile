@@ -13,6 +13,7 @@ import {
 } from "@/components/ui";
 import { Screen } from "@/components/ui/Screen";
 import { OpenStatusCard } from "@/features/lapak/OpenStatusCard";
+import { PushDeniedBanner } from "@/features/notifications/PushDeniedBanner";
 import { ActiveOrderCard } from "@/features/orders/ActiveOrderCard";
 import { HistoryOrderCard } from "@/features/orders/HistoryOrderCard";
 import { useOrderHistory, useOrderQueue } from "@/features/orders/use-orders";
@@ -36,6 +37,7 @@ export default function OrdersScreen() {
         <>
           <ScreenHeader title="Pesanan" subtitle={me.data?.stallName} />
           <OpenStatusCard />
+          <PushDeniedBanner />
           <SegmentedControl segments={SEGMENTS} value={tab} onChange={setTab} />
         </>
       }

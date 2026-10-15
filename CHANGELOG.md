@@ -2,6 +2,20 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-15 — Tahap 1b: push notification Pesanan lunas
+
+**Dampak:** kode (`src/lib/notifications/push.ts`, `src/features/notifications/{PushManager,PushDeniedBanner}.tsx`, `src/api/endpoints/devices.ts`, layout tab, tab Pesanan), `app.config.ts` (`android.googleServicesFile`, plugin `expo-notifications` dengan ikon, warna, channel default `pesanan`, bunyi), `assets/sounds/order_chime.wav` (salinan `public/sounds/order-chime.wav` web), `package.json` (`expo-notifications`), `pnpm-workspace.yaml`, `tests/push.test.ts`, `docs/{BACKLOG,BEST-PRACTICES,TEKNOLOGI,DESAIN-SISTEM,ARSITEKTUR-FOLDER,ARSITEKTUR-SISTEM}.md`, `CLAUDE.md`; repo web: `.env` dev (`PUSH_PROVIDER=expo`, tidak di-commit), BACKLOG, CHANGELOG.
+**Alasan:** User sudah menyiapkan project Firebase (`google-services.json` di root repo, tidak di-commit) dan mengunggah kunci FCM V1 ke EAS. Keputusan User (AskUserQuestion 2026-10-15): izin diminta setelah masuk dengan penjelasan; bunyi sama dengan web; saat aplikasi terbuka push tetap tampil berbunyi dan antrean diperbarui.
+**Ringkasan:**
+- Kunci FCM V1 ternyata baru diunggah ke akun `satriapss-team`, belum dipasang ke aplikasi `com.mygerai.pedagang`, sehingga Expo menolak (`Unable to retrieve the FCM server key for the recipient's app`). Dipasang lewat API Expo (setara langkah terakhir `eas credentials`).
+- Channel `pesanan`: importance MAX, bunyi `order_chime`, getar, tampil di layar kunci. Dicek lewat `dumpsys notification`.
+- Izin: Android 13+ melapor `denied` + `canAskAgain` sebelum ditanya, jadi status dipetakan ke `granted`/`ask`/`blocked`. Sheet penjelasan muncul sekali per sesi kalau `ask`; banner di tab Pesanan selama belum diizinkan.
+- Token didaftarkan sekali per sesi masuk; kalau gagal, dicoba lagi hanya saat izin diperiksa ulang (aplikasi aktif kembali), bukan tiap render (sempat ada potensi loop retry, diperbaiki sebelum diuji).
+- Ketuk notifikasi: listener (aplikasi hidup) + `useLastNotificationResponse` (cold start), dedupe per identifier. Data push hanya diterima kalau `type = order_paid` dan `orderId` UUID.
+- Verifikasi di emulator (Google Play image) dengan push nyata (Pesanan dibuat lewat alur Pembeli web + simulasi bayar): masuk saat aplikasi terbuka (antrean diperbarui), di latar belakang, dan proses dimatikan lewat `am kill`; ketuk membuka detail Pesanan yang benar. Aplikasi yang di-*force stop* tidak menerima FCM (perilaku Android). Cold start dari ketukan belum terverifikasi karena launcher dev client menghilangkan intent notifikasi; dicatat di BACKLOG untuk build rilis.
+- Review keamanan manual (skill `/security-review` butuh `origin/HEAD`): tidak ada rahasia di kode (kunci FCM di EAS, `google-services.json` di-`.gitignore`), token push tidak dicatat ke log, isi push tanpa data Pembeli (server), data push divalidasi sebelum navigasi. Tidak ada temuan tersisa.
+- `tsc`, Biome, 56 test unit. Data uji dihapus dari DB dev (12 Pesanan "Uji Push"); stok Bakso Halus dikembalikan ke 12.
+
 ## 2026-10-13 — Saldo & Pencairan, total di antrean, detail Pesanan lewat API, QR tagihan tajam
 
 **Dampak:** kode (`app/saldo.tsx`, baris "Saldo & Pencairan" di Profil, `ActiveOrderCard` footer "Bagianmu", `useOrderLookup` memakai `GET /orders/{id}`, `InvoiceCard` memakai `QrCode`, komponen baru `src/components/ui/QrCode.tsx`, skema `orderDetailSchema`/`payoutSummarySchema`/`qrString`, `testID` tetap), `package.json` (`qrcode`, `@types/qrcode`), `.maestro/antrean-pesanan.yaml` (gulir ke Pesanan Dibayar, `DEV_URL` bisa ditimpa), `docs/{BACKLOG,DESAIN-SISTEM,ARSITEKTUR-FOLDER,TEKNOLOGI}.md`, `CLAUDE.md`; repo web (lihat CHANGELOG web 2026-10-13).

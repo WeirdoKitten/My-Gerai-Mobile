@@ -105,7 +105,8 @@ Padanan komponen web. Dibangun sekali, dipakai ulang; jangan menyalin style panj
 ## 5. Pola Spesifik
 
 - **Kartu Pesanan baru**: paling menonjol di antrean, bergaya **tiket**: `Card elevated accent`, waktu masuk + `OrderStatusBadge` di atas, Kode Pesanan `orderCode`, nama Pembeli, lalu **sobekan tiket** (garis putus-putus `line` dengan coakan setengah lingkaran warna `bg` di kedua sisi), daftar Item (qty `brandStrong` tabular), total, dan satu tombol `lg` untuk aksi berikutnya. Ini satu-satunya elemen "berani" di aplikasi; komponen lain sengaja tenang. Contoh: `app/dev/komponen.tsx`.
-- **Notifikasi**: bunyi khusus Pesanan, ikon notifikasi monokrom sesuai aturan Android.
+- **Notifikasi**: bunyi khusus Pesanan (`order_chime.wav`, sama dengan web), ikon notifikasi monokrom sesuai aturan Android, warna `brand`.
+- **Izin notifikasi**: `Sheet` "Nyalakan notifikasi Pesanan" setelah masuk (tombol `lg` "Izinkan notifikasi" + "Nanti saja"). Kalau belum diizinkan, banner di bawah status Lapak: latar `warningBg`, border `warning`, ikon lonceng dicoret, judul "Notifikasi Pesanan mati", tombol teks "Nyalakan" `brandStrong`.
 - **Uang**: selalu `Rp12.000` (titik ribuan, tanpa desimal), tabular nums.
 - **Kartu Pesanan di antrean** (Tahap 1a): aksen `brand` + `elevated` hanya untuk Pesanan yang perlu ditindak (`dibayar` atau QRIS Pribadi menunggu konfirmasi). Pesanan yang sedang diproses memakai kartu berborder biasa. Harga per baris Item dari server (qty × harga snapshot, sama dengan web); **tanpa total** karena `GET /orders` tidak membawanya. Catatan Item berwarna `warning` supaya tidak terlewat. Bagian atas kartu (kode, nama) membuka detail; tombol aksi tetap di kartu.
 - **Riwayat**: kartu berborder read-only, kode `heading` dengan letter spacing, footer "Bagianmu" (`totalForMerchant`, untuk `selesai`) atau "Nilai Pesanan" (`subtotal`), nilai dari server.

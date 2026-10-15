@@ -56,6 +56,7 @@ Detail lengkap: [API-MOBILE §2](../../My-Gerai/docs/API-MOBILE.md#2-autentikasi
 4. Notifikasi memakai **channel Android khusus Pesanan** (id wajib `pesanan`) dengan prioritas tinggi dan bunyi sendiri, supaya terdengar di lapak yang ramai.
 5. Ketuk notifikasi → aplikasi membuka detail Pesanan dan mengambil data terbaru dari API.
 6. Saat aplikasi terbuka, antrean Pesanan juga di-poll (TanStack Query `refetchInterval`) sebagai cadangan kalau push telat.
+7. Implementasi (2026-10-15): `src/features/notifications/PushManager.tsx` dipasang di layout tab (hanya saat masuk). Data push hanya dipercaya kalau `type = order_paid` dan `orderId` UUID. Aplikasi yang di-*force stop* tidak menerima FCM sampai dibuka lagi (perilaku Android); ditutup lewat Recents tetap menerima.
 
 ### 3. Cetak struk
 

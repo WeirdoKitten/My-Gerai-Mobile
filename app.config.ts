@@ -21,6 +21,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       monochromeImage: "./assets/images/android-icon-monochrome.png",
     },
     predictiveBackGestureEnabled: false,
+    // Kredensial FCM klien (bukan rahasia server, tapi tidak di-commit; lihat RULES §7.4).
+    // Lokal: file di root repo. EAS: variabel file GOOGLE_SERVICES_JSON.
+    googleServicesFile: process.env.GOOGLE_SERVICES_JSON ?? "./google-services.json",
   },
   plugins: [
     "expo-router",
@@ -56,6 +59,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     "expo-sharing",
+    [
+      // Push Pesanan lunas (Tahap 1b). Channel `pesanan` dibuat di src/lib/notifications.
+      "expo-notifications",
+      {
+        icon: "./assets/images/android-icon-monochrome.png",
+        color: "#EA580C",
+        defaultChannel: "pesanan",
+        // Bunyi sama dengan dashboard web (public/sounds/order-chime.wav).
+        sounds: ["./assets/sounds/order_chime.wav"],
+      },
+    ],
     [
       "expo-splash-screen",
       {

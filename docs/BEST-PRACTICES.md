@@ -28,7 +28,7 @@ Target: HP Android murah (RAM 2–3 GB, CPU lambat), jaringan seluler lambat, di
 
 ## Izin Android
 
-- **Notifikasi (Android 13+)**: minta izin setelah login dengan penjelasan singkat kenapa perlu ("supaya Pesanan baru terdengar walau HP terkunci"). Ditolak → banner di tab Pesanan dengan tombol ke Pengaturan.
+- **Notifikasi (Android 13+)**: minta izin setelah login dengan penjelasan singkat kenapa perlu ("supaya Pesanan baru terdengar walau HP terkunci"). Belum diizinkan → banner di tab Pesanan; tombolnya meminta izin lagi kalau Android masih mengizinkan, kalau tidak membuka Pengaturan. Catatan: Android 13+ melapor `denied` + `canAskAgain` sebelum pernah ditanya, jadi status dipetakan ke `ask`/`blocked` (`src/lib/notifications/push.ts`).
 - **Bluetooth (Android 12+)**: `BLUETOOTH_SCAN` dan `BLUETOOTH_CONNECT`, diminta saat Pedagang pertama kali menyiapkan printer, bukan saat aplikasi dibuka.
 - **Kamera/galeri**: diminta saat memilih foto.
 - **Lokasi**: hanya saat Pedagang menekan "Pakai lokasi saya" di Ubah Profil. Tanpa lokasi latar belakang. Ditolak → pesan dan Pedagang tetap bisa mencari alamat atau menggeser peta.

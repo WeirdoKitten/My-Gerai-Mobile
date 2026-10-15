@@ -40,7 +40,8 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Di
 
 ### Tahap 1b — Push Notification
 
-- [ ] Push notification: izin, channel Pesanan dengan bunyi, registrasi token, ketuk notifikasi membuka detail.
+- [x] Push notification (2026-10-15): izin dengan penjelasan setelah masuk + banner "Notifikasi Pesanan mati" di tab Pesanan, channel `pesanan` (importance MAX, bunyi `order_chime.wav` sama dengan web), registrasi token `PUT /devices` sekali per sesi, notifikasi saat aplikasi terbuka tetap tampil + antrean diperbarui, ketuk membuka detail Pesanan. Dicek di emulator dengan push nyata lewat Expo + FCM: aplikasi terbuka, di latar belakang, dan proses dimatikan.
+- [ ] Ketuk notifikasi saat aplikasi **tertutup total** (cold start) membuka detail: belum terverifikasi. Di development build, launcher `expo-dev-client` membuka ulang aplikasi lewat intent sendiri sehingga isi notifikasi hilang (respons `null`). Kode memakai `useLastNotificationResponse`; uji di build preview/rilis (butuh API HTTPS, Tahap 5).
 - [ ] Panduan penghemat baterai untuk merek tertentu.
 - [x] Maestro: login → antrean → ubah status sampai selesai (`.maestro/antrean-pesanan.yaml`, lulus di emulator 2026-10-13). Tidak butuh push, jadi dikerjakan lebih dulu.
 - [ ] Uji push nyata di HP (aplikasi tertutup, HP terkunci). `/security-review`.
@@ -77,7 +78,8 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Di
 
 ## Tahap 5 — Rilis Play Store
 
-- [ ] **User:** akun Google Play Console (US$25), project Firebase + kredensial FCM v1 diunggah ke EAS, halaman kebijakan privasi (URL publik).
+- [ ] **User:** akun Google Play Console (US$25), halaman kebijakan privasi (URL publik). (Project Firebase `mygerai-ea489` + kunci FCM V1 di EAS **selesai** 2026-10-15.)
+- [ ] Build EAS: buat variabel EAS bertipe *file* `GOOGLE_SERVICES_JSON` berisi `google-services.json` (file tidak di-commit; `app.config.ts` membacanya dari env).
 - [ ] Ikon, splash, screenshot Play Store final (`/frontend-design:frontend-design`).
 - [ ] Formulir Data Safety, rating konten, deklarasi izin.
 - [ ] Sentry, EAS Update (kebijakan kapan boleh OTA).
