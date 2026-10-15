@@ -79,7 +79,9 @@ Bergantung: endpoint auth, daftar, Pesanan, registrasi token push (Fase 12a). Di
 ## Tahap 5 — Rilis Play Store
 
 - [ ] **User:** akun Google Play Console (US$25), halaman kebijakan privasi (URL publik). (Project Firebase `mygerai-ea489` + kunci FCM V1 di EAS **selesai** 2026-10-15.)
-- [ ] Build EAS: buat variabel EAS bertipe *file* `GOOGLE_SERVICES_JSON` berisi `google-services.json` (file tidak di-commit; `app.config.ts` membacanya dari env).
+- [x] Variabel EAS (2026-10-15): `GOOGLE_SERVICES_JSON` (file, secret; development/preview/production) dan `EXPO_PUBLIC_API_URL=https://mygerai.myplaza.my.id/api/mobile/v1` (preview/production). Tiap profil `eas.json` memakai environment EAS bernama sama.
+- [x] Build EAS `preview` pertama (2026-10-15, versionCode 1, keystore dibuat dan disimpan EAS): APK jalan tanpa Metro dan tersambung ke API produksi lewat HTTPS (dicek di emulator: login salah dibalas server).
+- [ ] **User:** pasang APK preview di HP, masuk dengan akun Pedagang produksi, uji push termasuk ketuk notifikasi saat aplikasi tertutup total.
 - [ ] Ikon, splash, screenshot Play Store final (`/frontend-design:frontend-design`).
 - [ ] Formulir Data Safety, rating konten, deklarasi izin.
 - [ ] Sentry, EAS Update (kebijakan kapan boleh OTA).

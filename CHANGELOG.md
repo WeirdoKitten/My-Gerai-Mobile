@@ -2,6 +2,15 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-10-15 — Build EAS preview pertama ke server produksi
+
+**Dampak:** `eas.json` (`environment` per profil), variabel EAS `GOOGLE_SERVICES_JSON` dan `EXPO_PUBLIC_API_URL`, `docs/BACKLOG.md`. Repo web: `feat/api-mobile` di-merge (fast-forward) ke `main` atas keputusan User, lalu dideploy User ke produksi dengan `PUSH_PROVIDER=expo`.
+**Alasan:** User ingin memakai aplikasi di HP tanpa laptop dan menguji push di build non-development.
+**Ringkasan:**
+- API produksi `https://mygerai.myplaza.my.id/api/mobile/v1` dicek: `/meta` 200, route baru (`/places/*`) ada.
+- `eas build -p android --profile preview` di cloud (±20 menit). EAS membuat keystore Android dan menyimpannya; versionCode dikelola EAS (remote), mulai 1.
+- APK dipasang di emulator: berjalan tanpa Metro, login salah dibalas server produksi. Uji push dan cold start menunggu User memasang di HP dengan akun produksi.
+
 ## 2026-10-15 — Tahap 1b: push notification Pesanan lunas
 
 **Dampak:** kode (`src/lib/notifications/push.ts`, `src/features/notifications/{PushManager,PushDeniedBanner}.tsx`, `src/api/endpoints/devices.ts`, layout tab, tab Pesanan), `app.config.ts` (`android.googleServicesFile`, plugin `expo-notifications` dengan ikon, warna, channel default `pesanan`, bunyi), `assets/sounds/order_chime.wav` (salinan `public/sounds/order-chime.wav` web), `package.json` (`expo-notifications`), `pnpm-workspace.yaml`, `tests/push.test.ts`, `docs/{BACKLOG,BEST-PRACTICES,TEKNOLOGI,DESAIN-SISTEM,ARSITEKTUR-FOLDER,ARSITEKTUR-SISTEM}.md`, `CLAUDE.md`; repo web: `.env` dev (`PUSH_PROVIDER=expo`, tidak di-commit), BACKLOG, CHANGELOG.
