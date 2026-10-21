@@ -34,7 +34,7 @@ Aplikasi memakai **development build**, bukan Expo Go, karena modul Bluetooth pr
 
 ```bash
 pnpm install
-cp .env.example .env   # isi EXPO_PUBLIC_API_URL (emulator: 10.0.2.2, HP fisik: IP LAN komputer)
+cp .env.example .env   # isi EXPO_PUBLIC_API_URL (emulator: 10.0.2.2, HP fisik: lihat "HP fisik lewat USB")
 ```
 
 Development build, pilih salah satu:
@@ -43,6 +43,44 @@ Development build, pilih salah satu:
 - **EAS** (tanpa Android Studio): `npx eas-cli login`, `npx eas-cli init` (sekali), lalu `npx eas-cli build --profile development --platform android`. Pasang APK hasilnya di HP, lalu `pnpm start`.
 
 Setelah development build terpasang, cukup `pnpm start` untuk pengembangan sehari-hari. Di build development, layar awal punya tombol **Lihat komponen UI** untuk review tampilan.
+
+### HP fisik lewat USB
+
+Persiapan sekali: aktifkan **Opsi pengembang** (ketuk Nomor versi 7×) lalu **Debugging USB**, colok kabel, dan pilih **Selalu izinkan** di dialog otorisasi. Cek dengan `adb devices` (status harus `device`, bukan `unauthorized`). `adb reverse` membuat `localhost` di HP diteruskan ke laptop, jadi tidak perlu IP LAN atau Wi‑Fi yang sama.
+
+Pilih server API di `.env`:
+
+| Server | `EXPO_PUBLIC_API_URL` | Catatan |
+|---|---|---|
+| Lokal (laptop) | `http://localhost:3000/api/mobile/v1` | Aman untuk uji coba, butuh `pnpm dev` di `../My-Gerai` dan `adb reverse tcp:3000`. Wajib kalau endpoint baru belum di-deploy. |
+| Produksi (Garuda) | `https://mygerai.myplaza.my.id/api/mobile/v1` | Data asli: ubah status, Item, dan Pencairan langsung terlihat Pembeli. Pakai akun Pedagang khusus uji. |
+
+Setelah mengganti `.env`, jalankan ulang Metro dengan `pnpm start --clear`.
+
+Urutan sehari-hari:
+
+1. Colok USB ke HP.
+2. Kalau memakai server lokal: pastikan `pnpm dev` jalan di `../My-Gerai` (port 3000).
+3. Di repo ini:
+   ```bash
+   adb reverse tcp:8081 tcp:8081   # Metro
+   adb reverse tcp:3000 tcp:3000   # hanya untuk server lokal
+   pnpm start
+   ```
+4. Opsional, tampilkan layar HP di laptop (bisa dikendalikan dengan mouse dan keyboard). Jalankan di terminal terpisah:
+   ```bash
+   scrcpy --stay-awake
+   ```
+   Pasang sekali dengan `winget install --exact Genymobile.scrcpy`. Ctrl+S untuk screenshot.
+5. Buka aplikasi MyGerai di HP. Kalau muncul menu development build, ketuk server `localhost:8081`.
+
+`adb reverse` hilang tiap kabel dicabut atau HP restart, jadi ulangi langkah 3 (dan 4 kalau memakai scrcpy). `pnpm android` hanya perlu lagi kalau ada perubahan native (library baru, `app.config.ts`, plugin).
+
+Masalah yang pernah terjadi:
+
+- **Layar putih setelah memilih server**: Metro macet. Hentikan Metro (Ctrl+C), jalankan `pnpm start --clear`, buka ulang aplikasi.
+- **`INSTALL_FAILED_UPDATE_INCOMPATIBLE`** saat `pnpm android`: APK lama (mis. build EAS) beda tanda tangan. `adb uninstall com.mygerai.pedagang`, lalu ulangi.
+- **`adb` tidak dikenali**: tambahkan `%LOCALAPPDATA%\Android\Sdk\platform-tools` ke PATH.
 
 Perintah lain:
 
