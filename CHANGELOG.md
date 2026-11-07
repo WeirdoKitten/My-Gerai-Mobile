@@ -2,6 +2,15 @@
 
 > Riwayat perubahan dokumen (`docs/*`, `CLAUDE.md`) dan fitur besar aplikasi. Format entri: lihat [docs/DOKUMENTASI.md](docs/DOKUMENTASI.md#format-entri-changelogmd). Entri terbaru di paling atas.
 
+## 2026-11-07 — Backend pindah ke server Beelink, CI GitHub Actions
+
+**Dampak:** variabel EAS `EXPO_PUBLIC_API_URL` (preview, production), `README.md` (tabel server), `docs/ARSITEKTUR-SISTEM.md` (diagram), `docs/TEKNOLOGI.md`, `docs/ARSITEKTUR-FOLDER.md`, `docs/BACKLOG.md`, `.github/workflows/ci.yml` (baru). Repo web: ADR 2026-11-07 di `../My-Gerai/docs/ARSITEKTUR-SISTEM.md`.
+**Alasan:** Server Garuda (`mygerai.myplaza.my.id`) tidak bisa diakses lagi. Backend dibuat ulang di server Beelink dengan domain `mygerai.myplaza.web.id`, sehingga APK lama tidak tersambung. User juga ingin CI untuk repo ini.
+**Ringkasan:**
+- `EXPO_PUBLIC_API_URL` preview/production diganti ke `https://mygerai.myplaza.web.id/api/mobile/v1` lewat `eas env:set` (izin User). `/meta` di server baru dicek: 200.
+- Build `preview` baru di EAS. Versi tetap 0.1.0 (keputusan User): hanya URL yang berubah. `MOBILE_MIN_APP_VERSION` di server dibiarkan kosong, karena APK lama mengarah ke domain mati dan aplikasi belum punya layar wajib update.
+- CI: Biome, `tsc`, dan Jest tiap push/PR ke `main`, runner `ubuntu-24.04`, pnpm 11.25.0 lewat corepack. Build EAS tetap manual.
+
 ## 2026-10-15 — Build EAS preview pertama ke server produksi
 
 **Dampak:** `eas.json` (`environment` per profil), variabel EAS `GOOGLE_SERVICES_JSON` dan `EXPO_PUBLIC_API_URL`, `docs/BACKLOG.md`. Repo web: `feat/api-mobile` di-merge (fast-forward) ke `main` atas keputusan User, lalu dideploy User ke produksi dengan `PUSH_PROVIDER=expo`.

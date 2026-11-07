@@ -53,7 +53,7 @@ Pilih server API di `.env`:
 | Server | `EXPO_PUBLIC_API_URL` | Catatan |
 |---|---|---|
 | Lokal (laptop) | `http://localhost:3000/api/mobile/v1` | Aman untuk uji coba, butuh `pnpm dev` di `../My-Gerai` dan `adb reverse tcp:3000`. Wajib kalau endpoint baru belum di-deploy. |
-| Produksi (Garuda) | `https://mygerai.myplaza.my.id/api/mobile/v1` | Data asli: ubah status, Item, dan Pencairan langsung terlihat Pembeli. Pakai akun Pedagang khusus uji. |
+| Staging (server Beelink) | `https://mygerai.myplaza.web.id/api/mobile/v1` | Data demo. Ubah status, Item, dan Pencairan langsung terlihat Pembeli di web staging. Akun Pedagang demo: `082222222222`. |
 
 Setelah mengganti `.env`, jalankan ulang Metro dengan `pnpm start --clear`.
 

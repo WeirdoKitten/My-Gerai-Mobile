@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Run lama di branch yang sama dibatalkan kalau ada push baru.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Lint, typecheck, test
+    # Hanya jalan di repo ini, bukan di fork/salinannya.
+    if: github.repository == 'WeirdoKitten/My-Gerai-Mobile'
+    # Dikunci (bukan ubuntu-latest) supaya lingkungan CI tidak berubah tanpa disadari.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # package.json tidak punya field "packageManager", jadi versi pnpm ditulis di
+      # sini. Samakan dengan versi pnpm lokal (lihat docs/TEKNOLOGI.md).
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.25.0 --activate
+
+      - name: Locate pnpm store
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint & format (Biome)
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # Unit/komponen test (tests/, jest-expo). Build APK tidak dijalankan di CI;
+      # build tetap lewat EAS secara manual supaya kuota tidak terpakai tiap push.
+      - name: Unit test (Jest)
+        run: pnpm test --ci

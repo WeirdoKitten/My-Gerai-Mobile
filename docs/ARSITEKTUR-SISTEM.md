@@ -12,7 +12,7 @@ flowchart LR
         Printer["Printer thermal BLE 58mm"]
     end
 
-    subgraph Server["Server Garuda (repo web My-Gerai)"]
+    subgraph Server["Server Beelink (repo web My-Gerai)"]
         API["REST /api/mobile/v1/*\n(Route Handler Next.js)"]
         Service["Service bersama\n(aturan bisnis, sama dengan web)"]
         DB[("PostgreSQL")]

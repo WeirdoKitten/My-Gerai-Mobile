@@ -11,6 +11,7 @@
 ├── CHANGELOG.md               # Riwayat perubahan dokumen & fitur besar
 ├── docs/                      # Ground truth khusus mobile (domain ada di ../My-Gerai/docs)
 ├── .claude/settings.json      # Izin Claude Code + akses baca ke ../My-Gerai
+├── .github/workflows/ci.yml   # CI (2026-11-07): Biome, tsc, Jest tiap push/PR ke main
 ├── app.config.ts              # Konfigurasi Expo (nama, package, plugin, izin, env publik)
 ├── eas.json                   # Profil EAS Build: development, preview, production
 ├── pnpm-workspace.yaml        # pnpm 11: nodeLinker hoisted (wajib untuk Expo), allowBuilds, minimumReleaseAgeExclude
